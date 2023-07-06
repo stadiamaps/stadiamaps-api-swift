@@ -12,13 +12,9 @@ For more information, please visit [https://www.stadiamaps.com](https://www.stad
 
 ## Installation
 
-### Carthage
+### Swift Package Mangaer
 
-Run `carthage update`
-
-### CocoaPods
-
-Run `pod install`
+See https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app for instructions.
 
 ## Documentation for API Endpoints
 
