@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct IsochroneRequest: Codable, JSONEncodable, Hashable {
-
     static let denoiseRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
@@ -67,4 +66,3 @@ public struct IsochroneRequest: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(showLocations, forKey: .showLocations)
     }
 }
-

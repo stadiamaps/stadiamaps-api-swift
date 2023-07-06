@@ -7,11 +7,11 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public enum IsochroneCostingModel: String, Codable, CaseIterable {
-    case auto = "auto"
-    case bicycle = "bicycle"
-    case pedestrian = "pedestrian"
+    case auto
+    case bicycle
+    case pedestrian
 }

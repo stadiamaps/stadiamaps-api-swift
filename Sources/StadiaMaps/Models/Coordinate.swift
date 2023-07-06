@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct Coordinate: Codable, JSONEncodable, Hashable {
-
     /** The latitude of a point in the shape. */
     public var lat: Double
     /** The longitude of a point in the shape. */
@@ -35,4 +34,3 @@ public struct Coordinate: Codable, JSONEncodable, Hashable {
         try container.encode(lon, forKey: .lon)
     }
 }
-

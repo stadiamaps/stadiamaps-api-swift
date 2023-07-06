@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct RoutingResponseWaypointAllOf: Codable, JSONEncodable, Hashable {
-
     static let originalIndexRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
     /** The original index of the location (locations may be reordered for optimized routes) */
     public var originalIndex: Int?
@@ -31,4 +30,3 @@ public struct RoutingResponseWaypointAllOf: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(originalIndex, forKey: .originalIndex)
     }
 }
-

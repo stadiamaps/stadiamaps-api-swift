@@ -7,39 +7,39 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 /** The use for the edge. */
 public enum EdgeUse: String, Codable, CaseIterable {
-    case road = "road"
-    case ramp = "ramp"
+    case road
+    case ramp
     case turnChannel = "turn_channel"
-    case track = "track"
-    case driveway = "driveway"
-    case alley = "alley"
+    case track
+    case driveway
+    case alley
     case parkingAisle = "parking_aisle"
     case emergencyAccess = "emergency_access"
     case driveThrough = "drive_through"
-    case culdesac = "culdesac"
+    case culdesac
     case livingStreet = "living_street"
     case serviceRoad = "service_road"
-    case cycleway = "cycleway"
+    case cycleway
     case mountainBike = "mountain_bike"
-    case sidewalk = "sidewalk"
-    case footway = "footway"
-    case steps = "steps"
-    case path = "path"
-    case pedestrian = "pedestrian"
+    case sidewalk
+    case footway
+    case steps
+    case path
+    case pedestrian
     case pedestrianCrossing = "pedestrian_crossing"
-    case bridleway = "bridleway"
+    case bridleway
     case restArea = "rest_area"
     case serviceArea = "service_area"
-    case other = "other"
-    case ferry = "ferry"
+    case other
+    case ferry
     case railFerry = "rail-ferry"
-    case rail = "rail"
-    case bus = "bus"
+    case rail
+    case bus
     case egressConnection = "egress_connection"
     case platformConnection = "platform_connection"
     case transitConnection = "transit_connection"

@@ -1,0 +1,30 @@
+{
+  "configurations" : [
+    {
+      "id" : "DAB7C846-4B60-480D-8F9C-077EBD5B8245",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "environmentVariableEntries" : [
+      {
+        "key" : "API_KEY",
+        "value" : "YOUR-API-KEY"
+      }
+    ]
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "StadiaMapsTests",
+        "name" : "StadiaMapsTests"
+      }
+    }
+  ],
+  "version" : 1
+}

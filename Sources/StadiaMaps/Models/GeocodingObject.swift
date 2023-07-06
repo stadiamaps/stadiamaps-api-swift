@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct GeocodingObject: Codable, JSONEncodable, Hashable {
-
     /** A URL containing attribution information. If you are not using Stadia Maps and our standard attribution already for your basemaps, you must include this attribution link somewhere in your website/app. */
     public var attribution: String?
     /** Technical details of the query. This is most useful for debugging during development. See the full example for the list of properties; these should be self-explanatory, so we don't enumerate them in the spec. */
@@ -45,4 +44,3 @@ public struct GeocodingObject: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(errors, forKey: .errors)
     }
 }
-

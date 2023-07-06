@@ -7,10 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public enum DistanceUnit: String, Codable, CaseIterable {
-    case km = "km"
-    case mi = "mi"
+    case km
+    case mi
 }

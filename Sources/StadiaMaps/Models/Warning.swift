@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct Warning: Codable, JSONEncodable, Hashable {
-
     public var text: String?
     public var code: Int?
 
@@ -33,4 +32,3 @@ public struct Warning: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(code, forKey: .code)
     }
 }
-

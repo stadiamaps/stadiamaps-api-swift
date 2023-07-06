@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct LocateObject: Codable, JSONEncodable, Hashable {
-
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     /** The input (searched) latitude. */
@@ -48,4 +47,3 @@ public struct LocateObject: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(edges, forKey: .edges)
     }
 }
-

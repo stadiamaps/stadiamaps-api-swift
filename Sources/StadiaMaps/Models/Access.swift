@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct Access: Codable, JSONEncodable, Hashable {
-
     public var golfCart: Bool?
     public var wheelchair: Bool?
     public var taxi: Bool?
@@ -73,4 +72,3 @@ public struct Access: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(moped, forKey: .moped)
     }
 }
-

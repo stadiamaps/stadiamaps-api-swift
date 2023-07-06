@@ -7,17 +7,17 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct LocateNodeAllOf: Codable, JSONEncodable, Hashable {
-
     public enum IntersectionType: String, Codable, CaseIterable {
-        case regular = "regular"
+        case regular
         case _false = "false"
         case deadEnd = "dead-end"
-        case fork = "fork"
+        case fork
     }
+
     public var trafficSignal: Bool?
     public var type: NodeType?
     public var nodeId: NodeId?
@@ -71,4 +71,3 @@ public struct LocateNodeAllOf: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(modeChange, forKey: .modeChange)
     }
 }
-

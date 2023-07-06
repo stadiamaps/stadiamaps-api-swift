@@ -7,14 +7,14 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct IsochroneFeature: Codable, JSONEncodable, Hashable {
-
     public enum ModelType: String, Codable, CaseIterable {
         case feature = "Feature"
     }
+
     public var properties: IsochroneProperties?
     public var geometry: [String: AnyCodable]?
     public var type: ModelType?
@@ -40,4 +40,3 @@ public struct IsochroneFeature: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(type, forKey: .type)
     }
 }
-

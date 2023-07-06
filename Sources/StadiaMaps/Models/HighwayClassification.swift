@@ -7,67 +7,69 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct HighwayClassification: Codable, JSONEncodable, Hashable {
-
     public enum Surface: String, Codable, CaseIterable {
         case pavedSmooth = "paved_smooth"
-        case paved = "paved"
+        case paved
         case pavedRough = "paved_rough"
-        case compacted = "compacted"
-        case dirt = "dirt"
-        case gravel = "gravel"
-        case path = "path"
-        case impassable = "impassable"
+        case compacted
+        case dirt
+        case gravel
+        case path
+        case impassable
     }
+
     public enum Use: String, Codable, CaseIterable {
-        case road = "road"
-        case ramp = "ramp"
+        case road
+        case ramp
         case turnChannel = "turn_channel"
-        case track = "track"
-        case driveway = "driveway"
-        case alley = "alley"
+        case track
+        case driveway
+        case alley
         case parkingAisle = "parking_aisle"
         case emergencyAccess = "emergency_access"
         case driveThrough = "drive_through"
-        case culdesac = "culdesac"
+        case culdesac
         case livingStreet = "living_street"
         case serviceRoad = "service_road"
-        case cycleway = "cycleway"
+        case cycleway
         case mountainBike = "mountain_bike"
-        case sidewalk = "sidewalk"
-        case footway = "footway"
-        case elevator = "elevator"
-        case steps = "steps"
-        case escalator = "escalator"
-        case path = "path"
-        case pedestrian = "pedestrian"
-        case bridleway = "bridleway"
+        case sidewalk
+        case footway
+        case elevator
+        case steps
+        case escalator
+        case path
+        case pedestrian
+        case bridleway
         case pedestrianCrossing = "pedestrian_crossing"
         case restArea = "rest_area"
         case serviceArea = "service_area"
-        case other = "other"
-        case rail = "rail"
-        case ferry = "ferry"
+        case other
+        case rail
+        case ferry
         case railFerry = "rail-ferry"
-        case bus = "bus"
+        case bus
         case egressConnection = "egress_connection"
         case platformConnnection = "platform_connnection"
         case transitConnection = "transit_connection"
-        case construction = "construction"
+        case construction
     }
+
     public enum Classification: String, Codable, CaseIterable {
-        case motorway = "motorway"
-        case trunk = "trunk"
-        case primary = "primary"
-        case secondary = "secondary"
-        case tertiary = "tertiary"
-        case unclassified = "unclassified"
-        case residential = "residential"
+        case motorway
+        case trunk
+        case primary
+        case secondary
+        case tertiary
+        case unclassified
+        case residential
         case serviceOther = "service_other"
     }
+
     /** Is the edge internal to an intersection? */
     public var _internal: Bool?
     /** Is the edge a ramp or turn channel? */
@@ -105,4 +107,3 @@ public struct HighwayClassification: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(classification, forKey: .classification)
     }
 }
-

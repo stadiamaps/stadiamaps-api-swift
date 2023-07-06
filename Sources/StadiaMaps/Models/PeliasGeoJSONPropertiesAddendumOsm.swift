@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct PeliasGeoJSONPropertiesAddendumOsm: Codable, JSONEncodable, Hashable {
-
     public var website: String?
     public var wikipedia: String?
     public var wikidata: String?
@@ -76,4 +75,3 @@ public struct PeliasGeoJSONPropertiesAddendumOsm: Codable, JSONEncodable, Hashab
         additionalProperties = try additionalPropertiesContainer.decodeMap(AnyCodable.self, excludedKeys: nonAdditionalPropertyKeys)
     }
 }
-

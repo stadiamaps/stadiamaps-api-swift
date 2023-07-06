@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct MapMatchRouteResponseAllOf: Codable, JSONEncodable, Hashable {
-
     public var linearReferences: [String]?
 
     public init(linearReferences: [String]? = nil) {
@@ -29,4 +28,3 @@ public struct MapMatchRouteResponseAllOf: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(linearReferences, forKey: .linearReferences)
     }
 }
-

@@ -7,18 +7,18 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 /** Costing models for determining the most optimal route to take. Note that bikeshare and motorcycle are still in beta. While Valhalla supports multimodal routing, we do not currently process transit data and have excluded it from the list. See https://valhalla.readthedocs.io/en/latest/api/turn-by-turn/api-reference/#costing-models for detailed descriptions of each model. */
 public enum CostingModel: String, Codable, CaseIterable {
-    case auto = "auto"
-    case bus = "bus"
-    case taxi = "taxi"
-    case truck = "truck"
-    case bicycle = "bicycle"
-    case bikeshare = "bikeshare"
+    case auto
+    case bus
+    case taxi
+    case truck
+    case bicycle
+    case bikeshare
     case motorScooter = "motor_scooter"
-    case motorcycle = "motorcycle"
-    case pedestrian = "pedestrian"
+    case motorcycle
+    case pedestrian
 }

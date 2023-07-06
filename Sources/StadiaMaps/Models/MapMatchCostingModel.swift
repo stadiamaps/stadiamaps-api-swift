@@ -7,12 +7,12 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public enum MapMatchCostingModel: String, Codable, CaseIterable {
-    case auto = "auto"
-    case bicycle = "bicycle"
-    case bus = "bus"
-    case pedestrian = "pedestrian"
+    case auto
+    case bicycle
+    case bus
+    case pedestrian
 }

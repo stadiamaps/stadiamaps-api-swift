@@ -7,12 +7,11 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 /** Optional additional information from the underlying data source (ex: OSM). This includes select fields. The most useful fields are mapped in the definition here, but others may be available. */
 public struct PeliasGeoJSONPropertiesAddendum: Codable, JSONEncodable, Hashable {
-
     public var osm: PeliasGeoJSONPropertiesAddendumOsm?
 
     public init(osm: PeliasGeoJSONPropertiesAddendumOsm? = nil) {
@@ -59,4 +58,3 @@ public struct PeliasGeoJSONPropertiesAddendum: Codable, JSONEncodable, Hashable 
         additionalProperties = try additionalPropertiesContainer.decodeMap(AnyCodable.self, excludedKeys: nonAdditionalPropertyKeys)
     }
 }
-

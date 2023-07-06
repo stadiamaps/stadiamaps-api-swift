@@ -7,15 +7,15 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct TraceAttributeFilterOptions: Codable, JSONEncodable, Hashable {
-
     public enum Action: String, Codable, CaseIterable {
-        case include = "include"
-        case exclude = "exclude"
+        case include
+        case exclude
     }
+
     public var attributes: [TraceAttributeKey]
     /** Determines whether the list of attributes will be used as a whitelist or a blacklist. */
     public var action: Action
@@ -38,4 +38,3 @@ public struct TraceAttributeFilterOptions: Codable, JSONEncodable, Hashable {
         try container.encode(action, forKey: .action)
     }
 }
-

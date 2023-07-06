@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct PedestrianCostingOptions: Codable, JSONEncodable, Hashable {
-
     static let walkingSpeedRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: 25, exclusiveMaximum: false, multipleOf: nil)
     static let useFerryRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     static let useLivingStreetsRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
@@ -112,4 +111,3 @@ public struct PedestrianCostingOptions: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(bssRentPenalty, forKey: .bssRentPenalty)
     }
 }
-

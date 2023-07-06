@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct MapMatchTraceOptions: Codable, JSONEncodable, Hashable {
-
     /** The search radius, in meters, when trying to match each trace point. */
     public var searchRadius: Int?
     /** The accuracy of the GPS, in meters. */
@@ -50,4 +49,3 @@ public struct MapMatchTraceOptions: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(turnPenaltyFactor, forKey: .turnPenaltyFactor)
     }
 }
-

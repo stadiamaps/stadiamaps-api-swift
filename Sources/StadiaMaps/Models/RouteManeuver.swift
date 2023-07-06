@@ -7,29 +7,30 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct RouteManeuver: Codable, JSONEncodable, Hashable {
-
     public enum TravelType: String, Codable, CaseIterable {
-        case car = "car"
-        case foot = "foot"
-        case road = "road"
-        case tram = "tram"
-        case metro = "metro"
-        case rail = "rail"
-        case bus = "bus"
-        case ferry = "ferry"
+        case car
+        case foot
+        case road
+        case tram
+        case metro
+        case rail
+        case bus
+        case ferry
         case cableCar = "cable_car"
-        case gondola = "gondola"
-        case funicular = "funicular"
+        case gondola
+        case funicular
     }
+
     public enum BssManeuverType: String, Codable, CaseIterable {
         case noneAction = "NoneAction"
         case rentBikeAtBikeShare = "RentBikeAtBikeShare"
         case returnBikeAtBikeShare = "ReturnBikeAtBikeShare"
     }
+
     /** The type of route maneuver.  | Code | Type                                | |------|-------------------------------------| | 0    | None                                | | 1    | Start                               | | 2    | Start right                         | | 3    | Start left                          | | 4    | Destination                         | | 5    | Destination right                   | | 6    | Destination left                    | | 7    | Becomes                             | | 8    | Continue                            | | 9    | Slight right                        | | 10   | Right                               | | 11   | Sharp right                         | | 12   | U-turn right                        | | 13   | U-turn left                         | | 14   | Sharp left                          | | 15   | Left                                | | 16   | Slight left                         | | 17   | Ramp straight                       | | 18   | Ramp right                          | | 19   | Ramp left                           | | 20   | Exit right                          | | 21   | Exit left                           | | 22   | Stay straight                       | | 23   | Stay right                          | | 24   | Stay left                           | | 25   | Merge                               | | 26   | Enter roundabout                    | | 27   | Exit roundabout                     | | 28   | Enter ferry                         | | 29   | Exit ferry                          | | 30   | Transit                             | | 31   | Transit transfer                    | | 32   | Transit remain on                   | | 33   | Transit connection start            | | 34   | Transit connection transfer         | | 35   | Transit connection destination      | | 36   | Post-transit connection destination | | 37   | Merge right                         | | 38   | Merge left                          |  */
     public var type: Int
     /** The written maneuver instruction. */
@@ -170,4 +171,3 @@ public struct RouteManeuver: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(bssManeuverType, forKey: .bssManeuverType)
     }
 }
-

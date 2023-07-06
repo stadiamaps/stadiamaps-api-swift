@@ -7,12 +7,11 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 /** The node at the end of this edge */
 public struct EndNode: Codable, JSONEncodable, Hashable {
-
     /** A set of edges intersecting this node. */
     public var intersectingEdges: [IntersectingEdge]?
     /** The elapsed time along the path to arrive at this node. */
@@ -55,4 +54,3 @@ public struct EndNode: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(timeZone, forKey: .timeZone)
     }
 }
-

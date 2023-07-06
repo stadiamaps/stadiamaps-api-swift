@@ -32,7 +32,7 @@ public struct ValidationError<T: Error & Hashable>: Error {
     public fileprivate(set) var kinds: Set<T>
 }
 
-public struct Validator {
+public enum Validator {
     /// Validate a string against a rule.
     /// - Parameter string: The String you wish to validate.
     /// - Parameter rule: The StringRule you wish to use for validation.

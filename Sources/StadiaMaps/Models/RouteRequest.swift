@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct RouteRequest: Codable, JSONEncodable, Hashable {
-
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     public var locations: [RoutingWaypoint]
@@ -55,4 +54,3 @@ public struct RouteRequest: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(directionsOptions, forKey: .directionsOptions)
     }
 }
-

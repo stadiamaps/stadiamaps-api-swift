@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct AdminRegion: Codable, JSONEncodable, Hashable {
-
     /** The [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code. */
     public var countryCode: String?
     /** The country name */
@@ -45,4 +44,3 @@ public struct AdminRegion: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(stateText, forKey: .stateText)
     }
 }
-

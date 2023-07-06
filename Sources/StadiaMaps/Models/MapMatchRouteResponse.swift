@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct MapMatchRouteResponse: Codable, JSONEncodable, Hashable {
-
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     public var trip: RouteResponseTrip
@@ -38,4 +37,3 @@ public struct MapMatchRouteResponse: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(linearReferences, forKey: .linearReferences)
     }
 }
-

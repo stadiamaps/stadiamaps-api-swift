@@ -7,22 +7,23 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct RoutingWaypoint: Codable, JSONEncodable, Hashable {
-
     public enum ModelType: String, Codable, CaseIterable {
         case _break = "break"
-        case through = "through"
-        case via = "via"
+        case through
+        case via
         case breakThrough = "break_through"
     }
+
     public enum PreferredSide: String, Codable, CaseIterable {
-        case same = "same"
-        case opposite = "opposite"
-        case either = "either"
+        case same
+        case opposite
+        case either
     }
+
     static let headingRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: 360, exclusiveMaximum: false, multipleOf: nil)
     static let headingToleranceRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: 360, exclusiveMaximum: false, multipleOf: nil)
     static let minimumReachabilityRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
@@ -107,4 +108,3 @@ public struct RoutingWaypoint: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(searchFilter, forKey: .searchFilter)
     }
 }
-

@@ -1,8 +1,7 @@
 import StadiaMaps
 import XCTest
 
-final class GeospatialAPIIntegrationTests: IntegrationXCTestCase {
-
+final class GeospatialAPIIntegrationTestCase: IntegrationXCTestCase {
     let seoul = Coordinate(lat: 37.56, lon: 126.99)
 
     func testTZ() async throws {
@@ -31,5 +30,4 @@ final class GeospatialAPIIntegrationTests: IntegrationXCTestCase {
         XCTAssertTrue(res.rangeHeight?.first?[1] ?? 0 > 0)
         XCTAssertEqual(req.shape, res.shape)
     }
-
 }

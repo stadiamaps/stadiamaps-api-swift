@@ -7,7 +7,7 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public enum GeoJSONGeometry: Codable, JSONEncodable, Hashable {
@@ -18,11 +18,11 @@ public enum GeoJSONGeometry: Codable, JSONEncodable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
-        case .typeGeoJSONLineString(let value):
+        case let .typeGeoJSONLineString(value):
             try container.encode(value)
-        case .typeGeoJSONPoint(let value):
+        case let .typeGeoJSONPoint(value):
             try container.encode(value)
-        case .typeGeoJSONPolygon(let value):
+        case let .typeGeoJSONPolygon(value):
             try container.encode(value)
         }
     }
@@ -40,4 +40,3 @@ public enum GeoJSONGeometry: Codable, JSONEncodable, Hashable {
         }
     }
 }
-

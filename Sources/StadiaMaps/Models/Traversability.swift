@@ -7,12 +7,12 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 /** The directions in which the edge is traversable. */
 public enum Traversability: String, Codable, CaseIterable {
-    case forward = "forward"
-    case backward = "backward"
-    case both = "both"
+    case forward
+    case backward
+    case both
 }

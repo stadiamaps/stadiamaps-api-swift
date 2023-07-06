@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct OptimizedRouteRequest: Codable, JSONEncodable, Hashable {
-
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     /** The list of locations. The first and last are assumed to be the start and end points, and all intermediate points are locations that you want to visit along the way. */
@@ -47,4 +46,3 @@ public struct OptimizedRouteRequest: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(directionsOptions, forKey: .directionsOptions)
     }
 }
-

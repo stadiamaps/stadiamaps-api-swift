@@ -7,10 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public enum ValhallaLongUnits: String, Codable, CaseIterable {
-    case miles = "miles"
-    case kilometers = "kilometers"
+    case miles
+    case kilometers
 }

@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct RouteLeg: Codable, JSONEncodable, Hashable {
-
     public var maneuvers: [RouteManeuver]
     /** An encoded polyline (https://developers.google.com/maps/documentation/utilities/polylinealgorithm) with 6 digits of decimal precision. */
     public var shape: String
@@ -38,4 +37,3 @@ public struct RouteLeg: Codable, JSONEncodable, Hashable {
         try container.encode(summary, forKey: .summary)
     }
 }
-

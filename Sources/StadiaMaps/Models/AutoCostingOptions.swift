@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct AutoCostingOptions: Codable, JSONEncodable, Hashable {
-
     static let useLivingStreetsRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     static let useFerryRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     static let useHighwaysRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
@@ -146,4 +145,3 @@ public struct AutoCostingOptions: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(includeHot, forKey: .includeHot)
     }
 }
-

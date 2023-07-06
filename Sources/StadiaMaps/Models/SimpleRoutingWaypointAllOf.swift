@@ -7,17 +7,17 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct SimpleRoutingWaypointAllOf: Codable, JSONEncodable, Hashable {
-
     public enum ModelType: String, Codable, CaseIterable {
         case _break = "break"
-        case through = "through"
-        case via = "via"
+        case through
+        case via
         case breakThrough = "break_through"
     }
+
     /** A `break` represents the start or end of a leg, and allows reversals. A `through` location is an intermediate waypoint that must be visited between `break`s, but at which reversals are not allowed. A `via` is similar to a `through` except that reversals are allowed. A `break_through` is similar to a `break` in that it can be the start/end of a leg, but does not allow reversals. */
     public var type: ModelType? = ._break
 
@@ -36,4 +36,3 @@ public struct SimpleRoutingWaypointAllOf: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(type, forKey: .type)
     }
 }
-

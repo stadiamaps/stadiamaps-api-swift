@@ -7,14 +7,14 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct PeliasGeoJSONFeature: Codable, JSONEncodable, Hashable {
-
     public enum ModelType: String, Codable, CaseIterable {
         case feature = "Feature"
     }
+
     public var type: ModelType
     public var geometry: GeoJSONPoint
     public var properties: PeliasGeoJSONProperties?
@@ -49,4 +49,3 @@ public struct PeliasGeoJSONFeature: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(id, forKey: .id)
     }
 }
-

@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct NodeId: Codable, JSONEncodable, Hashable {
-
     public var id: Int64?
     public var value: Int64?
     public var tileId: Int64?
@@ -41,4 +40,3 @@ public struct NodeId: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(level, forKey: .level)
     }
 }
-

@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct TraceAttributesResponse: Codable, JSONEncodable, Hashable {
-
     static let confidenceScoreRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     /** The list of edges matched along the path. */
     public var edges: [TraceEdge]?
@@ -68,4 +67,3 @@ public struct TraceAttributesResponse: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(alternatePaths, forKey: .alternatePaths)
     }
 }
-

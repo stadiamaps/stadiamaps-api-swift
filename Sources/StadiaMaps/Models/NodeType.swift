@@ -7,17 +7,17 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public enum NodeType: String, Codable, CaseIterable {
     case streetIntersection = "street_intersection"
-    case gate = "gate"
-    case bollard = "bollard"
+    case gate
+    case bollard
     case tollBooth = "toll_booth"
     case multiUseTransitStop = "multi_use_transit_stop"
     case bikeShare = "bike_share"
-    case parking = "parking"
+    case parking
     case motorWayJunction = "motor_way_junction"
     case borderControl = "border_control"
 }

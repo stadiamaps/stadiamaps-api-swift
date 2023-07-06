@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct EdgeSign: Codable, JSONEncodable, Hashable {
-
     public var exitNumber: [String]?
     public var exitBranch: [String]?
     public var exitToward: [String]?
@@ -41,4 +40,3 @@ public struct EdgeSign: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(exitName, forKey: .exitName)
     }
 }
-

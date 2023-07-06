@@ -7,16 +7,16 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct MapMatchRequest: Codable, JSONEncodable, Hashable {
-
     public enum ShapeMatch: String, Codable, CaseIterable {
         case edgeWalk = "edge_walk"
         case mapSnap = "map_snap"
         case walkOrSnap = "walk_or_snap"
     }
+
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     /** REQUIRED if `encoded_polyline` is not present. Note that `break` type locations are only supported when `shape_match` is set to `map_match`. */
@@ -86,4 +86,3 @@ public struct MapMatchRequest: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(linearReferences, forKey: .linearReferences)
     }
 }
-

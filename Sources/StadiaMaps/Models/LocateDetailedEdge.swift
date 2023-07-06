@@ -7,26 +7,27 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct LocateDetailedEdge: Codable, JSONEncodable, Hashable {
-
     public enum SacScale: String, Codable, CaseIterable {
         case _none = "none"
-        case hiking = "hiking"
+        case hiking
         case mountainHiking = "mountain hiking"
         case demandingMountainHiking = "demanding mountain hiking"
         case alpineHiking = "alpine hiking"
         case demandingAlpineHiking = "demanding alpine hiking"
         case difficultAlpineHiking = "difficult alpine hiking"
     }
+
     public enum CycleLane: String, Codable, CaseIterable {
         case _none = "none"
-        case shared = "shared"
-        case dedicated = "dedicated"
-        case separated = "separated"
+        case shared
+        case dedicated
+        case separated
     }
+
     /** Is there a sidewalk to the left of the edge? */
     public var sidewalkLeft: Bool?
     /** Is there a sidewalk to the right of the edge? */
@@ -176,4 +177,3 @@ public struct LocateDetailedEdge: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(tunnel, forKey: .tunnel)
     }
 }
-

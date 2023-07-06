@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct MotorcycleCostingOptionsAllOf: Codable, JSONEncodable, Hashable {
-
     static let useHighwaysRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     static let useTrailsRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     /** A measure of willingness to use highways. Values near 0 attempt to avoid highways and stay on roads with lower speeds, and values near 1 indicate the rider is more comfortable on these roads. */
@@ -37,4 +36,3 @@ public struct MotorcycleCostingOptionsAllOf: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(useTrails, forKey: .useTrails)
     }
 }
-

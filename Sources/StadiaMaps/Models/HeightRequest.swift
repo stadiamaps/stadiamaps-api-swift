@@ -7,15 +7,15 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct HeightRequest: Codable, JSONEncodable, Hashable {
-
     public enum ShapeFormat: String, Codable, CaseIterable {
-        case polyline6 = "polyline6"
-        case polyline5 = "polyline5"
+        case polyline6
+        case polyline5
     }
+
     static let heightPrecisionRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: 2, exclusiveMaximum: false, multipleOf: nil)
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
@@ -60,4 +60,3 @@ public struct HeightRequest: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(heightPrecision, forKey: .heightPrecision)
     }
 }
-

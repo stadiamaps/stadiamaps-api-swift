@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct IntersectingEdge: Codable, JSONEncodable, Hashable {
-
     /** The direction at the beginning of an edge. The units are degrees clockwise from north. */
     public var beginHeading: Int?
     /** True if this intersecting edge at the end node has consistent names with the path from the other edge. */
@@ -60,4 +59,3 @@ public struct IntersectingEdge: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(roadClass, forKey: .roadClass)
     }
 }
-

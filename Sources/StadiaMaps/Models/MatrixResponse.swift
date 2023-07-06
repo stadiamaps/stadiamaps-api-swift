@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct MatrixResponse: Codable, JSONEncodable, Hashable {
-
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     /** The list of starting locations */
@@ -53,4 +52,3 @@ public struct MatrixResponse: Codable, JSONEncodable, Hashable {
         try container.encode(units, forKey: .units)
     }
 }
-

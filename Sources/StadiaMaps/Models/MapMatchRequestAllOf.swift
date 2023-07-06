@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct MapMatchRequestAllOf: Codable, JSONEncodable, Hashable {
-
     /** The timestamp at the start of the trace. Combined with `durations`, this provides a way to include timing information for an `encoded_polyline` trace. */
     public var beginTime: Int?
     /** A list of durations (in seconds) between each successive pair of points in a polyline. */
@@ -49,4 +48,3 @@ public struct MapMatchRequestAllOf: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(linearReferences, forKey: .linearReferences)
     }
 }
-

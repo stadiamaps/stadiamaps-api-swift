@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct TraceAttributesRequestAllOf: Codable, JSONEncodable, Hashable {
-
     public var filters: TraceAttributesRequestAllOfFilters?
 
     public init(filters: TraceAttributesRequestAllOfFilters? = nil) {
@@ -29,4 +28,3 @@ public struct TraceAttributesRequestAllOf: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(filters, forKey: .filters)
     }
 }
-

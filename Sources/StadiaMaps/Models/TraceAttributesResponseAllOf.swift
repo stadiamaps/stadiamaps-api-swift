@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct TraceAttributesResponseAllOf: Codable, JSONEncodable, Hashable {
-
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     public var units: ValhallaLongUnits?
@@ -39,4 +38,3 @@ public struct TraceAttributesResponseAllOf: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(alternatePaths, forKey: .alternatePaths)
     }
 }
-

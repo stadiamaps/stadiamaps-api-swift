@@ -7,15 +7,15 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct IsochroneProperties: Codable, JSONEncodable, Hashable {
-
     public enum Metric: String, Codable, CaseIterable {
-        case time = "time"
-        case distance = "distance"
+        case time
+        case distance
     }
+
     public var fillColor: String?
     public var opacity: Float?
     public var fill: String?
@@ -57,4 +57,3 @@ public struct IsochroneProperties: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(metric, forKey: .metric)
     }
 }
-

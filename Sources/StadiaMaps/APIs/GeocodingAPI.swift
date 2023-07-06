@@ -7,15 +7,14 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 open class GeocodingAPI {
-
     /**
      Search and geocode quickly based on partial input.
-     
-     - parameter text: (query) The place name (address, venue name, etc.) to search for. 
+
+     - parameter text: (query) The place name (address, venue name, etc.) to search for.
      - parameter focusPointLat: (query) The latitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lon&#x60;. (optional)
      - parameter focusPointLon: (query) The longitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lat&#x60;. (optional)
      - parameter boundaryRectMinLat: (query) Defines the min latitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
@@ -35,7 +34,7 @@ open class GeocodingAPI {
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     open class func autocomplete(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [PeliasLayer]? = nil, sources: [PeliasSource]? = nil, size: Int? = nil, lang: String? = nil) async throws -> PeliasResponse {
-        return try await autocompleteWithRequestBuilder(text: text, focusPointLat: focusPointLat, focusPointLon: focusPointLon, boundaryRectMinLat: boundaryRectMinLat, boundaryRectMaxLat: boundaryRectMaxLat, boundaryRectMinLon: boundaryRectMinLon, boundaryRectMaxLon: boundaryRectMaxLon, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, layers: layers, sources: sources, size: size, lang: lang).execute().body
+        try await autocompleteWithRequestBuilder(text: text, focusPointLat: focusPointLat, focusPointLon: focusPointLon, boundaryRectMinLat: boundaryRectMinLat, boundaryRectMaxLat: boundaryRectMaxLat, boundaryRectMinLon: boundaryRectMinLon, boundaryRectMaxLon: boundaryRectMaxLon, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, layers: layers, sources: sources, size: size, lang: lang).execute().body
     }
 
     /**
@@ -45,7 +44,7 @@ open class GeocodingAPI {
      - API Key:
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
-     - parameter text: (query) The place name (address, venue name, etc.) to search for. 
+     - parameter text: (query) The place name (address, venue name, etc.) to search for.
      - parameter focusPointLat: (query) The latitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lon&#x60;. (optional)
      - parameter focusPointLon: (query) The longitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lat&#x60;. (optional)
      - parameter boundaryRectMinLat: (query) Defines the min latitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
@@ -61,7 +60,7 @@ open class GeocodingAPI {
      - parameter sources: (query) A list of sources to limit the search to. (optional)
      - parameter size: (query) The maximum number of results to return. (optional)
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a &#x60;langtag&#x60; (in RFC 5646 terms) can contain script, region, etc., only the &#x60;language&#x60; portion, an ISO 639 code, will be considered. So &#x60;en-US&#x60; and &#x60;en-GB&#x60; will both be treated as English. (optional)
-     - returns: RequestBuilder<PeliasResponse> 
+     - returns: RequestBuilder<PeliasResponse>
      */
     open class func autocompleteWithRequestBuilder(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [PeliasLayer]? = nil, sources: [PeliasSource]? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<PeliasResponse> {
         let localVariablePath = "/geocoding/v1/autocomplete"
@@ -88,27 +87,25 @@ open class GeocodingAPI {
             "lang": (wrappedValue: lang?.encodeToJSON(), isExplode: true),
         ])
 
-        let localVariableNillableHeaders: [String: Any?] = [
-            :
-        ]
+        let localVariableNillableHeaders: [String: Any?] = [:]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<PeliasResponse>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
 
-        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+        return localVariableRequestBuilder.init(method: "GET", URLString: localVariableUrlComponents?.string ?? localVariableURLString, parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
 
     /**
      Retrieve details of a place using its GID.
-     
-     - parameter ids: (query) A list of Pelias GIDs to search for. 
+
+     - parameter ids: (query) A list of Pelias GIDs to search for.
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a &#x60;langtag&#x60; (in RFC 5646 terms) can contain script, region, etc., only the &#x60;language&#x60; portion, an ISO 639 code, will be considered. So &#x60;en-US&#x60; and &#x60;en-GB&#x60; will both be treated as English. (optional)
      - returns: PeliasResponse
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     open class func place(ids: [String], lang: String? = nil) async throws -> PeliasResponse {
-        return try await placeWithRequestBuilder(ids: ids, lang: lang).execute().body
+        try await placeWithRequestBuilder(ids: ids, lang: lang).execute().body
     }
 
     /**
@@ -118,9 +115,9 @@ open class GeocodingAPI {
      - API Key:
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
-     - parameter ids: (query) A list of Pelias GIDs to search for. 
+     - parameter ids: (query) A list of Pelias GIDs to search for.
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a &#x60;langtag&#x60; (in RFC 5646 terms) can contain script, region, etc., only the &#x60;language&#x60; portion, an ISO 639 code, will be considered. So &#x60;en-US&#x60; and &#x60;en-GB&#x60; will both be treated as English. (optional)
-     - returns: RequestBuilder<PeliasResponse> 
+     - returns: RequestBuilder<PeliasResponse>
      */
     open class func placeWithRequestBuilder(ids: [String], lang: String? = nil) -> RequestBuilder<PeliasResponse> {
         let localVariablePath = "/geocoding/v1/place"
@@ -133,22 +130,20 @@ open class GeocodingAPI {
             "lang": (wrappedValue: lang?.encodeToJSON(), isExplode: true),
         ])
 
-        let localVariableNillableHeaders: [String: Any?] = [
-            :
-        ]
+        let localVariableNillableHeaders: [String: Any?] = [:]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<PeliasResponse>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
 
-        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+        return localVariableRequestBuilder.init(method: "GET", URLString: localVariableUrlComponents?.string ?? localVariableURLString, parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
 
     /**
      Find places and addresses near geographic coordinates (reverse geocoding).
-     
-     - parameter pointLat: (query) The latitude of the point at which to perform the search. 
-     - parameter pointLon: (query) The longitude of the point at which to perform the search. 
+
+     - parameter pointLat: (query) The latitude of the point at which to perform the search.
+     - parameter pointLon: (query) The longitude of the point at which to perform the search.
      - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
      - parameter layers: (query) A list of layers to limit the search to. (optional)
      - parameter sources: (query) A list of sources to limit the search to. (optional)
@@ -160,7 +155,7 @@ open class GeocodingAPI {
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     open class func reverse(pointLat: Double, pointLon: Double, boundaryCircleRadius: Double? = nil, layers: [PeliasLayer]? = nil, sources: [PeliasSource]? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, size: Int? = nil, lang: String? = nil) async throws -> PeliasResponse {
-        return try await reverseWithRequestBuilder(pointLat: pointLat, pointLon: pointLon, boundaryCircleRadius: boundaryCircleRadius, layers: layers, sources: sources, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, size: size, lang: lang).execute().body
+        try await reverseWithRequestBuilder(pointLat: pointLat, pointLon: pointLon, boundaryCircleRadius: boundaryCircleRadius, layers: layers, sources: sources, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, size: size, lang: lang).execute().body
     }
 
     /**
@@ -170,8 +165,8 @@ open class GeocodingAPI {
      - API Key:
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
-     - parameter pointLat: (query) The latitude of the point at which to perform the search. 
-     - parameter pointLon: (query) The longitude of the point at which to perform the search. 
+     - parameter pointLat: (query) The latitude of the point at which to perform the search.
+     - parameter pointLon: (query) The longitude of the point at which to perform the search.
      - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
      - parameter layers: (query) A list of layers to limit the search to. (optional)
      - parameter sources: (query) A list of sources to limit the search to. (optional)
@@ -179,7 +174,7 @@ open class GeocodingAPI {
      - parameter boundaryGid: (query) The Pelias GID of an area to limit the search to. (optional)
      - parameter size: (query) The maximum number of results to return. (optional)
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a &#x60;langtag&#x60; (in RFC 5646 terms) can contain script, region, etc., only the &#x60;language&#x60; portion, an ISO 639 code, will be considered. So &#x60;en-US&#x60; and &#x60;en-GB&#x60; will both be treated as English. (optional)
-     - returns: RequestBuilder<PeliasResponse> 
+     - returns: RequestBuilder<PeliasResponse>
      */
     open class func reverseWithRequestBuilder(pointLat: Double, pointLon: Double, boundaryCircleRadius: Double? = nil, layers: [PeliasLayer]? = nil, sources: [PeliasSource]? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<PeliasResponse> {
         let localVariablePath = "/geocoding/v1/reverse"
@@ -199,21 +194,19 @@ open class GeocodingAPI {
             "lang": (wrappedValue: lang?.encodeToJSON(), isExplode: true),
         ])
 
-        let localVariableNillableHeaders: [String: Any?] = [
-            :
-        ]
+        let localVariableNillableHeaders: [String: Any?] = [:]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<PeliasResponse>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
 
-        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+        return localVariableRequestBuilder.init(method: "GET", URLString: localVariableUrlComponents?.string ?? localVariableURLString, parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
 
     /**
      Search for location and other info using a place name or address (forward geocoding).
-     
-     - parameter text: (query) The place name (address, venue name, etc.) to search for. 
+
+     - parameter text: (query) The place name (address, venue name, etc.) to search for.
      - parameter focusPointLat: (query) The latitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lon&#x60;. (optional)
      - parameter focusPointLon: (query) The longitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lat&#x60;. (optional)
      - parameter boundaryRectMinLat: (query) Defines the min latitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
@@ -233,7 +226,7 @@ open class GeocodingAPI {
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     open class func search(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [PeliasLayer]? = nil, sources: [PeliasSource]? = nil, size: Int? = nil, lang: String? = nil) async throws -> PeliasResponse {
-        return try await searchWithRequestBuilder(text: text, focusPointLat: focusPointLat, focusPointLon: focusPointLon, boundaryRectMinLat: boundaryRectMinLat, boundaryRectMaxLat: boundaryRectMaxLat, boundaryRectMinLon: boundaryRectMinLon, boundaryRectMaxLon: boundaryRectMaxLon, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, layers: layers, sources: sources, size: size, lang: lang).execute().body
+        try await searchWithRequestBuilder(text: text, focusPointLat: focusPointLat, focusPointLon: focusPointLon, boundaryRectMinLat: boundaryRectMinLat, boundaryRectMaxLat: boundaryRectMaxLat, boundaryRectMinLon: boundaryRectMinLon, boundaryRectMaxLon: boundaryRectMaxLon, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, layers: layers, sources: sources, size: size, lang: lang).execute().body
     }
 
     /**
@@ -243,7 +236,7 @@ open class GeocodingAPI {
      - API Key:
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
-     - parameter text: (query) The place name (address, venue name, etc.) to search for. 
+     - parameter text: (query) The place name (address, venue name, etc.) to search for.
      - parameter focusPointLat: (query) The latitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lon&#x60;. (optional)
      - parameter focusPointLon: (query) The longitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lat&#x60;. (optional)
      - parameter boundaryRectMinLat: (query) Defines the min latitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
@@ -259,7 +252,7 @@ open class GeocodingAPI {
      - parameter sources: (query) A list of sources to limit the search to. (optional)
      - parameter size: (query) The maximum number of results to return. (optional)
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a &#x60;langtag&#x60; (in RFC 5646 terms) can contain script, region, etc., only the &#x60;language&#x60; portion, an ISO 639 code, will be considered. So &#x60;en-US&#x60; and &#x60;en-GB&#x60; will both be treated as English. (optional)
-     - returns: RequestBuilder<PeliasResponse> 
+     - returns: RequestBuilder<PeliasResponse>
      */
     open class func searchWithRequestBuilder(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [PeliasLayer]? = nil, sources: [PeliasSource]? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<PeliasResponse> {
         let localVariablePath = "/geocoding/v1/search"
@@ -286,20 +279,18 @@ open class GeocodingAPI {
             "lang": (wrappedValue: lang?.encodeToJSON(), isExplode: true),
         ])
 
-        let localVariableNillableHeaders: [String: Any?] = [
-            :
-        ]
+        let localVariableNillableHeaders: [String: Any?] = [:]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<PeliasResponse>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
 
-        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+        return localVariableRequestBuilder.init(method: "GET", URLString: localVariableUrlComponents?.string ?? localVariableURLString, parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
 
     /**
      Find locations matching components (structured forward geocoding).
-     
+
      - parameter address: (query) A street name, optionally with a house number. (optional)
      - parameter neighbourhood: (query) Varies by area, but has a locally specific meaning (NOT always an official administrative unit). (optional)
      - parameter borough: (query) A unit within a city (not widely used, but present in places like NYC and Mexico City). (optional)
@@ -327,7 +318,7 @@ open class GeocodingAPI {
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     open class func searchStructured(address: String? = nil, neighbourhood: String? = nil, borough: String? = nil, locality: String? = nil, county: String? = nil, region: String? = nil, postalcode: String? = nil, country: String? = nil, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [PeliasLayer]? = nil, sources: [PeliasSource]? = nil, size: Int? = nil, lang: String? = nil) async throws -> PeliasResponse {
-        return try await searchStructuredWithRequestBuilder(address: address, neighbourhood: neighbourhood, borough: borough, locality: locality, county: county, region: region, postalcode: postalcode, country: country, focusPointLat: focusPointLat, focusPointLon: focusPointLon, boundaryRectMinLat: boundaryRectMinLat, boundaryRectMaxLat: boundaryRectMaxLat, boundaryRectMinLon: boundaryRectMinLon, boundaryRectMaxLon: boundaryRectMaxLon, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, layers: layers, sources: sources, size: size, lang: lang).execute().body
+        try await searchStructuredWithRequestBuilder(address: address, neighbourhood: neighbourhood, borough: borough, locality: locality, county: county, region: region, postalcode: postalcode, country: country, focusPointLat: focusPointLat, focusPointLon: focusPointLon, boundaryRectMinLat: boundaryRectMinLat, boundaryRectMaxLat: boundaryRectMaxLat, boundaryRectMinLon: boundaryRectMinLon, boundaryRectMaxLon: boundaryRectMaxLon, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, layers: layers, sources: sources, size: size, lang: lang).execute().body
     }
 
     /**
@@ -360,7 +351,7 @@ open class GeocodingAPI {
      - parameter sources: (query) A list of sources to limit the search to. (optional)
      - parameter size: (query) The maximum number of results to return. (optional)
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a &#x60;langtag&#x60; (in RFC 5646 terms) can contain script, region, etc., only the &#x60;language&#x60; portion, an ISO 639 code, will be considered. So &#x60;en-US&#x60; and &#x60;en-GB&#x60; will both be treated as English. (optional)
-     - returns: RequestBuilder<PeliasResponse> 
+     - returns: RequestBuilder<PeliasResponse>
      */
     open class func searchStructuredWithRequestBuilder(address: String? = nil, neighbourhood: String? = nil, borough: String? = nil, locality: String? = nil, county: String? = nil, region: String? = nil, postalcode: String? = nil, country: String? = nil, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [PeliasLayer]? = nil, sources: [PeliasSource]? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<PeliasResponse> {
         let localVariablePath = "/geocoding/v1/search/structured"
@@ -394,14 +385,12 @@ open class GeocodingAPI {
             "lang": (wrappedValue: lang?.encodeToJSON(), isExplode: true),
         ])
 
-        let localVariableNillableHeaders: [String: Any?] = [
-            :
-        ]
+        let localVariableNillableHeaders: [String: Any?] = [:]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<PeliasResponse>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
 
-        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+        return localVariableRequestBuilder.init(method: "GET", URLString: localVariableUrlComponents?.string ?? localVariableURLString, parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
 }

@@ -7,17 +7,17 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct BicycleCostingOptionsAllOf: Codable, JSONEncodable, Hashable {
-
     public enum BicycleType: String, Codable, CaseIterable {
         case road = "Road"
         case hybrid = "Hybrid"
         case cross = "Cross"
         case mountain = "Mountain"
     }
+
     static let useRoadsRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     static let useHillsRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     static let avoidBadSurfacesRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
@@ -68,4 +68,3 @@ public struct BicycleCostingOptionsAllOf: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(bssReturnPenalty, forKey: .bssReturnPenalty)
     }
 }
-

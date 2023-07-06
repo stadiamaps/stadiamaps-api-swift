@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct RouteResponseTrip: Codable, JSONEncodable, Hashable {
-
     /** The response status code */
     public var status: Int
     /** The response status message */
@@ -55,4 +54,3 @@ public struct RouteResponseTrip: Codable, JSONEncodable, Hashable {
         try container.encode(summary, forKey: .summary)
     }
 }
-

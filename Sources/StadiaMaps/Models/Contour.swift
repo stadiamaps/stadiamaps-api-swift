@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct Contour: Codable, JSONEncodable, Hashable {
-
     /** The time in minutes for the contour. Mutually exclusive of distance. */
     public var time: Double?
     /** The distance in km for the contour. Mutually exclusive of time. */
@@ -40,4 +39,3 @@ public struct Contour: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(color, forKey: .color)
     }
 }
-

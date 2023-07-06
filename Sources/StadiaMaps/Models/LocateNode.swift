@@ -7,17 +7,17 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct LocateNode: Codable, JSONEncodable, Hashable {
-
     public enum IntersectionType: String, Codable, CaseIterable {
-        case regular = "regular"
+        case regular
         case _false = "false"
         case deadEnd = "dead-end"
-        case fork = "fork"
+        case fork
     }
+
     /** The latitude of a point in the shape. */
     public var lat: Double
     /** The longitude of a point in the shape. */
@@ -81,4 +81,3 @@ public struct LocateNode: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(modeChange, forKey: .modeChange)
     }
 }
-

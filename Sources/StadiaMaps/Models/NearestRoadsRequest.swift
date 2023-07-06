@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct NearestRoadsRequest: Codable, JSONEncodable, Hashable {
-
     public var locations: [Coordinate]
     public var costing: CostingModel?
     public var costingOptions: CostingOptions?
@@ -45,4 +44,3 @@ public struct NearestRoadsRequest: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(directionsOptions, forKey: .directionsOptions)
     }
 }
-

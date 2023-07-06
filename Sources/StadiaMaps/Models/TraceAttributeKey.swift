@@ -7,7 +7,7 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public enum TraceAttributeKey: String, Codable, CaseIterable {
@@ -67,7 +67,7 @@ public enum TraceAttributeKey: String, Codable, CaseIterable {
     case nodePeriodFork = "node.fork"
     case nodePeriodTimeZone = "node.time_zone"
     case osmChangeset = "osm_changeset"
-    case shape = "shape"
+    case shape
     case adminPeriodCountryCode = "admin.country_code"
     case adminPeriodCountryText = "admin.country_text"
     case adminPeriodStateCode = "admin.state_code"

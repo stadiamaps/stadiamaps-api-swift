@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct BikeNetwork: Codable, JSONEncodable, Hashable {
-
     public var mountain: Bool?
     public var local: Bool?
     public var regional: Bool?
@@ -41,4 +40,3 @@ public struct BikeNetwork: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(national, forKey: .national)
     }
 }
-

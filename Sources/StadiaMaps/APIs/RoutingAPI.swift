@@ -7,20 +7,19 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 open class RoutingAPI {
-
     /**
      Calculate areas of equal travel time from a location.
-     
+
      - parameter isochroneRequest: (body)  (optional)
      - returns: IsochroneResponse
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     open class func isochrone(isochroneRequest: IsochroneRequest? = nil) async throws -> IsochroneResponse {
-        return try await isochroneWithRequestBuilder(isochroneRequest: isochroneRequest).execute().body
+        try await isochroneWithRequestBuilder(isochroneRequest: isochroneRequest).execute().body
     }
 
     /**
@@ -31,7 +30,7 @@ open class RoutingAPI {
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
      - parameter isochroneRequest: (body)  (optional)
-     - returns: RequestBuilder<IsochroneResponse> 
+     - returns: RequestBuilder<IsochroneResponse>
      */
     open class func isochroneWithRequestBuilder(isochroneRequest: IsochroneRequest? = nil) -> RequestBuilder<IsochroneResponse> {
         let localVariablePath = "/isochrone/v1"
@@ -40,26 +39,24 @@ open class RoutingAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
-            :
-        ]
+        let localVariableNillableHeaders: [String: Any?] = [:]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<IsochroneResponse>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
 
-        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+        return localVariableRequestBuilder.init(method: "POST", URLString: localVariableUrlComponents?.string ?? localVariableURLString, parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
 
     /**
      Match a recorded route to the road network.
-     
+
      - parameter mapMatchRequest: (body)  (optional)
      - returns: MapMatchRouteResponse
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     open class func mapMatch(mapMatchRequest: MapMatchRequest? = nil) async throws -> MapMatchRouteResponse {
-        return try await mapMatchWithRequestBuilder(mapMatchRequest: mapMatchRequest).execute().body
+        try await mapMatchWithRequestBuilder(mapMatchRequest: mapMatchRequest).execute().body
     }
 
     /**
@@ -70,7 +67,7 @@ open class RoutingAPI {
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
      - parameter mapMatchRequest: (body)  (optional)
-     - returns: RequestBuilder<MapMatchRouteResponse> 
+     - returns: RequestBuilder<MapMatchRouteResponse>
      */
     open class func mapMatchWithRequestBuilder(mapMatchRequest: MapMatchRequest? = nil) -> RequestBuilder<MapMatchRouteResponse> {
         let localVariablePath = "/map_match/v1"
@@ -79,26 +76,24 @@ open class RoutingAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
-            :
-        ]
+        let localVariableNillableHeaders: [String: Any?] = [:]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<MapMatchRouteResponse>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
 
-        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+        return localVariableRequestBuilder.init(method: "POST", URLString: localVariableUrlComponents?.string ?? localVariableURLString, parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
 
     /**
      Find the nearest roads to the set of input locations.
-     
+
      - parameter nearestRoadsRequest: (body)  (optional)
      - returns: [LocateObject]
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     open class func nearestRoads(nearestRoadsRequest: NearestRoadsRequest? = nil) async throws -> [LocateObject] {
-        return try await nearestRoadsWithRequestBuilder(nearestRoadsRequest: nearestRoadsRequest).execute().body
+        try await nearestRoadsWithRequestBuilder(nearestRoadsRequest: nearestRoadsRequest).execute().body
     }
 
     /**
@@ -109,7 +104,7 @@ open class RoutingAPI {
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
      - parameter nearestRoadsRequest: (body)  (optional)
-     - returns: RequestBuilder<[LocateObject]> 
+     - returns: RequestBuilder<[LocateObject]>
      */
     open class func nearestRoadsWithRequestBuilder(nearestRoadsRequest: NearestRoadsRequest? = nil) -> RequestBuilder<[LocateObject]> {
         let localVariablePath = "/nearest_roads/v1"
@@ -118,26 +113,24 @@ open class RoutingAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
-            :
-        ]
+        let localVariableNillableHeaders: [String: Any?] = [:]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<[LocateObject]>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
 
-        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+        return localVariableRequestBuilder.init(method: "POST", URLString: localVariableUrlComponents?.string ?? localVariableURLString, parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
 
     /**
      Calculate an optimized route between a known start and end point.
-     
+
      - parameter optimizedRouteRequest: (body)  (optional)
      - returns: RouteResponse
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     open class func optimizedRoute(optimizedRouteRequest: OptimizedRouteRequest? = nil) async throws -> RouteResponse {
-        return try await optimizedRouteWithRequestBuilder(optimizedRouteRequest: optimizedRouteRequest).execute().body
+        try await optimizedRouteWithRequestBuilder(optimizedRouteRequest: optimizedRouteRequest).execute().body
     }
 
     /**
@@ -148,7 +141,7 @@ open class RoutingAPI {
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
      - parameter optimizedRouteRequest: (body)  (optional)
-     - returns: RequestBuilder<RouteResponse> 
+     - returns: RequestBuilder<RouteResponse>
      */
     open class func optimizedRouteWithRequestBuilder(optimizedRouteRequest: OptimizedRouteRequest? = nil) -> RequestBuilder<RouteResponse> {
         let localVariablePath = "/optimized_route/v1"
@@ -157,26 +150,24 @@ open class RoutingAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
-            :
-        ]
+        let localVariableNillableHeaders: [String: Any?] = [:]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<RouteResponse>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
 
-        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+        return localVariableRequestBuilder.init(method: "POST", URLString: localVariableUrlComponents?.string ?? localVariableURLString, parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
 
     /**
      Get turn by turn routing instructions between two or more locations.
-     
+
      - parameter routeRequest: (body)  (optional)
      - returns: RouteResponse
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     open class func route(routeRequest: RouteRequest? = nil) async throws -> RouteResponse {
-        return try await routeWithRequestBuilder(routeRequest: routeRequest).execute().body
+        try await routeWithRequestBuilder(routeRequest: routeRequest).execute().body
     }
 
     /**
@@ -187,7 +178,7 @@ open class RoutingAPI {
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
      - parameter routeRequest: (body)  (optional)
-     - returns: RequestBuilder<RouteResponse> 
+     - returns: RequestBuilder<RouteResponse>
      */
     open class func routeWithRequestBuilder(routeRequest: RouteRequest? = nil) -> RequestBuilder<RouteResponse> {
         let localVariablePath = "/route/v1"
@@ -196,26 +187,24 @@ open class RoutingAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
-            :
-        ]
+        let localVariableNillableHeaders: [String: Any?] = [:]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<RouteResponse>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
 
-        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+        return localVariableRequestBuilder.init(method: "POST", URLString: localVariableUrlComponents?.string ?? localVariableURLString, parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
 
     /**
      Calculate a time distance matrix for a grid of start and end points.
-     
+
      - parameter matrixRequest: (body)  (optional)
      - returns: MatrixResponse
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     open class func timeDistanceMatrix(matrixRequest: MatrixRequest? = nil) async throws -> MatrixResponse {
-        return try await timeDistanceMatrixWithRequestBuilder(matrixRequest: matrixRequest).execute().body
+        try await timeDistanceMatrixWithRequestBuilder(matrixRequest: matrixRequest).execute().body
     }
 
     /**
@@ -226,7 +215,7 @@ open class RoutingAPI {
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
      - parameter matrixRequest: (body)  (optional)
-     - returns: RequestBuilder<MatrixResponse> 
+     - returns: RequestBuilder<MatrixResponse>
      */
     open class func timeDistanceMatrixWithRequestBuilder(matrixRequest: MatrixRequest? = nil) -> RequestBuilder<MatrixResponse> {
         let localVariablePath = "/matrix/v1"
@@ -235,26 +224,24 @@ open class RoutingAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
-            :
-        ]
+        let localVariableNillableHeaders: [String: Any?] = [:]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<MatrixResponse>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
 
-        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+        return localVariableRequestBuilder.init(method: "POST", URLString: localVariableUrlComponents?.string ?? localVariableURLString, parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
 
     /**
      Trace the attributes of roads visited on a route.
-     
+
      - parameter traceAttributesRequest: (body)  (optional)
      - returns: TraceAttributesResponse
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     open class func traceAttributes(traceAttributesRequest: TraceAttributesRequest? = nil) async throws -> TraceAttributesResponse {
-        return try await traceAttributesWithRequestBuilder(traceAttributesRequest: traceAttributesRequest).execute().body
+        try await traceAttributesWithRequestBuilder(traceAttributesRequest: traceAttributesRequest).execute().body
     }
 
     /**
@@ -265,7 +252,7 @@ open class RoutingAPI {
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
      - parameter traceAttributesRequest: (body)  (optional)
-     - returns: RequestBuilder<TraceAttributesResponse> 
+     - returns: RequestBuilder<TraceAttributesResponse>
      */
     open class func traceAttributesWithRequestBuilder(traceAttributesRequest: TraceAttributesRequest? = nil) -> RequestBuilder<TraceAttributesResponse> {
         let localVariablePath = "/trace_attributes/v1"
@@ -274,14 +261,12 @@ open class RoutingAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
-            :
-        ]
+        let localVariableNillableHeaders: [String: Any?] = [:]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<TraceAttributesResponse>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
 
-        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+        return localVariableRequestBuilder.init(method: "POST", URLString: localVariableUrlComponents?.string ?? localVariableURLString, parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
 }

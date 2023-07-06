@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct ManeuverSignElement: Codable, JSONEncodable, Hashable {
-
     /** The interchange sign text (varies based on the context; see the `maneuverSign` schema). */
     public var text: String
     /** True if the sign is a route number. */
@@ -40,4 +39,3 @@ public struct ManeuverSignElement: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(consecutiveCount, forKey: .consecutiveCount)
     }
 }
-

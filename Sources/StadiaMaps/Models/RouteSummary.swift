@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct RouteSummary: Codable, JSONEncodable, Hashable {
-
     /** The estimated travel time, in seconds */
     public var time: Double
     /** The estimated travel distance, in `units` (km or mi) */
@@ -55,4 +54,3 @@ public struct RouteSummary: Codable, JSONEncodable, Hashable {
         try container.encode(maxLon, forKey: .maxLon)
     }
 }
-

@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct RoutingWaypointAllOfSearchFilter: Codable, JSONEncodable, Hashable {
-
     /** Excludes roads marked as tunnels */
     public var excludeTunnel: Bool? = false
     /** Excludes roads marked as bridges */
@@ -53,4 +52,3 @@ public struct RoutingWaypointAllOfSearchFilter: Codable, JSONEncodable, Hashable
         try container.encodeIfPresent(maxRoadClass, forKey: .maxRoadClass)
     }
 }
-

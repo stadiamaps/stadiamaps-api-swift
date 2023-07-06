@@ -7,17 +7,17 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct MapMatchWaypoint: Codable, JSONEncodable, Hashable {
-
     public enum ModelType: String, Codable, CaseIterable {
         case _break = "break"
-        case through = "through"
-        case via = "via"
+        case through
+        case via
         case breakThrough = "break_through"
     }
+
     /** The latitude of a point in the shape. */
     public var lat: Double
     /** The longitude of a point in the shape. */
@@ -51,4 +51,3 @@ public struct MapMatchWaypoint: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(time, forKey: .time)
     }
 }
-

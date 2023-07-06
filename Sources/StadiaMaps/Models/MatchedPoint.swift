@@ -7,16 +7,16 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct MatchedPoint: Codable, JSONEncodable, Hashable {
-
     public enum ModelType: String, Codable, CaseIterable {
-        case unmatched = "unmatched"
-        case interpolated = "interpolated"
-        case matched = "matched"
+        case unmatched
+        case interpolated
+        case matched
     }
+
     /** The latitude of the matched point. */
     public var lat: Double
     /** The longitude of the matched point. */
@@ -69,4 +69,3 @@ public struct MatchedPoint: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(distanceFromTracePoint, forKey: .distanceFromTracePoint)
     }
 }
-

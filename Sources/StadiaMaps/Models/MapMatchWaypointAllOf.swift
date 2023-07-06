@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct MapMatchWaypointAllOf: Codable, JSONEncodable, Hashable {
-
     /** The timestamp of the waypoint, in seconds. This can inform the map matching algorithm about when the point was measured. A UNIX timestamp, or any increasing integer sequence measuring seconds from some reference point can be used. */
     public var time: Int?
 
@@ -30,4 +29,3 @@ public struct MapMatchWaypointAllOf: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(time, forKey: .time)
     }
 }
-

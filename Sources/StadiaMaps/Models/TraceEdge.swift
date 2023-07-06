@@ -7,60 +7,66 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct TraceEdge: Codable, JSONEncodable, Hashable {
-
     public enum Surface: String, Codable, CaseIterable {
         case pavedSmooth = "paved_smooth"
-        case paved = "paved"
+        case paved
         case pavedRough = "paved_rough"
-        case compacted = "compacted"
-        case dirt = "dirt"
-        case gravel = "gravel"
-        case path = "path"
-        case impassable = "impassable"
+        case compacted
+        case dirt
+        case gravel
+        case path
+        case impassable
     }
+
     public enum VehicleType: String, Codable, CaseIterable {
-        case car = "car"
-        case motorcycle = "motorcycle"
-        case bus = "bus"
+        case car
+        case motorcycle
+        case bus
         case tractorTrailer = "tractor_trailer"
     }
+
     public enum PedestrianType: String, Codable, CaseIterable {
-        case foot = "foot"
-        case wheelchair = "wheelchair"
-        case segway = "segway"
+        case foot
+        case wheelchair
+        case segway
     }
+
     public enum BicycleType: String, Codable, CaseIterable {
-        case road = "road"
-        case cross = "cross"
-        case hybrid = "hybrid"
-        case mountain = "mountain"
+        case road
+        case cross
+        case hybrid
+        case mountain
     }
+
     public enum TransitType: String, Codable, CaseIterable {
-        case tram = "tram"
-        case metro = "metro"
-        case rail = "rail"
-        case bus = "bus"
-        case ferry = "ferry"
+        case tram
+        case metro
+        case rail
+        case bus
+        case ferry
         case cableCar = "cable_car"
-        case gondola = "gondola"
-        case funicular = "funicular"
+        case gondola
+        case funicular
     }
+
     public enum CycleLane: String, Codable, CaseIterable {
         case _none = "none"
-        case shared = "shared"
-        case dedicated = "dedicated"
-        case separated = "separated"
+        case shared
+        case dedicated
+        case separated
     }
+
     public enum Sidewalk: String, Codable, CaseIterable {
         case _left = "left"
         case _right = "right"
-        case both = "both"
+        case both
         case _none = "none"
     }
+
     /** The name(s) of the road at this edge, if any. */
     public var names: [String]?
     /** The length of this edge in `units`. */
@@ -261,4 +267,3 @@ public struct TraceEdge: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(endNode, forKey: .endNode)
     }
 }
-

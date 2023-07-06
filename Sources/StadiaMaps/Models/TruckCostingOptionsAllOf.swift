@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct TruckCostingOptionsAllOf: Codable, JSONEncodable, Hashable {
-
     /** The height of the truck (in meters). */
     public var height: Double? = 4.11
     /** The width of the truck (in meters). */
@@ -55,4 +54,3 @@ public struct TruckCostingOptionsAllOf: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(hazmat, forKey: .hazmat)
     }
 }
-

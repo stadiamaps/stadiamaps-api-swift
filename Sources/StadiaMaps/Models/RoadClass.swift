@@ -7,17 +7,17 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 /** Class of road (ranked in descending order) */
 public enum RoadClass: String, Codable, CaseIterable {
-    case motorway = "motorway"
-    case trunk = "trunk"
-    case primary = "primary"
-    case secondary = "secondary"
-    case tertiary = "tertiary"
-    case unclassified = "unclassified"
-    case residential = "residential"
+    case motorway
+    case trunk
+    case primary
+    case secondary
+    case tertiary
+    case unclassified
+    case residential
     case serviceOther = "service_other"
 }

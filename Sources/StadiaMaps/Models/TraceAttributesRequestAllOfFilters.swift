@@ -7,16 +7,16 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 /** If present, provides either a whitelist or a blacklist of keys to include/exclude in the response. This key is optional, and if omitted from the request, all available info will be returned. */
 public struct TraceAttributesRequestAllOfFilters: Codable, JSONEncodable, Hashable {
-
     public enum Action: String, Codable, CaseIterable {
-        case include = "include"
-        case exclude = "exclude"
+        case include
+        case exclude
     }
+
     public var attributes: [TraceAttributeKey]
     /** Determines whether the list of attributes will be used as a whitelist or a blacklist. */
     public var action: Action
@@ -39,4 +39,3 @@ public struct TraceAttributesRequestAllOfFilters: Codable, JSONEncodable, Hashab
         try container.encode(action, forKey: .action)
     }
 }
-

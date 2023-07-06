@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct LocateEdgeInfo: Codable, JSONEncodable, Hashable {
-
     /** The mean elevation, in meters, relative to sea level. */
     public var meanElevation: Float?
     /** An encoded polyline (https://developers.google.com/maps/documentation/utilities/polylinealgorithm). Note that the polyline is always encoded with 6 digits of precision, whereas most implementations default to 5. */
@@ -48,4 +47,3 @@ public struct LocateEdgeInfo: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(wayId, forKey: .wayId)
     }
 }
-

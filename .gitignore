@@ -103,3 +103,11 @@ iOSInjectionProject/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode
+
+## Custom additions
+
+# Unwanted addition by code generator
+Cartfile
+
+# Unwanted addition by code generator
+Stadiamaps.podspec

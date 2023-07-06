@@ -26,13 +26,13 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "StadiaMaps",
-            dependencies: ["AnyCodable", ],
+            dependencies: ["AnyCodable"],
             path: "Sources/StadiaMaps"
         ),
         .testTarget(
             name: "StadiaMapsTests",
-            dependencies: ["StadiaMaps", ],
+            dependencies: ["StadiaMaps"],
             path: "tests"
-        )
+        ),
     ]
 )

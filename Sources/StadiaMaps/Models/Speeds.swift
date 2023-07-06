@@ -7,15 +7,15 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct Speeds: Codable, JSONEncodable, Hashable {
-
     public enum ModelType: String, Codable, CaseIterable {
-        case classified = "classified"
-        case tagged = "tagged"
+        case classified
+        case tagged
     }
+
     /** Does this edge have predicted (historical) speed records? */
     public var predicted: Bool?
     /** Speed when there is no traffic, in kph. */
@@ -54,4 +54,3 @@ public struct Speeds: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(_default, forKey: ._default)
     }
 }
-

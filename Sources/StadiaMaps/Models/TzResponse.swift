@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct TzResponse: Codable, JSONEncodable, Hashable {
-
     /** The canonical time zone ID. In the event that multiple time zones could be returned, the first one from the Unicode CLDR timezone.xml is returned. */
     public var tzId: String
     /** The base offset, in seconds, from UTC that is normally in effect for this time zone. */
@@ -40,4 +39,3 @@ public struct TzResponse: Codable, JSONEncodable, Hashable {
         try container.encode(dstOffset, forKey: .dstOffset)
     }
 }
-

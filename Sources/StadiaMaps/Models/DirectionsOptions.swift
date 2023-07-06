@@ -7,16 +7,16 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct DirectionsOptions: Codable, JSONEncodable, Hashable {
-
     public enum DirectionsType: String, Codable, CaseIterable {
         case _none = "none"
-        case maneuvers = "maneuvers"
-        case instructions = "instructions"
+        case maneuvers
+        case instructions
     }
+
     public var units: DistanceUnit?
     public var language: ValhallaLanguages?
     /** The level of directional narrative to include. Locations and times will always be returned, but narrative generation verbosity can be controlled with this parameter. */
@@ -43,4 +43,3 @@ public struct DirectionsOptions: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(directionsType, forKey: .directionsType)
     }
 }
-

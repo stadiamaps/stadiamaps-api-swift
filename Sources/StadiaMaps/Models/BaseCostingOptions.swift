@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct BaseCostingOptions: Codable, JSONEncodable, Hashable {
-
     static let useLivingStreetsRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     static let useFerryRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     /** A penalty (in seconds) applied when transitioning between roads (determined by name). */
@@ -72,4 +71,3 @@ public struct BaseCostingOptions: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(useFerry, forKey: .useFerry)
     }
 }
-

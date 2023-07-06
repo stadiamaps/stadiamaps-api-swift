@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct GeoAttributes: Codable, JSONEncodable, Hashable {
-
     /** Curvature factor. */
     public var curvature: Int?
     /** The maximum downward slope. Uses 1 degree precision for slopes to -16 degrees, and 4 degree precision afterwards (up to a max of -76 degrees). */
@@ -50,4 +49,3 @@ public struct GeoAttributes: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(length, forKey: .length)
     }
 }
-

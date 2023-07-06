@@ -7,20 +7,19 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 open class GeospatialAPI {
-
     /**
      Get the elevation profile along a polyline or at a point.
-     
+
      - parameter heightRequest: (body)  (optional)
      - returns: HeightResponse
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     open class func elevation(heightRequest: HeightRequest? = nil) async throws -> HeightResponse {
-        return try await elevationWithRequestBuilder(heightRequest: heightRequest).execute().body
+        try await elevationWithRequestBuilder(heightRequest: heightRequest).execute().body
     }
 
     /**
@@ -31,7 +30,7 @@ open class GeospatialAPI {
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
      - parameter heightRequest: (body)  (optional)
-     - returns: RequestBuilder<HeightResponse> 
+     - returns: RequestBuilder<HeightResponse>
      */
     open class func elevationWithRequestBuilder(heightRequest: HeightRequest? = nil) -> RequestBuilder<HeightResponse> {
         let localVariablePath = "/elevation/v1"
@@ -40,28 +39,26 @@ open class GeospatialAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
-            :
-        ]
+        let localVariableNillableHeaders: [String: Any?] = [:]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<HeightResponse>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
 
-        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+        return localVariableRequestBuilder.init(method: "POST", URLString: localVariableUrlComponents?.string ?? localVariableURLString, parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
 
     /**
      Get the current time zone information for any point on earth.
-     
-     - parameter lat: (query) The latitude of the point you are interested in. 
-     - parameter lng: (query) The longitude of the point you are interested in. 
+
+     - parameter lat: (query) The latitude of the point you are interested in.
+     - parameter lng: (query) The longitude of the point you are interested in.
      - parameter timestamp: (query) The UNIX timestamp at which the UTC and DST offsets will be calculated. This defaults to the present time. This endpoint is not necessarily guaranteed to be accurate for timestamps that occurred in the past. Time zone geographic boundaries change over time, so if the point you are querying for was previously in a different time zone, historical results will not be accurate. If, however, the point has been in the same geographic time zone for a very long time (ex: &#x60;America/New_York&#x60;), the historical data may be accurate for 100+ years in the past (depending on how far back the IANA TZDB rules have been specified). (optional)
      - returns: TzResponse
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     open class func tzLookup(lat: Double, lng: Double, timestamp: Int64? = nil) async throws -> TzResponse {
-        return try await tzLookupWithRequestBuilder(lat: lat, lng: lng, timestamp: timestamp).execute().body
+        try await tzLookupWithRequestBuilder(lat: lat, lng: lng, timestamp: timestamp).execute().body
     }
 
     /**
@@ -71,10 +68,10 @@ open class GeospatialAPI {
      - API Key:
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
-     - parameter lat: (query) The latitude of the point you are interested in. 
-     - parameter lng: (query) The longitude of the point you are interested in. 
+     - parameter lat: (query) The latitude of the point you are interested in.
+     - parameter lng: (query) The longitude of the point you are interested in.
      - parameter timestamp: (query) The UNIX timestamp at which the UTC and DST offsets will be calculated. This defaults to the present time. This endpoint is not necessarily guaranteed to be accurate for timestamps that occurred in the past. Time zone geographic boundaries change over time, so if the point you are querying for was previously in a different time zone, historical results will not be accurate. If, however, the point has been in the same geographic time zone for a very long time (ex: &#x60;America/New_York&#x60;), the historical data may be accurate for 100+ years in the past (depending on how far back the IANA TZDB rules have been specified). (optional)
-     - returns: RequestBuilder<TzResponse> 
+     - returns: RequestBuilder<TzResponse>
      */
     open class func tzLookupWithRequestBuilder(lat: Double, lng: Double, timestamp: Int64? = nil) -> RequestBuilder<TzResponse> {
         let localVariablePath = "/tz/lookup/v1"
@@ -88,14 +85,12 @@ open class GeospatialAPI {
             "timestamp": (wrappedValue: timestamp?.encodeToJSON(), isExplode: true),
         ])
 
-        let localVariableNillableHeaders: [String: Any?] = [
-            :
-        ]
+        let localVariableNillableHeaders: [String: Any?] = [:]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<TzResponse>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
 
-        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+        return localVariableRequestBuilder.init(method: "GET", URLString: localVariableUrlComponents?.string ?? localVariableURLString, parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
 }

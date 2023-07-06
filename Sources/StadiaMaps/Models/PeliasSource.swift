@@ -7,13 +7,13 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 /** Our database contains info from multiple sources. These identifiers can be used to either limit search results or to determine the relevance of a result. */
 public enum PeliasSource: String, Codable, CaseIterable {
-    case openstreetmap = "openstreetmap"
-    case openaddresses = "openaddresses"
-    case whosonfirst = "whosonfirst"
-    case geonames = "geonames"
+    case openstreetmap
+    case openaddresses
+    case whosonfirst
+    case geonames
 }

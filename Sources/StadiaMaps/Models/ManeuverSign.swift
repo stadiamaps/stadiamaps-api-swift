@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct ManeuverSign: Codable, JSONEncodable, Hashable {
-
     /** A list of exit number elements. This is typically just a single value. */
     public var exitNumberElements: [ManeuverSignElement]?
     /** A list of exit branch elements. The text is a subsequent road name or route number after the sign. */
@@ -45,4 +44,3 @@ public struct ManeuverSign: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(exitNameElements, forKey: .exitNameElements)
     }
 }
-

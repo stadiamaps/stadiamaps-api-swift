@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct GeoJSONLineStringAllOf: Codable, JSONEncodable, Hashable {
-
     public var coordinates: [[Double]]
 
     public init(coordinates: [[Double]]) {
@@ -29,4 +28,3 @@ public struct GeoJSONLineStringAllOf: Codable, JSONEncodable, Hashable {
         try container.encode(coordinates, forKey: .coordinates)
     }
 }
-

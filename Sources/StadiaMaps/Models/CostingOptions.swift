@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct CostingOptions: Codable, JSONEncodable, Hashable {
-
     public var auto: AutoCostingOptions?
     public var bus: AutoCostingOptions?
     public var taxi: AutoCostingOptions?
@@ -57,4 +56,3 @@ public struct CostingOptions: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(pedestrian, forKey: .pedestrian)
     }
 }
-

@@ -7,16 +7,16 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct LocateEdge: Codable, JSONEncodable, Hashable {
-
     public enum SideOfStreet: String, Codable, CaseIterable {
         case _left = "left"
         case _right = "right"
-        case neither = "neither"
+        case neither
     }
+
     public var edgeId: NodeId?
     public var correlatedLat: Double?
     public var correlatedLon: Double?
@@ -88,4 +88,3 @@ public struct LocateEdge: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(warnings, forKey: .warnings)
     }
 }
-

@@ -27,7 +27,7 @@ open class RequestBuilder<T> {
     public let parameters: [String: Any]?
     public let method: String
     public let URLString: String
-    public let requestTask: RequestTask = RequestTask()
+    public let requestTask: RequestTask = .init()
     public let requiresAuthentication: Bool
 
     /// Optional block to obtain a reference to the request's progress instance when available.
@@ -35,7 +35,7 @@ open class RequestBuilder<T> {
     /// If you need to get the request's progress in older OS versions, please use Alamofire http client.
     public var onProgressReady: ((Progress) -> Void)?
 
-    required public init(method: String, URLString: String, parameters: [String: Any]?, headers: [String: String] = [:], requiresAuthentication: Bool) {
+    public required init(method: String, URLString: String, parameters: [String: Any]?, headers: [String: String] = [:], requiresAuthentication: Bool) {
         self.method = method
         self.URLString = URLString
         self.parameters = parameters
@@ -52,19 +52,19 @@ open class RequestBuilder<T> {
     }
 
     @discardableResult
-    open func execute(_ apiResponseQueue: DispatchQueue = StadiaMapsAPI.apiResponseQueue, _ completion: @escaping (_ result: Swift.Result<Response<T>, ErrorResponse>) -> Void) -> RequestTask {
-        return requestTask
+    open func execute(_: DispatchQueue = StadiaMapsAPI.apiResponseQueue, _: @escaping (_ result: Swift.Result<Response<T>, ErrorResponse>) -> Void) -> RequestTask {
+        requestTask
     }
 
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     @discardableResult
     open func execute() async throws -> Response<T> {
-        return try await withTaskCancellationHandler {
+        try await withTaskCancellationHandler {
             try Task.checkCancellation()
             return try await withCheckedThrowingContinuation { continuation in
                 guard !Task.isCancelled else {
-                  continuation.resume(throwing: CancellationError())
-                  return
+                    continuation.resume(throwing: CancellationError())
+                    return
                 }
 
                 self.execute { result in
@@ -80,7 +80,7 @@ open class RequestBuilder<T> {
             self.requestTask.cancel()
         }
     }
-    
+
     public func addHeader(name: String, value: String) -> Self {
         if !value.isEmpty {
             headers[name] = value

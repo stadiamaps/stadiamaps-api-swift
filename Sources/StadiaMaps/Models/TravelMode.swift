@@ -7,12 +7,12 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public enum TravelMode: String, Codable, CaseIterable {
-    case drive = "drive"
-    case pedestrian = "pedestrian"
-    case bicycle = "bicycle"
-    case transit = "transit"
+    case drive
+    case pedestrian
+    case bicycle
+    case transit
 }

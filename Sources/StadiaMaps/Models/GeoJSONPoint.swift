@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct GeoJSONPoint: Codable, JSONEncodable, Hashable {
-
     public enum ModelType: String, Codable, CaseIterable {
         case point = "Point"
         case multiPoint = "MultiPoint"
@@ -20,6 +19,7 @@ public struct GeoJSONPoint: Codable, JSONEncodable, Hashable {
         case polygon = "Polygon"
         case multiPolygon = "MultiPolygon"
     }
+
     public var type: ModelType
     public var coordinates: [Double]
 
@@ -41,4 +41,3 @@ public struct GeoJSONPoint: Codable, JSONEncodable, Hashable {
         try container.encode(coordinates, forKey: .coordinates)
     }
 }
-

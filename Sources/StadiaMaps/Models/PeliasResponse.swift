@@ -7,11 +7,10 @@
 
 import Foundation
 #if canImport(AnyCodable)
-import AnyCodable
+    import AnyCodable
 #endif
 
 public struct PeliasResponse: Codable, JSONEncodable, Hashable {
-
     public var geocoding: PeliasResponseGeocoding
     /** An array of 4 floating point numbers representing the (W, S, E, N) extremes of the features found. */
     public var bbox: [Double]?
@@ -38,4 +37,3 @@ public struct PeliasResponse: Codable, JSONEncodable, Hashable {
         try container.encode(features, forKey: .features)
     }
 }
-
