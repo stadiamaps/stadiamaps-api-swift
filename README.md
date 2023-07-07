@@ -1,11 +1,8 @@
 # Stadia Maps Swift SDK
 
 This SDK helps you access the full range of geospatial APIs from Stadia Maps using Swift. Using Xcode, you'll get
-all the goodies like autocomplete, type definitions, and documentation as you type.
-
-All API methods leverage the async features introduced in Swift 5.5, which make it easier than ever to write correct
-asynchronous code. You can find examples of how to call all of our API methods in the
-[integration tests](tests/).
+all the goodies like autocomplete, type definitions, and documentation as you type. All API methods leverage the async
+features introduced in Swift 5.5, which make it easier than ever to write correct asynchronous code. 
 
 ## Installation with Swift Package Mangaer
 
@@ -15,7 +12,7 @@ See https://developer.apple.com/documentation/xcode/adding-package-dependencies-
 instructions from Apple.
 
 <a id="documentation-for-authorization"></a>
-## Configuration
+## Getting Started
 
 ### Authorization
 
@@ -34,3 +31,7 @@ If you want to use our EU endpoints to keep traffic within the EU, you can set t
 ```swift
 StadiaMapsAPI.basePath = "https://api-eu.stadiamaps.com"
 ```
+
+## Examples
+
+You can find examples of how to call all of our API methods in the [integration tests](tests/).
