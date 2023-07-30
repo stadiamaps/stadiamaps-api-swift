@@ -13,12 +13,29 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
                                    RoutingWaypoint(lat: locationB.lat, lon: locationB.lon),
                                ],
                                costing: .auto,
-                               costingOptions: CostingOptions(auto: AutoCostingOptions(useTolls: 0.7)),
+                               costingOptions: CostingOptions(auto: AutoCostingOptions(useHighways: 0.3)),
                                directionsOptions: DirectionsOptions(units: .mi))
         let res = try await RoutingAPI.route(routeRequest: req)
         XCTAssertEqual(req.id, res.id)
         XCTAssertEqual(res.trip.status, 0)
         XCTAssertEqual(res.trip.units, .miles)
+        XCTAssertEqual(res.trip.legs.count, 1)
+    }
+
+    func testHybridBicycleRoute() async throws {
+        // Regression test for user-reported issue
+        let req = RouteRequest(id: "route",
+                               locations: [
+                                   RoutingWaypoint(lat: locationA.lat, lon: locationA.lon),
+                                   RoutingWaypoint(lat: locationB.lat, lon: locationB.lon),
+                               ],
+                               costing: .bicycle,
+                               costingOptions: CostingOptions(bicycle: BicycleCostingOptions(bicycleType: .hybrid, useRoads: 0.4, useHills: 0.6)),
+                               directionsOptions: DirectionsOptions(units: .km))
+        let res = try await RoutingAPI.route(routeRequest: req)
+        XCTAssertEqual(req.id, res.id)
+        XCTAssertEqual(res.trip.status, 0)
+        XCTAssertEqual(res.trip.units, .kilometers)
         XCTAssertEqual(res.trip.legs.count, 1)
     }
 
@@ -31,7 +48,7 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
                                             locationA,
                                         ],
                                         costing: .auto,
-                                        costingOptions: CostingOptions(auto: AutoCostingOptions(useTolls: 0.7)),
+                                        costingOptions: CostingOptions(auto: AutoCostingOptions(useHighways: 0.3)),
                                         directionsOptions: DirectionsOptions(units: .mi))
         let res = try await RoutingAPI.optimizedRoute(optimizedRouteRequest: req)
         XCTAssertEqual(req.id, res.id)

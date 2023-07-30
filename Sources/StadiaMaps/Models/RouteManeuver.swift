@@ -13,12 +13,21 @@ import Foundation
 public struct RouteManeuver: Codable, JSONEncodable, Hashable {
     public enum TravelType: String, Codable, CaseIterable {
         case car
+        case motorcycle
+        case bus
+        case tractorTrailer = "tractor_trailer"
+        case motorScooter = "motor_scooter"
+        case golfCart = "golf_cart"
         case foot
+        case wheelchair
+        case segway
         case road
+        case cross
+        case hybrid
+        case mountain
         case tram
         case metro
         case rail
-        case bus
         case ferry
         case cableCar = "cable_car"
         case gondola
@@ -77,6 +86,7 @@ public struct RouteManeuver: Codable, JSONEncodable, Hashable {
     /** True if the `verbal_pre_transition_instruction` has been appended with the verbal instruction of the next maneuver. */
     public var verbalMultiCue: Bool? = false
     public var travelMode: TravelMode
+    /** The type of travel over the maneuver. This can be thought of as a specialization of the travel mode. For example, vehicular travel may be via car, motorcycle, etc.; and travel via bicycle may be via a road bike, mountain bike, etc. */
     public var travelType: TravelType
     /** Describes a bike share action when using bikeshare routing. */
     public var bssManeuverType: BssManeuverType?

@@ -12,4 +12,9 @@ it to, so be careful.
  
 ```shell
 openapi-generator generate -i https://api.stadiamaps.com/openapi.yaml -g swift5 --strict-spec=true -o . -p disallowAdditionalPropertiesIfNotPresent=false -p projectName="StadiaMaps" -p useSPMFileStructure=true -p responseAs="AsyncAwait"
+swiftformat .
 ```
+
+## Tagging a release
+
+SPM releases are just tags. Publish a GitHub release for completeness.
