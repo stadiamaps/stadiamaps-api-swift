@@ -7,14 +7,14 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
     let locationC = Coordinate(lat: 39.984519, lon: -76.6956)
 
     func testRoute() async throws {
-        let req = RouteRequest(id: "route",
+        let req = RouteRequest(units: .mi,
+                               id: "route",
                                locations: [
                                    RoutingWaypoint(lat: locationA.lat, lon: locationA.lon),
                                    RoutingWaypoint(lat: locationB.lat, lon: locationB.lon),
                                ],
                                costing: .auto,
-                               costingOptions: CostingOptions(auto: AutoCostingOptions(useHighways: 0.3)),
-                               directionsOptions: DirectionsOptions(units: .mi))
+                               costingOptions: CostingOptions(auto: AutoCostingOptions(useHighways: 0.3)))
         let res = try await RoutingAPI.route(routeRequest: req)
         XCTAssertEqual(req.id, res.id)
         XCTAssertEqual(res.trip.status, 0)
@@ -24,14 +24,14 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
 
     func testHybridBicycleRoute() async throws {
         // Regression test for user-reported issue
-        let req = RouteRequest(id: "route",
+        let req = RouteRequest(units: .km,
+                               id: "route",
                                locations: [
                                    RoutingWaypoint(lat: locationA.lat, lon: locationA.lon),
                                    RoutingWaypoint(lat: locationB.lat, lon: locationB.lon),
                                ],
                                costing: .bicycle,
-                               costingOptions: CostingOptions(bicycle: BicycleCostingOptions(bicycleType: .hybrid, useRoads: 0.4, useHills: 0.6)),
-                               directionsOptions: DirectionsOptions(units: .km))
+                               costingOptions: CostingOptions(bicycle: BicycleCostingOptions(bicycleType: .hybrid, useRoads: 0.4, useHills: 0.6)))
         let res = try await RoutingAPI.route(routeRequest: req)
         XCTAssertEqual(req.id, res.id)
         XCTAssertEqual(res.trip.status, 0)
@@ -40,7 +40,8 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
     }
 
     func testOptimizedRoute() async throws {
-        let req = OptimizedRouteRequest(id: "optimized_route",
+        let req = OptimizedRouteRequest(units: .mi,
+                                        id: "optimized_route",
                                         locations: [
                                             locationA,
                                             locationB,
@@ -48,8 +49,7 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
                                             locationA,
                                         ],
                                         costing: .auto,
-                                        costingOptions: CostingOptions(auto: AutoCostingOptions(useHighways: 0.3)),
-                                        directionsOptions: DirectionsOptions(units: .mi))
+                                        costingOptions: CostingOptions(auto: AutoCostingOptions(useHighways: 0.3)))
         let res = try await RoutingAPI.optimizedRoute(optimizedRouteRequest: req)
         XCTAssertEqual(req.id, res.id)
         XCTAssertEqual(res.trip.status, 0)
@@ -69,8 +69,8 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
                                 costing: .pedestrian)
         let res = try await RoutingAPI.timeDistanceMatrix(matrixRequest: req)
         XCTAssertEqual(req.id, res.id)
-        XCTAssertEqual([req.sources], res.sources)
-        XCTAssertEqual([req.targets], res.targets)
+        XCTAssertEqual(req.sources.count, res.sources.count)
+        XCTAssertEqual(req.targets.count, res.targets.count)
         XCTAssert(res.sourcesToTargets[0].count > 1)
         XCTAssertEqual(res.units, .kilometers)
     }

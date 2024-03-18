@@ -76,10 +76,9 @@ public enum APIHelper {
                 if !item.value.isExplode {
                     result.append(URLQueryItem(name: item.key, value: collectionValues.joined(separator: ",")))
                 } else {
-                    collectionValues
-                        .forEach { value in
-                            result.append(URLQueryItem(name: item.key, value: value))
-                        }
+                    for value in collectionValues {
+                        result.append(URLQueryItem(name: item.key, value: value))
+                    }
                 }
 
             } else if let value = item.value.wrappedValue {

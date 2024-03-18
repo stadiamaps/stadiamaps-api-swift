@@ -11,12 +11,12 @@ import Foundation
 #endif
 
 public struct PeliasResponse: Codable, JSONEncodable, Hashable {
-    public var geocoding: PeliasResponseGeocoding
+    public var geocoding: GeocodingObject
     /** An array of 4 floating point numbers representing the (W, S, E, N) extremes of the features found. */
     public var bbox: [Double]?
     public var features: [PeliasGeoJSONFeature]
 
-    public init(geocoding: PeliasResponseGeocoding, bbox: [Double]? = nil, features: [PeliasGeoJSONFeature]) {
+    public init(geocoding: GeocodingObject, bbox: [Double]? = nil, features: [PeliasGeoJSONFeature]) {
         self.geocoding = geocoding
         self.bbox = bbox
         self.features = features

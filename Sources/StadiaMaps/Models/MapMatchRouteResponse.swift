@@ -13,18 +13,21 @@ import Foundation
 public struct MapMatchRouteResponse: Codable, JSONEncodable, Hashable {
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
-    public var trip: RouteResponseTrip
+    public var trip: RouteTrip
+    public var alternates: [RouteTrip]?
     public var linearReferences: [String]?
 
-    public init(id: String? = nil, trip: RouteResponseTrip, linearReferences: [String]? = nil) {
+    public init(id: String? = nil, trip: RouteTrip, alternates: [RouteTrip]? = nil, linearReferences: [String]? = nil) {
         self.id = id
         self.trip = trip
+        self.alternates = alternates
         self.linearReferences = linearReferences
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case id
         case trip
+        case alternates
         case linearReferences = "linear_references"
     }
 
@@ -34,6 +37,7 @@ public struct MapMatchRouteResponse: Codable, JSONEncodable, Hashable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(id, forKey: .id)
         try container.encode(trip, forKey: .trip)
+        try container.encodeIfPresent(alternates, forKey: .alternates)
         try container.encodeIfPresent(linearReferences, forKey: .linearReferences)
     }
 }

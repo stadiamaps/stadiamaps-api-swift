@@ -11,46 +11,67 @@ import Foundation
 #endif
 
 public struct RouteRequest: Codable, JSONEncodable, Hashable {
+    public enum DirectionsType: String, Codable, CaseIterable {
+        case _none = "none"
+        case maneuvers
+        case instructions
+    }
+
+    public var units: DistanceUnit?
+    public var language: ValhallaLanguages?
+    /** The level of directional narrative to include. Locations and times will always be returned, but narrative generation verbosity can be controlled with this parameter. */
+    public var directionsType: DirectionsType? = .instructions
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     public var locations: [RoutingWaypoint]
     public var costing: CostingModel
     public var costingOptions: CostingOptions?
-    public var avoidLocations: [RoutingWaypoint]?
-    /** One or multiple exterior rings of polygons in the form of nested JSON arrays. Roads intersecting these rings will be avoided during path finding. Open rings will be closed automatically. */
-    public var avoidPolygons: [[[Double]]]?
-    public var directionsOptions: DirectionsOptions?
+    /** This has the same format as the locations list. Locations are mapped to the closed road(s), and these road(s) are excluded from the route path computation. */
+    public var excludeLocations: [RoutingWaypoint]?
+    /** One or multiple exterior rings of polygons in the form of nested JSON arrays. Roads intersecting these rings will be avoided during path finding. Open rings will be closed automatically. If you only need to avoid a few specific roads, it's much more efficient to use `exclude_locations`. */
+    public var excludePolygons: [[[Double]]]?
+    /** How many alternate routes are desired. Note that fewer or no alternates may be returned. Alternates are not yet supported on routes with more than 2 locations or on time-dependent routes. */
+    public var alternates: Int?
 
-    public init(id: String? = nil, locations: [RoutingWaypoint], costing: CostingModel, costingOptions: CostingOptions? = nil, avoidLocations: [RoutingWaypoint]? = nil, avoidPolygons: [[[Double]]]? = nil, directionsOptions: DirectionsOptions? = nil) {
+    public init(units: DistanceUnit? = nil, language: ValhallaLanguages? = nil, directionsType: DirectionsType? = .instructions, id: String? = nil, locations: [RoutingWaypoint], costing: CostingModel, costingOptions: CostingOptions? = nil, excludeLocations: [RoutingWaypoint]? = nil, excludePolygons: [[[Double]]]? = nil, alternates: Int? = nil) {
+        self.units = units
+        self.language = language
+        self.directionsType = directionsType
         self.id = id
         self.locations = locations
         self.costing = costing
         self.costingOptions = costingOptions
-        self.avoidLocations = avoidLocations
-        self.avoidPolygons = avoidPolygons
-        self.directionsOptions = directionsOptions
+        self.excludeLocations = excludeLocations
+        self.excludePolygons = excludePolygons
+        self.alternates = alternates
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
+        case units
+        case language
+        case directionsType = "directions_type"
         case id
         case locations
         case costing
         case costingOptions = "costing_options"
-        case avoidLocations = "avoid_locations"
-        case avoidPolygons = "avoid_polygons"
-        case directionsOptions = "directions_options"
+        case excludeLocations = "exclude_locations"
+        case excludePolygons = "exclude_polygons"
+        case alternates
     }
 
     // Encodable protocol methods
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(units, forKey: .units)
+        try container.encodeIfPresent(language, forKey: .language)
+        try container.encodeIfPresent(directionsType, forKey: .directionsType)
         try container.encodeIfPresent(id, forKey: .id)
         try container.encode(locations, forKey: .locations)
         try container.encode(costing, forKey: .costing)
         try container.encodeIfPresent(costingOptions, forKey: .costingOptions)
-        try container.encodeIfPresent(avoidLocations, forKey: .avoidLocations)
-        try container.encodeIfPresent(avoidPolygons, forKey: .avoidPolygons)
-        try container.encodeIfPresent(directionsOptions, forKey: .directionsOptions)
+        try container.encodeIfPresent(excludeLocations, forKey: .excludeLocations)
+        try container.encodeIfPresent(excludePolygons, forKey: .excludePolygons)
+        try container.encodeIfPresent(alternates, forKey: .alternates)
     }
 }

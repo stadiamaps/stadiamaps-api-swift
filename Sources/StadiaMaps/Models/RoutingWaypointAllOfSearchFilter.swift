@@ -19,7 +19,9 @@ public struct RoutingWaypointAllOfSearchFilter: Codable, JSONEncodable, Hashable
     public var excludeRamp: Bool? = false
     /** Excludes roads marked as closed */
     public var excludeClosures: Bool? = true
+    /** The lowest road class allowed */
     public var minRoadClass: RoadClass?
+    /** The highest road class allowed */
     public var maxRoadClass: RoadClass?
 
     public init(excludeTunnel: Bool? = false, excludeBridge: Bool? = false, excludeRamp: Bool? = false, excludeClosures: Bool? = true, minRoadClass: RoadClass? = nil, maxRoadClass: RoadClass? = nil) {

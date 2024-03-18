@@ -63,8 +63,10 @@ public struct AutoCostingOptions: Codable, JSONEncodable, Hashable {
     public var includeHov3: Bool? = false
     /** If true, indicates the desire to include toll roads which require the driver to pay a toll if the occupant requirement isn't met */
     public var includeHot: Bool? = false
+    /** A factor that multiplies the cost when alleys are encountered. */
+    public var alleyFactor: Double? = 1
 
-    public init(maneuverPenalty: Int? = 5, gateCost: Int? = 15, gatePenalty: Int? = 300, countryCrossingCost: Int? = 600, countryCrossingPenalty: Int? = 0, servicePenalty: Int? = nil, serviceFactor: Double? = 1, useLivingStreets: Double? = nil, useFerry: Double? = 0.5, height: Double? = 1.9, width: Double? = 1.6, tollBoothCost: Int? = 15, tollBoothPenalty: Int? = 0, ferryCost: Int? = 300, useHighways: Double? = 0.5, useTolls: Double? = 0.5, useTracks: Double? = nil, topSpeed: Int? = 140, shortest: Bool? = false, ignoreClosures: Bool? = false, includeHov2: Bool? = false, includeHov3: Bool? = false, includeHot: Bool? = false) {
+    public init(maneuverPenalty: Int? = 5, gateCost: Int? = 15, gatePenalty: Int? = 300, countryCrossingCost: Int? = 600, countryCrossingPenalty: Int? = 0, servicePenalty: Int? = nil, serviceFactor: Double? = 1, useLivingStreets: Double? = nil, useFerry: Double? = 0.5, height: Double? = 1.9, width: Double? = 1.6, tollBoothCost: Int? = 15, tollBoothPenalty: Int? = 0, ferryCost: Int? = 300, useHighways: Double? = 0.5, useTolls: Double? = 0.5, useTracks: Double? = nil, topSpeed: Int? = 140, shortest: Bool? = false, ignoreClosures: Bool? = false, includeHov2: Bool? = false, includeHov3: Bool? = false, includeHot: Bool? = false, alleyFactor: Double? = 1) {
         self.maneuverPenalty = maneuverPenalty
         self.gateCost = gateCost
         self.gatePenalty = gatePenalty
@@ -88,6 +90,7 @@ public struct AutoCostingOptions: Codable, JSONEncodable, Hashable {
         self.includeHov2 = includeHov2
         self.includeHov3 = includeHov3
         self.includeHot = includeHot
+        self.alleyFactor = alleyFactor
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -114,6 +117,7 @@ public struct AutoCostingOptions: Codable, JSONEncodable, Hashable {
         case includeHov2 = "include_hov2"
         case includeHov3 = "include_hov3"
         case includeHot = "include_hot"
+        case alleyFactor = "alley_factor"
     }
 
     // Encodable protocol methods
@@ -143,5 +147,6 @@ public struct AutoCostingOptions: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(includeHov2, forKey: .includeHov2)
         try container.encodeIfPresent(includeHov3, forKey: .includeHov3)
         try container.encodeIfPresent(includeHot, forKey: .includeHot)
+        try container.encodeIfPresent(alleyFactor, forKey: .alleyFactor)
     }
 }

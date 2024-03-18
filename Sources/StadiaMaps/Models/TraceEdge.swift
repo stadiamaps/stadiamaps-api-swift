@@ -88,13 +88,13 @@ public struct TraceEdge: Codable, JSONEncodable, Hashable {
     public var toll: Bool?
     /** True if the edge has rough payment. */
     public var unpaved: Bool?
-    /** True if the edge has a tunnel. */
+    /** True if the edge is a tunnel. */
     public var tunnel: Bool?
-    /** True if the edge has a bridge. */
+    /** True if the edge is a bridge. */
     public var bridge: Bool?
-    /** True if the edge has a roundabout. */
+    /** True if the edge is a roundabout. */
     public var roundabout: Bool?
-    /** True if the edge has an internal intersection. */
+    /** True if the edge is an internal intersection. */
     public var internalIntersection: Bool?
     /** True if the edge is in an area where you must drive on the right side of the road. */
     public var driveOnRight: Bool?

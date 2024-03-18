@@ -13,7 +13,6 @@ import Foundation
 public enum MatrixCostingModel: String, Codable, CaseIterable {
     case auto
     case bus
-    case hov
     case taxi
     case truck
     case bicycle

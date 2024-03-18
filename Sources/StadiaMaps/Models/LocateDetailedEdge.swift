@@ -73,9 +73,9 @@ public struct LocateDetailedEdge: Codable, JSONEncodable, Hashable {
     /** Is the edge part of a bridge? */
     public var bridge: Bool?
     public var classification: HighwayClassification?
-    /** Is the edge part of a toll road? */
+    /** Is the edge a toll road? */
     public var toll: Bool?
-    /** Is the edge part of a tunnel? */
+    /** Is the edge a tunnel? */
     public var tunnel: Bool?
 
     public init(sidewalkLeft: Bool? = nil, sidewalkRight: Bool? = nil, laneCount: Int? = nil, stopSign: Bool? = nil, sacScale: SacScale? = nil, yieldSign: Bool? = nil, notThru: Bool? = nil, forward: Bool? = nil, endNode: NodeId? = nil, truckRoute: Bool? = nil, speeds: Speeds? = nil, bikeNetwork: Bool? = nil, roundAbout: Bool? = nil, trafficSignal: Bool? = nil, accessRestriction: Bool? = nil, destinationOnly: Bool? = nil, geoAttributes: GeoAttributes? = nil, startRestriction: Restrictions? = nil, cycleLane: CycleLane? = nil, endRestriction: Restrictions? = nil, seasonal: Bool? = nil, countryCrossing: Bool? = nil, partOfComplexRestriction: Bool? = nil, hasSign: Bool? = nil, access: Restrictions? = nil, bridge: Bool? = nil, classification: HighwayClassification? = nil, toll: Bool? = nil, tunnel: Bool? = nil) {

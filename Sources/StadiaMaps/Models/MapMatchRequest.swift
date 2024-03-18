@@ -17,6 +17,12 @@ public struct MapMatchRequest: Codable, JSONEncodable, Hashable {
         case walkOrSnap = "walk_or_snap"
     }
 
+    public enum DirectionsType: String, Codable, CaseIterable {
+        case _none = "none"
+        case maneuvers
+        case instructions
+    }
+
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     /** REQUIRED if `encoded_polyline` is not present. Note that `break` type locations are only supported when `shape_match` is set to `map_match`. */
@@ -27,7 +33,10 @@ public struct MapMatchRequest: Codable, JSONEncodable, Hashable {
     public var costingOptions: CostingOptions?
     /** Three snapping modes provide some control over how the map matching occurs. `edge_walk` is fast, but requires extremely precise data that matches the route graph almost perfectly. `map_snap` can handle significantly noisier data, but is very expensive. `walk_or_snap`, the default, tries to use edge walking first and falls back to map matching if edge walking fails. In general, you should not need to change this parameter unless you want to trace a multi-leg route with multiple `break` locations in the `shape`. */
     public var shapeMatch: ShapeMatch?
-    public var directionsOptions: DirectionsOptions?
+    public var units: DistanceUnit?
+    public var language: ValhallaLanguages?
+    /** The level of directional narrative to include. Locations and times will always be returned, but narrative generation verbosity can be controlled with this parameter. */
+    public var directionsType: DirectionsType? = .instructions
     /** The timestamp at the start of the trace. Combined with `durations`, this provides a way to include timing information for an `encoded_polyline` trace. */
     public var beginTime: Int?
     /** A list of durations (in seconds) between each successive pair of points in a polyline. */
@@ -38,14 +47,16 @@ public struct MapMatchRequest: Codable, JSONEncodable, Hashable {
     /** If true, the response will include a `linear_references` value that contains an array of base64-encoded [OpenLR location references](https://www.openlr-association.com/fileadmin/user_upload/openlr-whitepaper_v1.5.pdf), one for each graph edge of the road network matched by the trace. */
     public var linearReferences: Bool? = false
 
-    public init(id: String? = nil, shape: [MapMatchWaypoint]? = nil, encodedPolyline: String? = nil, costing: MapMatchCostingModel, costingOptions: CostingOptions? = nil, shapeMatch: ShapeMatch? = nil, directionsOptions: DirectionsOptions? = nil, beginTime: Int? = nil, durations: Int? = nil, useTimestamps: Bool? = false, traceOptions: MapMatchTraceOptions? = nil, linearReferences: Bool? = false) {
+    public init(id: String? = nil, shape: [MapMatchWaypoint]? = nil, encodedPolyline: String? = nil, costing: MapMatchCostingModel, costingOptions: CostingOptions? = nil, shapeMatch: ShapeMatch? = nil, units: DistanceUnit? = nil, language: ValhallaLanguages? = nil, directionsType: DirectionsType? = .instructions, beginTime: Int? = nil, durations: Int? = nil, useTimestamps: Bool? = false, traceOptions: MapMatchTraceOptions? = nil, linearReferences: Bool? = false) {
         self.id = id
         self.shape = shape
         self.encodedPolyline = encodedPolyline
         self.costing = costing
         self.costingOptions = costingOptions
         self.shapeMatch = shapeMatch
-        self.directionsOptions = directionsOptions
+        self.units = units
+        self.language = language
+        self.directionsType = directionsType
         self.beginTime = beginTime
         self.durations = durations
         self.useTimestamps = useTimestamps
@@ -60,7 +71,9 @@ public struct MapMatchRequest: Codable, JSONEncodable, Hashable {
         case costing
         case costingOptions = "costing_options"
         case shapeMatch = "shape_match"
-        case directionsOptions = "directions_options"
+        case units
+        case language
+        case directionsType = "directions_type"
         case beginTime = "begin_time"
         case durations
         case useTimestamps = "use_timestamps"
@@ -78,7 +91,9 @@ public struct MapMatchRequest: Codable, JSONEncodable, Hashable {
         try container.encode(costing, forKey: .costing)
         try container.encodeIfPresent(costingOptions, forKey: .costingOptions)
         try container.encodeIfPresent(shapeMatch, forKey: .shapeMatch)
-        try container.encodeIfPresent(directionsOptions, forKey: .directionsOptions)
+        try container.encodeIfPresent(units, forKey: .units)
+        try container.encodeIfPresent(language, forKey: .language)
+        try container.encodeIfPresent(directionsType, forKey: .directionsType)
         try container.encodeIfPresent(beginTime, forKey: .beginTime)
         try container.encodeIfPresent(durations, forKey: .durations)
         try container.encodeIfPresent(useTimestamps, forKey: .useTimestamps)

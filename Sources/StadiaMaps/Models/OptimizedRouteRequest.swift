@@ -11,38 +11,53 @@ import Foundation
 #endif
 
 public struct OptimizedRouteRequest: Codable, JSONEncodable, Hashable {
+    public enum DirectionsType: String, Codable, CaseIterable {
+        case _none = "none"
+        case maneuvers
+        case instructions
+    }
+
+    public var units: DistanceUnit?
+    public var language: ValhallaLanguages?
+    /** The level of directional narrative to include. Locations and times will always be returned, but narrative generation verbosity can be controlled with this parameter. */
+    public var directionsType: DirectionsType? = .instructions
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     /** The list of locations. The first and last are assumed to be the start and end points, and all intermediate points are locations that you want to visit along the way. */
     public var locations: [Coordinate]
     public var costing: MatrixCostingModel
     public var costingOptions: CostingOptions?
-    public var directionsOptions: DirectionsOptions?
 
-    public init(id: String? = nil, locations: [Coordinate], costing: MatrixCostingModel, costingOptions: CostingOptions? = nil, directionsOptions: DirectionsOptions? = nil) {
+    public init(units: DistanceUnit? = nil, language: ValhallaLanguages? = nil, directionsType: DirectionsType? = .instructions, id: String? = nil, locations: [Coordinate], costing: MatrixCostingModel, costingOptions: CostingOptions? = nil) {
+        self.units = units
+        self.language = language
+        self.directionsType = directionsType
         self.id = id
         self.locations = locations
         self.costing = costing
         self.costingOptions = costingOptions
-        self.directionsOptions = directionsOptions
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
+        case units
+        case language
+        case directionsType = "directions_type"
         case id
         case locations
         case costing
         case costingOptions = "costing_options"
-        case directionsOptions = "directions_options"
     }
 
     // Encodable protocol methods
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(units, forKey: .units)
+        try container.encodeIfPresent(language, forKey: .language)
+        try container.encodeIfPresent(directionsType, forKey: .directionsType)
         try container.encodeIfPresent(id, forKey: .id)
         try container.encode(locations, forKey: .locations)
         try container.encode(costing, forKey: .costing)
         try container.encodeIfPresent(costingOptions, forKey: .costingOptions)
-        try container.encodeIfPresent(directionsOptions, forKey: .directionsOptions)
     }
 }

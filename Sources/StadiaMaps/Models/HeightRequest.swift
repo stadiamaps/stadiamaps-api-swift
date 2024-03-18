@@ -17,6 +17,7 @@ public struct HeightRequest: Codable, JSONEncodable, Hashable {
     }
 
     static let heightPrecisionRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: 2, exclusiveMaximum: false, multipleOf: nil)
+    static let resampleDistanceRule = NumericRule<Int>(minimum: 10, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     /** REQUIRED if `encoded_polyline` is not present. */
@@ -29,14 +30,17 @@ public struct HeightRequest: Codable, JSONEncodable, Hashable {
     public var range: Bool? = false
     /** The decimal precision (number of digits after the point) of the output. When 0, integer values are returned. Valid values are 0, 1, and 2. */
     public var heightPrecision: Int? = 0
+    /** The distance at which the input polyline should be sampled to provide uniform distances between points. If not set, the input shape will be used as-is. */
+    public var resampleDistance: Int?
 
-    public init(id: String? = nil, shape: [Coordinate]? = nil, encodedPolyline: String? = nil, shapeFormat: ShapeFormat? = .polyline6, range: Bool? = false, heightPrecision: Int? = 0) {
+    public init(id: String? = nil, shape: [Coordinate]? = nil, encodedPolyline: String? = nil, shapeFormat: ShapeFormat? = .polyline6, range: Bool? = false, heightPrecision: Int? = 0, resampleDistance: Int? = nil) {
         self.id = id
         self.shape = shape
         self.encodedPolyline = encodedPolyline
         self.shapeFormat = shapeFormat
         self.range = range
         self.heightPrecision = heightPrecision
+        self.resampleDistance = resampleDistance
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -46,6 +50,7 @@ public struct HeightRequest: Codable, JSONEncodable, Hashable {
         case shapeFormat = "shape_format"
         case range
         case heightPrecision = "height_precision"
+        case resampleDistance = "resample_distance"
     }
 
     // Encodable protocol methods
@@ -58,5 +63,6 @@ public struct HeightRequest: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(shapeFormat, forKey: .shapeFormat)
         try container.encodeIfPresent(range, forKey: .range)
         try container.encodeIfPresent(heightPrecision, forKey: .heightPrecision)
+        try container.encodeIfPresent(resampleDistance, forKey: .resampleDistance)
     }
 }

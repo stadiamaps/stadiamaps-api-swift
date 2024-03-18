@@ -11,6 +11,16 @@ import Foundation
 #endif
 
 public struct MatrixRequest: Codable, JSONEncodable, Hashable {
+    public enum DirectionsType: String, Codable, CaseIterable {
+        case _none = "none"
+        case maneuvers
+        case instructions
+    }
+
+    public var units: DistanceUnit?
+    public var language: ValhallaLanguages?
+    /** The level of directional narrative to include. Locations and times will always be returned, but narrative generation verbosity can be controlled with this parameter. */
+    public var directionsType: DirectionsType? = .instructions
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     /** The list of starting locations */
@@ -21,38 +31,43 @@ public struct MatrixRequest: Codable, JSONEncodable, Hashable {
     public var costingOptions: CostingOptions?
     /** Only applicable to one-to-many or many-to-one requests. This defaults to all locations. When specified explicitly, this option allows a partial result to be returned. This is basically equivalent to \"find the closest/best locations out of the full set.\" This can have a dramatic improvement for large requests. */
     public var matrixLocations: Int?
-    public var directionsOptions: DirectionsOptions?
 
-    public init(id: String? = nil, sources: [Coordinate], targets: [Coordinate], costing: MatrixCostingModel, costingOptions: CostingOptions? = nil, matrixLocations: Int? = nil, directionsOptions: DirectionsOptions? = nil) {
+    public init(units: DistanceUnit? = nil, language: ValhallaLanguages? = nil, directionsType: DirectionsType? = .instructions, id: String? = nil, sources: [Coordinate], targets: [Coordinate], costing: MatrixCostingModel, costingOptions: CostingOptions? = nil, matrixLocations: Int? = nil) {
+        self.units = units
+        self.language = language
+        self.directionsType = directionsType
         self.id = id
         self.sources = sources
         self.targets = targets
         self.costing = costing
         self.costingOptions = costingOptions
         self.matrixLocations = matrixLocations
-        self.directionsOptions = directionsOptions
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
+        case units
+        case language
+        case directionsType = "directions_type"
         case id
         case sources
         case targets
         case costing
         case costingOptions = "costing_options"
         case matrixLocations = "matrix_locations"
-        case directionsOptions = "directions_options"
     }
 
     // Encodable protocol methods
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(units, forKey: .units)
+        try container.encodeIfPresent(language, forKey: .language)
+        try container.encodeIfPresent(directionsType, forKey: .directionsType)
         try container.encodeIfPresent(id, forKey: .id)
         try container.encode(sources, forKey: .sources)
         try container.encode(targets, forKey: .targets)
         try container.encode(costing, forKey: .costing)
         try container.encodeIfPresent(costingOptions, forKey: .costingOptions)
         try container.encodeIfPresent(matrixLocations, forKey: .matrixLocations)
-        try container.encodeIfPresent(directionsOptions, forKey: .directionsOptions)
     }
 }

@@ -13,16 +13,19 @@ import Foundation
 public struct RouteResponse: Codable, JSONEncodable, Hashable {
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
-    public var trip: RouteResponseTrip
+    public var trip: RouteTrip
+    public var alternates: [RouteTrip]?
 
-    public init(id: String? = nil, trip: RouteResponseTrip) {
+    public init(id: String? = nil, trip: RouteTrip, alternates: [RouteTrip]? = nil) {
         self.id = id
         self.trip = trip
+        self.alternates = alternates
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case id
         case trip
+        case alternates
     }
 
     // Encodable protocol methods
@@ -31,5 +34,6 @@ public struct RouteResponse: Codable, JSONEncodable, Hashable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(id, forKey: .id)
         try container.encode(trip, forKey: .trip)
+        try container.encodeIfPresent(alternates, forKey: .alternates)
     }
 }

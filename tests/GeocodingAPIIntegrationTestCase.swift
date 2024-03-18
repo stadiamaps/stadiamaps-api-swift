@@ -2,7 +2,7 @@ import StadiaMaps
 import XCTest
 
 final class GeocodingAPIIntegrationTestCase: IntegrationXCTestCase {
-    let address = "Põhja pst 27a"
+    let address = "Põhja pst 27"
 
     func testAutocomplete() async throws {
         let res = try await GeocodingAPI.autocomplete(text: address)

@@ -3,11 +3,11 @@ targets:
   StadiaMaps:
     type: framework
     platform: iOS
-    deploymentTarget: "9.0"
+    deploymentTarget: "11.0"
     sources: [Sources]
     info:
       path: ./Info.plist
-      version: 5.0.6
+      version: 6.0.0
     settings:
       APPLICATION_EXTENSION_API_ONLY: true
     scheme: {}
