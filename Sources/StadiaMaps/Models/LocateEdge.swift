@@ -18,10 +18,12 @@ public struct LocateEdge: Codable, JSONEncodable, Hashable {
     }
 
     public var edgeId: NodeId?
-    public var correlatedLat: Double?
-    public var correlatedLon: Double?
-    public var percentAlong: Double?
-    public var sideOfStreet: SideOfStreet?
+    /** The OSM way ID associated with this edge (absent in verbose response; see the edge info). */
+    public var wayId: Int?
+    public var correlatedLat: Double
+    public var correlatedLon: Double
+    public var percentAlong: Double
+    public var sideOfStreet: SideOfStreet
     /** A base64-encoded [OpenLR location reference](https://www.openlr-association.com/fileadmin/user_upload/openlr-whitepaper_v1.5.pdf), for a graph edge of the road network matched by the query. */
     public var linearReference: String?
     public var outboundReach: Int?
@@ -34,8 +36,9 @@ public struct LocateEdge: Codable, JSONEncodable, Hashable {
     public var edge: LocateDetailedEdge?
     public var warnings: [String]?
 
-    public init(edgeId: NodeId? = nil, correlatedLat: Double? = nil, correlatedLon: Double? = nil, percentAlong: Double? = nil, sideOfStreet: SideOfStreet? = nil, linearReference: String? = nil, outboundReach: Int? = nil, heading: Float? = nil, inboundReach: Int? = nil, distance: Float? = nil, predictedSpeeds: [Int]? = nil, edgeInfo: LocateEdgeInfo? = nil, edge: LocateDetailedEdge? = nil, warnings: [String]? = nil) {
+    public init(edgeId: NodeId? = nil, wayId: Int? = nil, correlatedLat: Double, correlatedLon: Double, percentAlong: Double, sideOfStreet: SideOfStreet, linearReference: String? = nil, outboundReach: Int? = nil, heading: Float? = nil, inboundReach: Int? = nil, distance: Float? = nil, predictedSpeeds: [Int]? = nil, edgeInfo: LocateEdgeInfo? = nil, edge: LocateDetailedEdge? = nil, warnings: [String]? = nil) {
         self.edgeId = edgeId
+        self.wayId = wayId
         self.correlatedLat = correlatedLat
         self.correlatedLon = correlatedLon
         self.percentAlong = percentAlong
@@ -53,6 +56,7 @@ public struct LocateEdge: Codable, JSONEncodable, Hashable {
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case edgeId = "edge_id"
+        case wayId = "way_id"
         case correlatedLat = "correlated_lat"
         case correlatedLon = "correlated_lon"
         case percentAlong = "percent_along"
@@ -73,10 +77,11 @@ public struct LocateEdge: Codable, JSONEncodable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(edgeId, forKey: .edgeId)
-        try container.encodeIfPresent(correlatedLat, forKey: .correlatedLat)
-        try container.encodeIfPresent(correlatedLon, forKey: .correlatedLon)
-        try container.encodeIfPresent(percentAlong, forKey: .percentAlong)
-        try container.encodeIfPresent(sideOfStreet, forKey: .sideOfStreet)
+        try container.encodeIfPresent(wayId, forKey: .wayId)
+        try container.encode(correlatedLat, forKey: .correlatedLat)
+        try container.encode(correlatedLon, forKey: .correlatedLon)
+        try container.encode(percentAlong, forKey: .percentAlong)
+        try container.encode(sideOfStreet, forKey: .sideOfStreet)
         try container.encodeIfPresent(linearReference, forKey: .linearReference)
         try container.encodeIfPresent(outboundReach, forKey: .outboundReach)
         try container.encodeIfPresent(heading, forKey: .heading)

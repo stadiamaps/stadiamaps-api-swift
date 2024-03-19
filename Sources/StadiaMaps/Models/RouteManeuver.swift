@@ -17,7 +17,6 @@ public struct RouteManeuver: Codable, JSONEncodable, Hashable {
         case bus
         case tractorTrailer = "tractor_trailer"
         case motorScooter = "motor_scooter"
-        case golfCart = "golf_cart"
         case foot
         case wheelchair
         case segway
@@ -32,6 +31,8 @@ public struct RouteManeuver: Codable, JSONEncodable, Hashable {
         case cableCar = "cable_car"
         case gondola
         case funicular
+        case golfCart = "golf_cart"
+        case lowSpeedVehicle = "low_speed_vehicle"
     }
 
     public enum BssManeuverType: String, Codable, CaseIterable {

@@ -27,6 +27,8 @@ public struct TraceEdge: Codable, JSONEncodable, Hashable {
         case motorcycle
         case bus
         case tractorTrailer = "tractor_trailer"
+        case golfCart = "golf_cart"
+        case lowSpeedVehicle = "low_speed_vehicle"
     }
 
     public enum PedestrianType: String, Codable, CaseIterable {
