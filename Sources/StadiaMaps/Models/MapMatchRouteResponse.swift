@@ -14,10 +14,10 @@ public struct MapMatchRouteResponse: Codable, JSONEncodable, Hashable {
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     public var trip: RouteTrip
-    public var alternates: [RouteTrip]?
+    public var alternates: [RouteResponseAlternatesInner]?
     public var linearReferences: [String]?
 
-    public init(id: String? = nil, trip: RouteTrip, alternates: [RouteTrip]? = nil, linearReferences: [String]? = nil) {
+    public init(id: String? = nil, trip: RouteTrip, alternates: [RouteResponseAlternatesInner]? = nil, linearReferences: [String]? = nil) {
         self.id = id
         self.trip = trip
         self.alternates = alternates

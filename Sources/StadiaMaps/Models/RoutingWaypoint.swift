@@ -24,6 +24,8 @@ public struct RoutingWaypoint: Codable, JSONEncodable, Hashable {
         case either
     }
 
+    static let latRule = NumericRule<Double>(minimum: -90, exclusiveMinimum: false, maximum: 90, exclusiveMaximum: false, multipleOf: nil)
+    static let lonRule = NumericRule<Double>(minimum: -180, exclusiveMinimum: false, maximum: 180, exclusiveMaximum: false, multipleOf: nil)
     static let headingRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: 360, exclusiveMaximum: false, multipleOf: nil)
     static let headingToleranceRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: 360, exclusiveMaximum: false, multipleOf: nil)
     static let minimumReachabilityRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)

@@ -84,6 +84,7 @@ Sources/StadiaMaps/Models/RouteLeg.swift
 Sources/StadiaMaps/Models/RouteManeuver.swift
 Sources/StadiaMaps/Models/RouteRequest.swift
 Sources/StadiaMaps/Models/RouteResponse.swift
+Sources/StadiaMaps/Models/RouteResponseAlternatesInner.swift
 Sources/StadiaMaps/Models/RouteSummary.swift
 Sources/StadiaMaps/Models/RouteTrip.swift
 Sources/StadiaMaps/Models/RoutingResponseWaypoint.swift
@@ -181,6 +182,7 @@ docs/RouteLeg.md
 docs/RouteManeuver.md
 docs/RouteRequest.md
 docs/RouteResponse.md
+docs/RouteResponseAlternatesInner.md
 docs/RouteSummary.md
 docs/RouteTrip.md
 docs/RoutingAPI.md

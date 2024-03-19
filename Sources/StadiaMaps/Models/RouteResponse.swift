@@ -14,9 +14,9 @@ public struct RouteResponse: Codable, JSONEncodable, Hashable {
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     public var trip: RouteTrip
-    public var alternates: [RouteTrip]?
+    public var alternates: [RouteResponseAlternatesInner]?
 
-    public init(id: String? = nil, trip: RouteTrip, alternates: [RouteTrip]? = nil) {
+    public init(id: String? = nil, trip: RouteTrip, alternates: [RouteResponseAlternatesInner]? = nil) {
         self.id = id
         self.trip = trip
         self.alternates = alternates
