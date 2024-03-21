@@ -41,6 +41,12 @@ public struct BicycleCostingOptions: Codable, JSONEncodable, Hashable {
     public var useLivingStreets: Double?
     /** A measure of willingness to take ferries. Values near 0 attempt to avoid ferries, and values near 1 will favour them. Note that as some routes may be impossible without ferries, 0 does not guarantee avoidance of them. */
     public var useFerry: Double? = 0.5
+    /** If set to true, ignores any restrictions (eg: turn and conditional restrictions). Useful for matching GPS traces to the road network regardless of restrictions. */
+    public var ignoreRestrictions: Bool?
+    /** If set to true, ignores most restrictions (eg: turn and conditional restrictions), but still respects restrictions that impact vehicle safety such as weight and size. */
+    public var ignoreNonVehicularRestrictions: Bool?
+    /** If set to true, ignores directional restrictions on roads. Useful for matching GPS traces to the road network regardless of restrictions. */
+    public var ignoreOneways: Bool?
     /** The type of bicycle: * Road: has narrow tires and is generally lightweight and designed for speed on paved surfaces * Hybrid or City: designed for city riding or casual riding on roads and paths with good surfaces * Cross: similar to a road bike, but has wider tires so it can handle rougher surfaces * Mountain: able to handle most surfaces, but generally heavier and slower on paved surfaces */
     public var bicycleType: BicycleType? = .hybrid
     /** The average comfortable travel speed (in kph) along smooth, flat roads. The costing will vary the speed based on the surface, bicycle type, elevation change, etc. This value should be the average sustainable cruising speed the cyclist can maintain over the entire route. The default speeds are as follows based on bicycle type:   * Road - 25kph   * Cross - 20kph   * Hybrid - 18kph   * Mountain - 16kph */
@@ -56,7 +62,7 @@ public struct BicycleCostingOptions: Codable, JSONEncodable, Hashable {
     /** A penalty (in seconds) to return a bicycle in `bikeshare` mode. */
     public var bssReturnPenalty: Int? = 0
 
-    public init(maneuverPenalty: Int? = 5, gateCost: Int? = 15, gatePenalty: Int? = 300, countryCrossingCost: Int? = 600, countryCrossingPenalty: Int? = 0, servicePenalty: Int? = nil, serviceFactor: Double? = 1, useLivingStreets: Double? = nil, useFerry: Double? = 0.5, bicycleType: BicycleType? = .hybrid, cyclingSpeed: Int? = nil, useRoads: Double? = 0.5, useHills: Double? = 0.5, avoidBadSurfaces: Double? = 0.25, bssReturnCost: Int? = 120, bssReturnPenalty: Int? = 0) {
+    public init(maneuverPenalty: Int? = 5, gateCost: Int? = 15, gatePenalty: Int? = 300, countryCrossingCost: Int? = 600, countryCrossingPenalty: Int? = 0, servicePenalty: Int? = nil, serviceFactor: Double? = 1, useLivingStreets: Double? = nil, useFerry: Double? = 0.5, ignoreRestrictions: Bool? = nil, ignoreNonVehicularRestrictions: Bool? = nil, ignoreOneways: Bool? = nil, bicycleType: BicycleType? = .hybrid, cyclingSpeed: Int? = nil, useRoads: Double? = 0.5, useHills: Double? = 0.5, avoidBadSurfaces: Double? = 0.25, bssReturnCost: Int? = 120, bssReturnPenalty: Int? = 0) {
         self.maneuverPenalty = maneuverPenalty
         self.gateCost = gateCost
         self.gatePenalty = gatePenalty
@@ -66,6 +72,9 @@ public struct BicycleCostingOptions: Codable, JSONEncodable, Hashable {
         self.serviceFactor = serviceFactor
         self.useLivingStreets = useLivingStreets
         self.useFerry = useFerry
+        self.ignoreRestrictions = ignoreRestrictions
+        self.ignoreNonVehicularRestrictions = ignoreNonVehicularRestrictions
+        self.ignoreOneways = ignoreOneways
         self.bicycleType = bicycleType
         self.cyclingSpeed = cyclingSpeed
         self.useRoads = useRoads
@@ -85,6 +94,9 @@ public struct BicycleCostingOptions: Codable, JSONEncodable, Hashable {
         case serviceFactor = "service_factor"
         case useLivingStreets = "use_living_streets"
         case useFerry = "use_ferry"
+        case ignoreRestrictions = "ignore_restrictions"
+        case ignoreNonVehicularRestrictions = "ignore_non_vehicular_restrictions"
+        case ignoreOneways = "ignore_oneways"
         case bicycleType = "bicycle_type"
         case cyclingSpeed = "cycling_speed"
         case useRoads = "use_roads"
@@ -107,6 +119,9 @@ public struct BicycleCostingOptions: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(serviceFactor, forKey: .serviceFactor)
         try container.encodeIfPresent(useLivingStreets, forKey: .useLivingStreets)
         try container.encodeIfPresent(useFerry, forKey: .useFerry)
+        try container.encodeIfPresent(ignoreRestrictions, forKey: .ignoreRestrictions)
+        try container.encodeIfPresent(ignoreNonVehicularRestrictions, forKey: .ignoreNonVehicularRestrictions)
+        try container.encodeIfPresent(ignoreOneways, forKey: .ignoreOneways)
         try container.encodeIfPresent(bicycleType, forKey: .bicycleType)
         try container.encodeIfPresent(cyclingSpeed, forKey: .cyclingSpeed)
         try container.encodeIfPresent(useRoads, forKey: .useRoads)

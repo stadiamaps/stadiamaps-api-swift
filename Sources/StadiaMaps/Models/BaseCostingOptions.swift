@@ -31,8 +31,14 @@ public struct BaseCostingOptions: Codable, JSONEncodable, Hashable {
     public var useLivingStreets: Double?
     /** A measure of willingness to take ferries. Values near 0 attempt to avoid ferries, and values near 1 will favour them. Note that as some routes may be impossible without ferries, 0 does not guarantee avoidance of them. */
     public var useFerry: Double? = 0.5
+    /** If set to true, ignores any restrictions (eg: turn and conditional restrictions). Useful for matching GPS traces to the road network regardless of restrictions. */
+    public var ignoreRestrictions: Bool?
+    /** If set to true, ignores most restrictions (eg: turn and conditional restrictions), but still respects restrictions that impact vehicle safety such as weight and size. */
+    public var ignoreNonVehicularRestrictions: Bool?
+    /** If set to true, ignores directional restrictions on roads. Useful for matching GPS traces to the road network regardless of restrictions. */
+    public var ignoreOneways: Bool?
 
-    public init(maneuverPenalty: Int? = 5, gateCost: Int? = 15, gatePenalty: Int? = 300, countryCrossingCost: Int? = 600, countryCrossingPenalty: Int? = 0, servicePenalty: Int? = nil, serviceFactor: Double? = 1, useLivingStreets: Double? = nil, useFerry: Double? = 0.5) {
+    public init(maneuverPenalty: Int? = 5, gateCost: Int? = 15, gatePenalty: Int? = 300, countryCrossingCost: Int? = 600, countryCrossingPenalty: Int? = 0, servicePenalty: Int? = nil, serviceFactor: Double? = 1, useLivingStreets: Double? = nil, useFerry: Double? = 0.5, ignoreRestrictions: Bool? = nil, ignoreNonVehicularRestrictions: Bool? = nil, ignoreOneways: Bool? = nil) {
         self.maneuverPenalty = maneuverPenalty
         self.gateCost = gateCost
         self.gatePenalty = gatePenalty
@@ -42,6 +48,9 @@ public struct BaseCostingOptions: Codable, JSONEncodable, Hashable {
         self.serviceFactor = serviceFactor
         self.useLivingStreets = useLivingStreets
         self.useFerry = useFerry
+        self.ignoreRestrictions = ignoreRestrictions
+        self.ignoreNonVehicularRestrictions = ignoreNonVehicularRestrictions
+        self.ignoreOneways = ignoreOneways
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -54,6 +63,9 @@ public struct BaseCostingOptions: Codable, JSONEncodable, Hashable {
         case serviceFactor = "service_factor"
         case useLivingStreets = "use_living_streets"
         case useFerry = "use_ferry"
+        case ignoreRestrictions = "ignore_restrictions"
+        case ignoreNonVehicularRestrictions = "ignore_non_vehicular_restrictions"
+        case ignoreOneways = "ignore_oneways"
     }
 
     // Encodable protocol methods
@@ -69,5 +81,8 @@ public struct BaseCostingOptions: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(serviceFactor, forKey: .serviceFactor)
         try container.encodeIfPresent(useLivingStreets, forKey: .useLivingStreets)
         try container.encodeIfPresent(useFerry, forKey: .useFerry)
+        try container.encodeIfPresent(ignoreRestrictions, forKey: .ignoreRestrictions)
+        try container.encodeIfPresent(ignoreNonVehicularRestrictions, forKey: .ignoreNonVehicularRestrictions)
+        try container.encodeIfPresent(ignoreOneways, forKey: .ignoreOneways)
     }
 }
