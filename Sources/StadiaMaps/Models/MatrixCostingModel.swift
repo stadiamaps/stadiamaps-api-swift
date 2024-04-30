@@ -20,4 +20,5 @@ public enum MatrixCostingModel: String, Codable, CaseIterable {
     case motorScooter = "motor_scooter"
     case motorcycle
     case pedestrian
+    case lowSpeedVehicle = "low_speed_vehicle"
 }

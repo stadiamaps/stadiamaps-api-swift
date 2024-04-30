@@ -52,6 +52,7 @@ Sources/StadiaMaps/Models/LocateEdge.swift
 Sources/StadiaMaps/Models/LocateEdgeInfo.swift
 Sources/StadiaMaps/Models/LocateNode.swift
 Sources/StadiaMaps/Models/LocateObject.swift
+Sources/StadiaMaps/Models/LowSpeedVehicleCostingOptions.swift
 Sources/StadiaMaps/Models/ManeuverSign.swift
 Sources/StadiaMaps/Models/ManeuverSignElement.swift
 Sources/StadiaMaps/Models/MapMatchCostingModel.swift
@@ -64,6 +65,7 @@ Sources/StadiaMaps/Models/MatrixCostingModel.swift
 Sources/StadiaMaps/Models/MatrixDistance.swift
 Sources/StadiaMaps/Models/MatrixRequest.swift
 Sources/StadiaMaps/Models/MatrixResponse.swift
+Sources/StadiaMaps/Models/MatrixWaypoint.swift
 Sources/StadiaMaps/Models/MotorScooterCostingOptions.swift
 Sources/StadiaMaps/Models/MotorcycleCostingOptions.swift
 Sources/StadiaMaps/Models/NearestRoadsRequest.swift
@@ -150,6 +152,7 @@ docs/LocateEdge.md
 docs/LocateEdgeInfo.md
 docs/LocateNode.md
 docs/LocateObject.md
+docs/LowSpeedVehicleCostingOptions.md
 docs/ManeuverSign.md
 docs/ManeuverSignElement.md
 docs/MapMatchCostingModel.md
@@ -162,6 +165,7 @@ docs/MatrixCostingModel.md
 docs/MatrixDistance.md
 docs/MatrixRequest.md
 docs/MatrixResponse.md
+docs/MatrixWaypoint.md
 docs/MotorScooterCostingOptions.md
 docs/MotorcycleCostingOptions.md
 docs/NearestRoadsRequest.md

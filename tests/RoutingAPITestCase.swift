@@ -79,13 +79,14 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
     func testTimeDistanceMatrix() async throws {
         let req = MatrixRequest(id: "matrix",
                                 sources: [
-                                    locationA,
+                                    MatrixWaypoint(lat: 58.891957, lon: 22.726262),
+                                    MatrixWaypoint(lat: 59.1558, lon: 23.762758),
                                 ],
                                 targets: [
-                                    locationB,
-                                    locationC,
+                                    MatrixWaypoint(lat: 59.176153, lon: 23.846605),
+                                    MatrixWaypoint(lat: 59.562853, lon: 23.096114)
                                 ],
-                                costing: .pedestrian)
+                                costing: .bicycle)
         let res = try await RoutingAPI.timeDistanceMatrix(matrixRequest: req)
         XCTAssertEqual(req.id, res.id)
         XCTAssertEqual(req.sources.count, res.sources.count)

@@ -24,15 +24,15 @@ public struct MatrixRequest: Codable, JSONEncodable, Hashable {
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     /** The list of starting locations */
-    public var sources: [Coordinate]
+    public var sources: [MatrixWaypoint]
     /** The list of ending locations */
-    public var targets: [Coordinate]
+    public var targets: [MatrixWaypoint]
     public var costing: MatrixCostingModel
     public var costingOptions: CostingOptions?
     /** Only applicable to one-to-many or many-to-one requests. This defaults to all locations. When specified explicitly, this option allows a partial result to be returned. This is basically equivalent to \"find the closest/best locations out of the full set.\" This can have a dramatic improvement for large requests. */
     public var matrixLocations: Int?
 
-    public init(units: DistanceUnit? = nil, language: ValhallaLanguages? = nil, directionsType: DirectionsType? = .instructions, id: String? = nil, sources: [Coordinate], targets: [Coordinate], costing: MatrixCostingModel, costingOptions: CostingOptions? = nil, matrixLocations: Int? = nil) {
+    public init(units: DistanceUnit? = nil, language: ValhallaLanguages? = nil, directionsType: DirectionsType? = .instructions, id: String? = nil, sources: [MatrixWaypoint], targets: [MatrixWaypoint], costing: MatrixCostingModel, costingOptions: CostingOptions? = nil, matrixLocations: Int? = nil) {
         self.units = units
         self.language = language
         self.directionsType = directionsType

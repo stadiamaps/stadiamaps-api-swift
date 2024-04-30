@@ -11,16 +11,16 @@ import Foundation
 #endif
 
 public struct MatrixDistance: Codable, JSONEncodable, Hashable {
-    /** The distance (in `units`) between the location in `sources` at `from_index` and the location in `targets` at `to_index`. */
-    public var distance: Double
-    /** The travel time (in seconds) between the location in `sources` at `from_index` and the location in `targets` at `to_index`. */
-    public var time: Int
+    /** The distance (in `units`) between the location in `sources` at `from_index` and the location in `targets` at `to_index`. This value may be 0 in the case that the source and destination are the same, and `null` if no route was found between the locations. */
+    public var distance: Double?
+    /** The travel time (in seconds) between the location in `sources` at `from_index` and the location in `targets` at `to_index`. This value may be 0 in the case that the source and destination are the same, and `null` if no route was found between the locations. */
+    public var time: Int?
     /** The index of the start location in the `sources` array. */
     public var fromIndex: Int
     /** The index of the end location in the `targets` array. */
     public var toIndex: Int
 
-    public init(distance: Double, time: Int, fromIndex: Int, toIndex: Int) {
+    public init(distance: Double?, time: Int?, fromIndex: Int, toIndex: Int) {
         self.distance = distance
         self.time = time
         self.fromIndex = fromIndex

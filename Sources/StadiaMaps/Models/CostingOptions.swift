@@ -19,8 +19,9 @@ public struct CostingOptions: Codable, JSONEncodable, Hashable {
     public var motorScooter: MotorScooterCostingOptions?
     public var motorcycle: MotorcycleCostingOptions?
     public var pedestrian: PedestrianCostingOptions?
+    public var lowSpeedVehicle: LowSpeedVehicleCostingOptions?
 
-    public init(auto: AutoCostingOptions? = nil, bus: AutoCostingOptions? = nil, taxi: AutoCostingOptions? = nil, truck: TruckCostingOptions? = nil, bicycle: BicycleCostingOptions? = nil, motorScooter: MotorScooterCostingOptions? = nil, motorcycle: MotorcycleCostingOptions? = nil, pedestrian: PedestrianCostingOptions? = nil) {
+    public init(auto: AutoCostingOptions? = nil, bus: AutoCostingOptions? = nil, taxi: AutoCostingOptions? = nil, truck: TruckCostingOptions? = nil, bicycle: BicycleCostingOptions? = nil, motorScooter: MotorScooterCostingOptions? = nil, motorcycle: MotorcycleCostingOptions? = nil, pedestrian: PedestrianCostingOptions? = nil, lowSpeedVehicle: LowSpeedVehicleCostingOptions? = nil) {
         self.auto = auto
         self.bus = bus
         self.taxi = taxi
@@ -29,6 +30,7 @@ public struct CostingOptions: Codable, JSONEncodable, Hashable {
         self.motorScooter = motorScooter
         self.motorcycle = motorcycle
         self.pedestrian = pedestrian
+        self.lowSpeedVehicle = lowSpeedVehicle
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -40,6 +42,7 @@ public struct CostingOptions: Codable, JSONEncodable, Hashable {
         case motorScooter = "motor_scooter"
         case motorcycle
         case pedestrian
+        case lowSpeedVehicle = "low_speed_vehicle"
     }
 
     // Encodable protocol methods
@@ -54,5 +57,6 @@ public struct CostingOptions: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(motorScooter, forKey: .motorScooter)
         try container.encodeIfPresent(motorcycle, forKey: .motorcycle)
         try container.encodeIfPresent(pedestrian, forKey: .pedestrian)
+        try container.encodeIfPresent(lowSpeedVehicle, forKey: .lowSpeedVehicle)
     }
 }
