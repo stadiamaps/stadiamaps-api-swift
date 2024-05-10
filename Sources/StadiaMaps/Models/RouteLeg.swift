@@ -15,17 +15,25 @@ public struct RouteLeg: Codable, JSONEncodable, Hashable {
     /** An encoded polyline (https://developers.google.com/maps/documentation/utilities/polylinealgorithm) with 6 digits of decimal precision. */
     public var shape: String
     public var summary: RouteSummary
+    /** The sampling distance between elevation values along the route. This echoes the request parameter having the same name. */
+    public var elevationInterval: Float?
+    /** An array of elevation values sampled every `elevation_interval`. Units are either metric or imperial depending on the value of `units`. */
+    public var elevation: [Float]?
 
-    public init(maneuvers: [RouteManeuver], shape: String, summary: RouteSummary) {
+    public init(maneuvers: [RouteManeuver], shape: String, summary: RouteSummary, elevationInterval: Float? = nil, elevation: [Float]? = nil) {
         self.maneuvers = maneuvers
         self.shape = shape
         self.summary = summary
+        self.elevationInterval = elevationInterval
+        self.elevation = elevation
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case maneuvers
         case shape
         case summary
+        case elevationInterval = "elevation_interval"
+        case elevation
     }
 
     // Encodable protocol methods
@@ -35,5 +43,7 @@ public struct RouteLeg: Codable, JSONEncodable, Hashable {
         try container.encode(maneuvers, forKey: .maneuvers)
         try container.encode(shape, forKey: .shape)
         try container.encode(summary, forKey: .summary)
+        try container.encodeIfPresent(elevationInterval, forKey: .elevationInterval)
+        try container.encodeIfPresent(elevation, forKey: .elevation)
     }
 }

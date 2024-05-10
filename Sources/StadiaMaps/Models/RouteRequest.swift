@@ -32,8 +32,12 @@ public struct RouteRequest: Codable, JSONEncodable, Hashable {
     public var excludePolygons: [[[Double]]]?
     /** How many alternate routes are desired. Note that fewer or no alternates may be returned. Alternates are not yet supported on routes with more than 2 locations or on time-dependent routes. */
     public var alternates: Int?
+    /** If greater than zero, attempts to include elevation along the route at regular intervals. The \"native\" internal resolution is 30m, so we recommend you use this when possible. This number is interpreted as either meters or feet depending on the unit parameter. Elevation for route sections containing a bridge or tunnel is interpolated linearly. This doesn't always match the true elevation of the bridge/tunnel, but it prevents sharp artifacts from the surrounding terrain. This functionality is unique to the route endpoint and is not available via the elevation API. */
+    public var elevationInterval: Float? = 0.0
+    /** Determines whether the output should include roundabout exit instructions. */
+    public var roundaboutExits: Bool? = true
 
-    public init(units: DistanceUnit? = nil, language: ValhallaLanguages? = nil, directionsType: DirectionsType? = .instructions, id: String? = nil, locations: [RoutingWaypoint], costing: CostingModel, costingOptions: CostingOptions? = nil, excludeLocations: [RoutingWaypoint]? = nil, excludePolygons: [[[Double]]]? = nil, alternates: Int? = nil) {
+    public init(units: DistanceUnit? = nil, language: ValhallaLanguages? = nil, directionsType: DirectionsType? = .instructions, id: String? = nil, locations: [RoutingWaypoint], costing: CostingModel, costingOptions: CostingOptions? = nil, excludeLocations: [RoutingWaypoint]? = nil, excludePolygons: [[[Double]]]? = nil, alternates: Int? = nil, elevationInterval: Float? = 0.0, roundaboutExits: Bool? = true) {
         self.units = units
         self.language = language
         self.directionsType = directionsType
@@ -44,6 +48,8 @@ public struct RouteRequest: Codable, JSONEncodable, Hashable {
         self.excludeLocations = excludeLocations
         self.excludePolygons = excludePolygons
         self.alternates = alternates
+        self.elevationInterval = elevationInterval
+        self.roundaboutExits = roundaboutExits
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -57,6 +63,8 @@ public struct RouteRequest: Codable, JSONEncodable, Hashable {
         case excludeLocations = "exclude_locations"
         case excludePolygons = "exclude_polygons"
         case alternates
+        case elevationInterval = "elevation_interval"
+        case roundaboutExits = "roundabout_exits"
     }
 
     // Encodable protocol methods
@@ -73,5 +81,7 @@ public struct RouteRequest: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(excludeLocations, forKey: .excludeLocations)
         try container.encodeIfPresent(excludePolygons, forKey: .excludePolygons)
         try container.encodeIfPresent(alternates, forKey: .alternates)
+        try container.encodeIfPresent(elevationInterval, forKey: .elevationInterval)
+        try container.encodeIfPresent(roundaboutExits, forKey: .roundaboutExits)
     }
 }

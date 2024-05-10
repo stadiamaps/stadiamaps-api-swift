@@ -41,6 +41,24 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
         XCTAssertEqual(res.alternates?.count, 1)
     }
 
+    func testRouteWithElevation() async throws {
+        let req = RouteRequest(units: .mi,
+                               id: "route",
+                               locations: [
+                                   RoutingWaypoint(lat: locationA.lat, lon: locationA.lon),
+                                   RoutingWaypoint(lat: locationB.lat, lon: locationB.lon),
+                               ],
+                               costing: .auto,
+                               costingOptions: CostingOptions(auto: AutoCostingOptions(useHighways: 0.3)),
+                               elevationInterval: 30)
+        let res = try await RoutingAPI.route(routeRequest: req)
+        XCTAssertEqual(req.id, res.id)
+        XCTAssertEqual(res.trip.status, 0)
+        XCTAssertEqual(res.trip.units, .miles)
+        XCTAssertEqual(res.trip.legs.count, 1)
+        XCTAssertGreaterThan(res.trip.legs.first?.elevation?.count ?? 0, 1)
+    }
+
     func testHybridBicycleRoute() async throws {
         // Regression test for user-reported issue
         let req = RouteRequest(units: .km,
@@ -84,7 +102,7 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
                                 ],
                                 targets: [
                                     MatrixWaypoint(lat: 59.176153, lon: 23.846605),
-                                    MatrixWaypoint(lat: 59.562853, lon: 23.096114)
+                                    MatrixWaypoint(lat: 59.562853, lon: 23.096114),
                                 ],
                                 costing: .bicycle)
         let res = try await RoutingAPI.timeDistanceMatrix(matrixRequest: req)
