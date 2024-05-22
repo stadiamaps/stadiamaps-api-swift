@@ -16,7 +16,7 @@ public struct PeliasGeoJSONProperties: Codable, JSONEncodable, Hashable {
         case centroid
     }
 
-    /** A scoped GID for this result. This can be passed to the place endpoint. Note that these are not always stable. For OSM, Geonames, and Who's on First, these are usually stable, but for other sources like OSM, no stability is guaranteed. */
+    /** A scoped GID for this result. This can be passed to the place endpoint. Note that these are not always stable. For Geonames and Who's on First, these are usually stable, but for other sources like OSM, no stability is guaranteed. */
     public var gid: String?
     /** An ID referencing the original data source (specified via source) for the result. These IDs are specific to the source that they originated from. For example, in the case of OSM, these typically look like way/123 or point/123. */
     public var sourceId: String?

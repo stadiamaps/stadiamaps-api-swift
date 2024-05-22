@@ -20,14 +20,12 @@ public struct PeliasGeoJSONFeature: Codable, JSONEncodable, Hashable {
     public var properties: PeliasGeoJSONProperties?
     /** An array of 4 floating point numbers representing the (W, S, E, N) extremes of the features found. */
     public var bbox: [Double]?
-    public var id: String?
 
-    public init(type: ModelType, geometry: GeoJSONPoint, properties: PeliasGeoJSONProperties? = nil, bbox: [Double]? = nil, id: String? = nil) {
+    public init(type: ModelType, geometry: GeoJSONPoint, properties: PeliasGeoJSONProperties? = nil, bbox: [Double]? = nil) {
         self.type = type
         self.geometry = geometry
         self.properties = properties
         self.bbox = bbox
-        self.id = id
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -35,7 +33,6 @@ public struct PeliasGeoJSONFeature: Codable, JSONEncodable, Hashable {
         case geometry
         case properties
         case bbox
-        case id
     }
 
     // Encodable protocol methods
@@ -46,6 +43,5 @@ public struct PeliasGeoJSONFeature: Codable, JSONEncodable, Hashable {
         try container.encode(geometry, forKey: .geometry)
         try container.encodeIfPresent(properties, forKey: .properties)
         try container.encodeIfPresent(bbox, forKey: .bbox)
-        try container.encodeIfPresent(id, forKey: .id)
     }
 }
