@@ -16,7 +16,11 @@ instructions from Apple.
 
 ### Authorization
 
-You will need an API key to use the Swift SDK. Learn how to get one for free: https://docs.stadiamaps.com/authentication/#generating-and-revoking-api-keys
+You will need an API key to use the Swift SDK.
+
+You can create an API key for free
+[here](https://client.stadiamaps.com/signup/?utm_source=github&utm_campaign=sdk_readme&utm_content=swift_readme)
+(no credit card required).
 
 You can configure your API key like so:
 
@@ -35,3 +39,8 @@ StadiaMapsAPI.basePath = "https://api-eu.stadiamaps.com"
 ## Examples
 
 You can find examples of how to call all of our API methods in the [integration tests](tests/).
+
+## Documentation
+
+Official documentation lives at [docs.stadiamaps.com](https://docs.stadiamaps.com/?utm_source=github&utm_campaign=sdk_readme&utm_content=swift_readme),
+where we have both long-form prose explanations of each endpoint and an interactive [API reference](https://docs.stadiamaps.com/api-reference/?utm_source=github&utm_campaign=sdk_readme&utm_content=swift_readme).
