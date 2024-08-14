@@ -15,7 +15,7 @@ public struct RouteLeg: Codable, JSONEncodable, Hashable {
     /** An encoded polyline (https://developers.google.com/maps/documentation/utilities/polylinealgorithm) with 6 digits of decimal precision. */
     public var shape: String
     public var summary: RouteSummary
-    /** The sampling distance between elevation values along the route. This echoes the request parameter having the same name. */
+    /** The sampling distance between elevation values along the route. This echoes the request parameter having the same name (converted to `units` if necessary). */
     public var elevationInterval: Float?
     /** An array of elevation values sampled every `elevation_interval`. Units are either metric or imperial depending on the value of `units`. */
     public var elevation: [Float]?

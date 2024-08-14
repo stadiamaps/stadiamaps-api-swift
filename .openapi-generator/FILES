@@ -22,6 +22,8 @@ Sources/StadiaMaps/Models/BaseCostingOptions.swift
 Sources/StadiaMaps/Models/BaseTraceRequest.swift
 Sources/StadiaMaps/Models/BicycleCostingOptions.swift
 Sources/StadiaMaps/Models/BikeNetwork.swift
+Sources/StadiaMaps/Models/BulkRequest.swift
+Sources/StadiaMaps/Models/BulkSearchResponse.swift
 Sources/StadiaMaps/Models/Contour.swift
 Sources/StadiaMaps/Models/Coordinate.swift
 Sources/StadiaMaps/Models/CostingModel.swift
@@ -92,6 +94,10 @@ Sources/StadiaMaps/Models/RouteTrip.swift
 Sources/StadiaMaps/Models/RoutingResponseWaypoint.swift
 Sources/StadiaMaps/Models/RoutingWaypoint.swift
 Sources/StadiaMaps/Models/RoutingWaypointAllOfSearchFilter.swift
+Sources/StadiaMaps/Models/SearchBulkQuery.swift
+Sources/StadiaMaps/Models/SearchQuery.swift
+Sources/StadiaMaps/Models/SearchStructuredBulkQuery.swift
+Sources/StadiaMaps/Models/SearchStructuredQuery.swift
 Sources/StadiaMaps/Models/SimpleRoutingWaypoint.swift
 Sources/StadiaMaps/Models/Speeds.swift
 Sources/StadiaMaps/Models/TraceAttributeFilterOptions.swift
@@ -120,6 +126,8 @@ docs/BaseCostingOptions.md
 docs/BaseTraceRequest.md
 docs/BicycleCostingOptions.md
 docs/BikeNetwork.md
+docs/BulkRequest.md
+docs/BulkSearchResponse.md
 docs/Contour.md
 docs/Coordinate.md
 docs/CostingModel.md
@@ -193,6 +201,10 @@ docs/RoutingAPI.md
 docs/RoutingResponseWaypoint.md
 docs/RoutingWaypoint.md
 docs/RoutingWaypointAllOfSearchFilter.md
+docs/SearchBulkQuery.md
+docs/SearchQuery.md
+docs/SearchStructuredBulkQuery.md
+docs/SearchStructuredQuery.md
 docs/SimpleRoutingWaypoint.md
 docs/Speeds.md
 docs/TraceAttributeFilterOptions.md

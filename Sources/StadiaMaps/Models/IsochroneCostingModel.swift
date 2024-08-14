@@ -12,6 +12,13 @@ import Foundation
 
 public enum IsochroneCostingModel: String, Codable, CaseIterable {
     case auto
+    case bus
+    case taxi
+    case truck
     case bicycle
+    case bikeshare
+    case motorScooter = "motor_scooter"
+    case motorcycle
     case pedestrian
+    case lowSpeedVehicle = "low_speed_vehicle"
 }

@@ -25,7 +25,7 @@ open class RoutingAPI {
     /**
      Calculate areas of equal travel time from a location.
      - POST /isochrone/v1
-     - The isochrone API lets you compute or visualize areas of roughly equal travel time based on the routing graph. The resulting polygon can be rendered on a map and shaded much like elevation contours and used for exploring urban mobility.
+     - The isochrone API computes reachable areas within a time or distance constraint. The resulting polygon can be rendered on a map and used for assessing urban mobility, planning, or as a search filter of places within a constrained range.
      - API Key:
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth

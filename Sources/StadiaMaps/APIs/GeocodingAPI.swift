@@ -289,6 +289,45 @@ open class GeocodingAPI {
     }
 
     /**
+     Quickly run a batch of geocoding queries against the search or structured search endpoints.
+
+     - parameter bulkRequest: (body)  (optional)
+     - returns: [BulkSearchResponse]
+     */
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func searchBulk(bulkRequest: [BulkRequest]? = nil) async throws -> [BulkSearchResponse] {
+        try await searchBulkWithRequestBuilder(bulkRequest: bulkRequest).execute().body
+    }
+
+    /**
+     Quickly run a batch of geocoding queries against the search or structured search endpoints.
+     - POST /geocoding/v1/search/bulk
+     - The batch endpoint lets you specify many search or structured search requests at once. Once received, all requests will be processed internally on our infrastructure, improving throughput when you need to do a lot of queries.
+     - API Key:
+       - type: apiKey api_key (QUERY)
+       - name: ApiKeyAuth
+     - parameter bulkRequest: (body)  (optional)
+     - returns: RequestBuilder<[BulkSearchResponse]>
+     */
+    open class func searchBulkWithRequestBuilder(bulkRequest: [BulkRequest]? = nil) -> RequestBuilder<[BulkSearchResponse]> {
+        let localVariablePath = "/geocoding/v1/search/bulk"
+        let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: bulkRequest)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            "Content-Type": "application/json",
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<[BulkSearchResponse]>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+    }
+
+    /**
      Find locations matching components (structured forward geocoding).
 
      - parameter address: (query) A street name, optionally with a house number. (optional)

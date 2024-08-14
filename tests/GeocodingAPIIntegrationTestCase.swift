@@ -44,4 +44,18 @@ final class GeocodingAPIIntegrationTestCase: IntegrationXCTestCase {
         XCTAssertEqual(res.features.first?.properties?.country, "Estonia")
         XCTAssertEqual(res.features.first?.properties?.layer, .address)
     }
+
+    func testBulk() async throws {
+        let res = try await GeocodingAPI.searchBulk(bulkRequest: [
+            .typeSearchBulkQuery(SearchBulkQuery(endpoint: .slashV1SlashSearch, query: SearchQuery(text: address))),
+            .typeSearchStructuredBulkQuery(SearchStructuredBulkQuery(endpoint: .slashV1SlashSearchSlashStructured, query: SearchStructuredQuery(address: address, country: "EE", layers: [.address, .coarse])))
+        ])
+
+        XCTAssertEqual(res.count, 2)
+        for rec in res {
+            XCTAssertEqual(rec.status, 200)
+            XCTAssertEqual(rec.response?.features.first?.properties?.country, "Estonia")
+            XCTAssertEqual(rec.response?.features.first?.properties?.layer, .address)
+        }
+    }
 }
