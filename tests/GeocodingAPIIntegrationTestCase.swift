@@ -47,8 +47,8 @@ final class GeocodingAPIIntegrationTestCase: IntegrationXCTestCase {
 
     func testBulk() async throws {
         let res = try await GeocodingAPI.searchBulk(bulkRequest: [
-            .typeSearchBulkQuery(SearchBulkQuery(endpoint: .slashV1SlashSearch, query: SearchQuery(text: address))),
-            .typeSearchStructuredBulkQuery(SearchStructuredBulkQuery(endpoint: .slashV1SlashSearchSlashStructured, query: SearchStructuredQuery(address: address, country: "EE", layers: [.address, .coarse]))),
+            BulkRequest(endpoint: .search, query: .typeSearchQuery(SearchQuery(text: address))),
+            BulkRequest(endpoint: .searchSlashStructured, query: .typeSearchStructuredQuery(SearchStructuredQuery(address: address, country: "EE", layers: [.address, .coarse]))),
         ])
 
         XCTAssertEqual(res.count, 2)

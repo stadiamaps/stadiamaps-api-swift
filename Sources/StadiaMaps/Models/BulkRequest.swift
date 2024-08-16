@@ -10,28 +10,30 @@ import Foundation
     import AnyCodable
 #endif
 
-public enum BulkRequest: Codable, JSONEncodable, Hashable {
-    case typeSearchBulkQuery(SearchBulkQuery)
-    case typeSearchStructuredBulkQuery(SearchStructuredBulkQuery)
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        switch self {
-        case let .typeSearchBulkQuery(value):
-            try container.encode(value)
-        case let .typeSearchStructuredBulkQuery(value):
-            try container.encode(value)
-        }
+public struct BulkRequest: Codable, JSONEncodable, Hashable {
+    public enum Endpoint: String, Codable, CaseIterable {
+        case search = "/v1/search"
+        case searchSlashStructured = "/v1/search/structured"
     }
 
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if let value = try? container.decode(SearchBulkQuery.self) {
-            self = .typeSearchBulkQuery(value)
-        } else if let value = try? container.decode(SearchStructuredBulkQuery.self) {
-            self = .typeSearchStructuredBulkQuery(value)
-        } else {
-            throw DecodingError.typeMismatch(Self.Type.self, .init(codingPath: decoder.codingPath, debugDescription: "Unable to decode instance of BulkRequest"))
-        }
+    public var endpoint: Endpoint?
+    public var query: BulkRequestQuery?
+
+    public init(endpoint: Endpoint? = nil, query: BulkRequestQuery? = nil) {
+        self.endpoint = endpoint
+        self.query = query
+    }
+
+    public enum CodingKeys: String, CodingKey, CaseIterable {
+        case endpoint
+        case query
+    }
+
+    // Encodable protocol methods
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(endpoint, forKey: .endpoint)
+        try container.encodeIfPresent(query, forKey: .query)
     }
 }
