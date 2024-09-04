@@ -132,10 +132,10 @@ open class RoutingAPI {
      Calculate an optimized route between a known start and end point.
 
      - parameter optimizedRouteRequest: (body)  (optional)
-     - returns: RouteResponse
+     - returns: Route200Response
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func optimizedRoute(optimizedRouteRequest: OptimizedRouteRequest? = nil) async throws -> RouteResponse {
+    open class func optimizedRoute(optimizedRouteRequest: OptimizedRouteRequest? = nil) async throws -> Route200Response {
         try await optimizedRouteWithRequestBuilder(optimizedRouteRequest: optimizedRouteRequest).execute().body
     }
 
@@ -147,9 +147,9 @@ open class RoutingAPI {
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
      - parameter optimizedRouteRequest: (body)  (optional)
-     - returns: RequestBuilder<RouteResponse>
+     - returns: RequestBuilder<Route200Response>
      */
-    open class func optimizedRouteWithRequestBuilder(optimizedRouteRequest: OptimizedRouteRequest? = nil) -> RequestBuilder<RouteResponse> {
+    open class func optimizedRouteWithRequestBuilder(optimizedRouteRequest: OptimizedRouteRequest? = nil) -> RequestBuilder<Route200Response> {
         let localVariablePath = "/optimized_route/v1"
         let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: optimizedRouteRequest)
@@ -162,7 +162,7 @@ open class RoutingAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<RouteResponse>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Route200Response>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
@@ -171,10 +171,10 @@ open class RoutingAPI {
      Get turn by turn routing instructions between two or more locations.
 
      - parameter routeRequest: (body)  (optional)
-     - returns: RouteResponse
+     - returns: Route200Response
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func route(routeRequest: RouteRequest? = nil) async throws -> RouteResponse {
+    open class func route(routeRequest: RouteRequest? = nil) async throws -> Route200Response {
         try await routeWithRequestBuilder(routeRequest: routeRequest).execute().body
     }
 
@@ -186,9 +186,9 @@ open class RoutingAPI {
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
      - parameter routeRequest: (body)  (optional)
-     - returns: RequestBuilder<RouteResponse>
+     - returns: RequestBuilder<Route200Response>
      */
-    open class func routeWithRequestBuilder(routeRequest: RouteRequest? = nil) -> RequestBuilder<RouteResponse> {
+    open class func routeWithRequestBuilder(routeRequest: RouteRequest? = nil) -> RequestBuilder<Route200Response> {
         let localVariablePath = "/route/v1"
         let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: routeRequest)
@@ -201,7 +201,7 @@ open class RoutingAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<RouteResponse>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Route200Response>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }

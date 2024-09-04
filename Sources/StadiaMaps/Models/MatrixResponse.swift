@@ -11,6 +11,9 @@ import Foundation
 #endif
 
 public struct MatrixResponse: Codable, JSONEncodable, Hashable {
+    static let sourcesRule = ArrayRule(minItems: 1, maxItems: nil, uniqueItems: false)
+    static let targetsRule = ArrayRule(minItems: 1, maxItems: nil, uniqueItems: false)
+    static let sourcesToTargetsRule = ArrayRule(minItems: 1, maxItems: nil, uniqueItems: false)
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     /** The list of starting locations determined by snapping to the nearest appropriate point on the road network for the costing model. All locations appear in the same order as the input. */

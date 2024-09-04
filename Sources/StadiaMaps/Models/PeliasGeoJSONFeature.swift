@@ -15,6 +15,7 @@ public struct PeliasGeoJSONFeature: Codable, JSONEncodable, Hashable {
         case feature = "Feature"
     }
 
+    static let bboxRule = ArrayRule(minItems: 4, maxItems: 4, uniqueItems: false)
     public var type: ModelType
     public var geometry: GeoJSONPoint
     public var properties: PeliasGeoJSONProperties?

@@ -17,6 +17,8 @@ public struct MatrixRequest: Codable, JSONEncodable, Hashable {
         case instructions
     }
 
+    static let sourcesRule = ArrayRule(minItems: 1, maxItems: nil, uniqueItems: false)
+    static let targetsRule = ArrayRule(minItems: 1, maxItems: nil, uniqueItems: false)
     public var units: DistanceUnit?
     public var language: ValhallaLanguages?
     /** The level of directional narrative to include. Locations and times will always be returned, but narrative generation verbosity can be controlled with this parameter. */

@@ -11,6 +11,7 @@ import Foundation
 #endif
 
 public struct RouteLeg: Codable, JSONEncodable, Hashable {
+    static let maneuversRule = ArrayRule(minItems: 1, maxItems: nil, uniqueItems: false)
     public var maneuvers: [RouteManeuver]
     /** An encoded polyline (https://developers.google.com/maps/documentation/utilities/polylinealgorithm) with 6 digits of decimal precision. */
     public var shape: String

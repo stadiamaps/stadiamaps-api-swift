@@ -5,6 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Version 4.0.0 - 2024-09-04
+
+### Added
+
+- Support for the OSRM format and navigation aids
+- BREAKING: To support the new format, the response type of directions APIs has changed
+
+You will now need to match against the response enum,
+which has variants for each response.
+This enables you to build your apps in a type-safe manner.
+Here is an example:
+
+
+```swift
+let req = RouteRequest(units: .mi,
+                       format: .osrm,
+                       bannerInstructions: true,
+                       filters: AnnotationFilters(action: .include, attributes: [
+                           .speedLimit,
+                       ]),
+                       id: "route",
+                       locations: [
+                           RoutingWaypoint(lat: locationA.lat, lon: locationA.lon),
+                           RoutingWaypoint(lat: locationB.lat, lon: locationB.lon),
+                       ],
+                       costing: .auto,
+                       costingOptions: CostingOptions(auto: AutoCostingOptions(useHighways: 0.3)))
+guard case let .typeOsrmRouteResponse(res) = try await RoutingAPI.route(routeRequest: req) else {
+    XCTFail("Expected an OSRM format route response")
+    return
+}
+```
+
+
 ## Version 3.2.1 - 2024-08-16
 
 

@@ -11,6 +11,7 @@ import Foundation
 #endif
 
 public struct PeliasResponse: Codable, JSONEncodable, Hashable {
+    static let bboxRule = ArrayRule(minItems: 4, maxItems: 4, uniqueItems: false)
     public var geocoding: GeocodingObject
     /** An array of 4 floating point numbers representing the (W, S, E, N) extremes of the features found. */
     public var bbox: [Double]?

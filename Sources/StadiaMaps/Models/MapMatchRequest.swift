@@ -23,6 +23,11 @@ public struct MapMatchRequest: Codable, JSONEncodable, Hashable {
         case instructions
     }
 
+    public enum Format: String, Codable, CaseIterable {
+        case json
+        case osrm
+    }
+
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     /** REQUIRED if `encoded_polyline` is not present. Note that `break` type locations are only supported when `shape_match` is set to `map_match`. */
@@ -37,6 +42,13 @@ public struct MapMatchRequest: Codable, JSONEncodable, Hashable {
     public var language: ValhallaLanguages?
     /** The level of directional narrative to include. Locations and times will always be returned, but narrative generation verbosity can be controlled with this parameter. */
     public var directionsType: DirectionsType? = .instructions
+    /** The output response format. The default JSON format is extremely compact and ideal for web or data-constrained use cases where you want to fetch additional attributes on demand in small chunks. The OSRM format is much richer and is configurable with significantly more info for turn-by-turn navigation use cases. */
+    public var format: Format?
+    /** Optionally includes helpful banners with timing information for turn-by-turn navigation. This is only available in the OSRM format. */
+    public var bannerInstructions: Bool?
+    /** Optionally includes voice instructions with timing information for turn-by-turn navigation. This is only available in the OSRM format. */
+    public var voiceInstructions: Bool?
+    public var filters: AnnotationFilters?
     /** The timestamp at the start of the trace. Combined with `durations`, this provides a way to include timing information for an `encoded_polyline` trace. */
     public var beginTime: Int?
     /** A list of durations (in seconds) between each successive pair of points in a polyline. */
@@ -47,7 +59,7 @@ public struct MapMatchRequest: Codable, JSONEncodable, Hashable {
     /** If true, the response will include a `linear_references` value that contains an array of base64-encoded [OpenLR location references](https://www.openlr-association.com/fileadmin/user_upload/openlr-whitepaper_v1.5.pdf), one for each graph edge of the road network matched by the trace. */
     public var linearReferences: Bool? = false
 
-    public init(id: String? = nil, shape: [MapMatchWaypoint]? = nil, encodedPolyline: String? = nil, costing: MapMatchCostingModel, costingOptions: CostingOptions? = nil, shapeMatch: ShapeMatch? = nil, units: DistanceUnit? = nil, language: ValhallaLanguages? = nil, directionsType: DirectionsType? = .instructions, beginTime: Int? = nil, durations: Int? = nil, useTimestamps: Bool? = false, traceOptions: MapMatchTraceOptions? = nil, linearReferences: Bool? = false) {
+    public init(id: String? = nil, shape: [MapMatchWaypoint]? = nil, encodedPolyline: String? = nil, costing: MapMatchCostingModel, costingOptions: CostingOptions? = nil, shapeMatch: ShapeMatch? = nil, units: DistanceUnit? = nil, language: ValhallaLanguages? = nil, directionsType: DirectionsType? = .instructions, format: Format? = nil, bannerInstructions: Bool? = nil, voiceInstructions: Bool? = nil, filters: AnnotationFilters? = nil, beginTime: Int? = nil, durations: Int? = nil, useTimestamps: Bool? = false, traceOptions: MapMatchTraceOptions? = nil, linearReferences: Bool? = false) {
         self.id = id
         self.shape = shape
         self.encodedPolyline = encodedPolyline
@@ -57,6 +69,10 @@ public struct MapMatchRequest: Codable, JSONEncodable, Hashable {
         self.units = units
         self.language = language
         self.directionsType = directionsType
+        self.format = format
+        self.bannerInstructions = bannerInstructions
+        self.voiceInstructions = voiceInstructions
+        self.filters = filters
         self.beginTime = beginTime
         self.durations = durations
         self.useTimestamps = useTimestamps
@@ -74,6 +90,10 @@ public struct MapMatchRequest: Codable, JSONEncodable, Hashable {
         case units
         case language
         case directionsType = "directions_type"
+        case format
+        case bannerInstructions = "banner_instructions"
+        case voiceInstructions = "voice_instructions"
+        case filters
         case beginTime = "begin_time"
         case durations
         case useTimestamps = "use_timestamps"
@@ -94,6 +114,10 @@ public struct MapMatchRequest: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(units, forKey: .units)
         try container.encodeIfPresent(language, forKey: .language)
         try container.encodeIfPresent(directionsType, forKey: .directionsType)
+        try container.encodeIfPresent(format, forKey: .format)
+        try container.encodeIfPresent(bannerInstructions, forKey: .bannerInstructions)
+        try container.encodeIfPresent(voiceInstructions, forKey: .voiceInstructions)
+        try container.encodeIfPresent(filters, forKey: .filters)
         try container.encodeIfPresent(beginTime, forKey: .beginTime)
         try container.encodeIfPresent(durations, forKey: .durations)
         try container.encodeIfPresent(useTimestamps, forKey: .useTimestamps)

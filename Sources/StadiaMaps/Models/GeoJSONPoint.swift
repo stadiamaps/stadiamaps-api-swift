@@ -20,6 +20,7 @@ public struct GeoJSONPoint: Codable, JSONEncodable, Hashable {
         case multiPolygon = "MultiPolygon"
     }
 
+    static let coordinatesRule = ArrayRule(minItems: 2, maxItems: 3, uniqueItems: false)
     public var type: ModelType
     public var coordinates: [Double]
 

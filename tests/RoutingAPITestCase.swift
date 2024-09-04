@@ -15,12 +15,40 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
                                ],
                                costing: .auto,
                                costingOptions: CostingOptions(auto: AutoCostingOptions(useHighways: 0.3)))
-        let res = try await RoutingAPI.route(routeRequest: req)
+        guard case let .typeRouteResponse(res) = try await RoutingAPI.route(routeRequest: req) else {
+            XCTFail("Expected a Valhalla JSON format route response")
+            return
+        }
         XCTAssertEqual(req.id, res.id)
         XCTAssertEqual(res.trip.status, 0)
         XCTAssertEqual(res.trip.units, .miles)
         XCTAssertEqual(res.trip.legs.count, 1)
         XCTAssertEqual(res.alternates?.count ?? 0, 0)
+    }
+
+    func testRouteWithNavigationAids() async throws {
+        let req = RouteRequest(units: .mi,
+                               format: .osrm,
+                               bannerInstructions: true,
+                               filters: AnnotationFilters(action: .include, attributes: [
+                                   .speedLimit,
+                               ]),
+                               id: "route",
+                               locations: [
+                                   RoutingWaypoint(lat: locationA.lat, lon: locationA.lon),
+                                   RoutingWaypoint(lat: locationB.lat, lon: locationB.lon),
+                               ],
+                               costing: .auto,
+                               costingOptions: CostingOptions(auto: AutoCostingOptions(useHighways: 0.3)))
+        guard case let .typeOsrmRouteResponse(res) = try await RoutingAPI.route(routeRequest: req) else {
+            XCTFail("Expected an OSRM format route response")
+            return
+        }
+        XCTAssertEqual(.ok, res.code)
+        XCTAssertEqual(res.routes?.count, 1)
+        XCTAssert(res.routes!.first!.legs.first!.steps.contains { step in
+            step.bannerInstructions?.count ?? 0 > 0
+        })
     }
 
     func testRouteWithAlternates() async throws {
@@ -33,7 +61,10 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
                                costing: .auto,
                                costingOptions: CostingOptions(auto: AutoCostingOptions(useHighways: 0.3)),
                                alternates: 1)
-        let res = try await RoutingAPI.route(routeRequest: req)
+        guard case let .typeRouteResponse(res) = try await RoutingAPI.route(routeRequest: req) else {
+            XCTFail("Expected a Valhalla JSON format route response")
+            return
+        }
         XCTAssertEqual(req.id, res.id)
         XCTAssertEqual(res.trip.status, 0)
         XCTAssertEqual(res.trip.units, .miles)
@@ -51,7 +82,10 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
                                costing: .auto,
                                costingOptions: CostingOptions(auto: AutoCostingOptions(useHighways: 0.3)),
                                elevationInterval: 30)
-        let res = try await RoutingAPI.route(routeRequest: req)
+        guard case let .typeRouteResponse(res) = try await RoutingAPI.route(routeRequest: req) else {
+            XCTFail("Expected a Valhalla JSON format route response")
+            return
+        }
         XCTAssertEqual(req.id, res.id)
         XCTAssertEqual(res.trip.status, 0)
         XCTAssertEqual(res.trip.units, .miles)
@@ -69,7 +103,10 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
                                ],
                                costing: .bicycle,
                                costingOptions: CostingOptions(bicycle: BicycleCostingOptions(bicycleType: .hybrid, useRoads: 0.4, useHills: 0.6)))
-        let res = try await RoutingAPI.route(routeRequest: req)
+        guard case let .typeRouteResponse(res) = try await RoutingAPI.route(routeRequest: req) else {
+            XCTFail("Expected a Valhalla JSON format route response")
+            return
+        }
         XCTAssertEqual(req.id, res.id)
         XCTAssertEqual(res.trip.status, 0)
         XCTAssertEqual(res.trip.units, .kilometers)
@@ -87,7 +124,10 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
                                         ],
                                         costing: .auto,
                                         costingOptions: CostingOptions(auto: AutoCostingOptions(useHighways: 0.3)))
-        let res = try await RoutingAPI.optimizedRoute(optimizedRouteRequest: req)
+        guard case let .typeRouteResponse(res) = try await RoutingAPI.optimizedRoute(optimizedRouteRequest: req) else {
+            XCTFail("Expected a Valhalla JSON format route response")
+            return
+        }
         XCTAssertEqual(req.id, res.id)
         XCTAssertEqual(res.trip.status, 0)
         XCTAssertEqual(res.trip.units, .miles)

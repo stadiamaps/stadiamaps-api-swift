@@ -111,7 +111,7 @@ public struct TraceEdge: Codable, JSONEncodable, Hashable {
     public var id: Int64?
     /** The way identifier of the edge in OSM. */
     public var wayId: Int64?
-    /** The weighted grade factor. Valhalla manufactures a weighted grade from elevation data. It is a measure used for hill avoidance in routing - sort of a relative energy use along an edge. But since an edge in Valhalla can possibly go up and down over several hills it might not equate to what you would normally think of as grade. */
+    /** The weighted grade factor. The weighted grade is derived from elevation data. It is a measure used for hill avoidance in routing - sort of a relative energy use along an edge. But since an edge can possibly go up and down over several hills, it might not equate to what you would normally think of as grade. */
     public var weightedGrade: Double?
     /** The maximum upward slope. A value of 32768 indicates no elevation data is available for this edge. */
     public var maxUpwardGrade: Int?
