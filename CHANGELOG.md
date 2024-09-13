@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Version 4.1.0 - 2024-09-13
+
+### Fixed
+
+This fixes issues in the OpenAPI generated code which result in compiler crashes for users of the Xcode 16 RC.
+See https://github.com/OpenAPITools/openapi-generator/pull/19564 for details.
+
 ## Version 4.0.0 - 2024-09-04
 
 ### Added
