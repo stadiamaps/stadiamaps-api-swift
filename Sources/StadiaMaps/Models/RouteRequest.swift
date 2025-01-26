@@ -24,7 +24,7 @@ public struct RouteRequest: Codable, JSONEncodable, Hashable {
 
     static let locationsRule = ArrayRule(minItems: 2, maxItems: nil, uniqueItems: false)
     public var units: DistanceUnit?
-    public var language: ValhallaLanguages?
+    public var language: RoutingLanguages?
     /** The level of directional narrative to include. Locations and times will always be returned, but narrative generation verbosity can be controlled with this parameter. */
     public var directionsType: DirectionsType? = .instructions
     /** The output response format. The default JSON format is extremely compact and ideal for web or data-constrained use cases where you want to fetch additional attributes on demand in small chunks. The OSRM format is much richer and is configurable with significantly more info for turn-by-turn navigation use cases. */
@@ -45,12 +45,12 @@ public struct RouteRequest: Codable, JSONEncodable, Hashable {
     public var excludePolygons: [[[Double]]]?
     /** How many alternate routes are desired. Note that fewer or no alternates may be returned. Alternates are not yet supported on routes with more than 2 locations or on time-dependent routes. */
     public var alternates: Int?
-    /** If greater than zero, attempts to include elevation along the route at regular intervals. The \"native\" internal resolution is 30m, so we recommend you use this when possible. This number is interpreted as either meters or feet depending on the unit parameter. Elevation for route sections containing a bridge or tunnel is interpolated linearly. This doesn't always match the true elevation of the bridge/tunnel, but it prevents sharp artifacts from the surrounding terrain. This functionality is unique to the route endpoint and is not available via the elevation API. */
+    /** If greater than zero, attempts to include elevation along the route at regular intervals. The \"native\" internal resolution is 30m, so we recommend you use this when possible. This number is interpreted as either meters or feet depending on the unit parameter. Elevation for route sections containing a bridge or tunnel is interpolated linearly. This doesn't always match the true elevation of the bridge/tunnel, but it prevents sharp artifacts from the surrounding terrain. This functionality is unique to the routing endpoints and is not available via the elevation API. NOTE: This has no effect on the OSRM response format. */
     public var elevationInterval: Float? = 0.0
     /** Determines whether the output should include roundabout exit instructions. */
     public var roundaboutExits: Bool? = true
 
-    public init(units: DistanceUnit? = nil, language: ValhallaLanguages? = nil, directionsType: DirectionsType? = .instructions, format: Format? = nil, bannerInstructions: Bool? = nil, voiceInstructions: Bool? = nil, filters: AnnotationFilters? = nil, id: String? = nil, locations: [RoutingWaypoint], costing: CostingModel, costingOptions: CostingOptions? = nil, excludeLocations: [RoutingWaypoint]? = nil, excludePolygons: [[[Double]]]? = nil, alternates: Int? = nil, elevationInterval: Float? = 0.0, roundaboutExits: Bool? = true) {
+    public init(units: DistanceUnit? = nil, language: RoutingLanguages? = nil, directionsType: DirectionsType? = .instructions, format: Format? = nil, bannerInstructions: Bool? = nil, voiceInstructions: Bool? = nil, filters: AnnotationFilters? = nil, id: String? = nil, locations: [RoutingWaypoint], costing: CostingModel, costingOptions: CostingOptions? = nil, excludeLocations: [RoutingWaypoint]? = nil, excludePolygons: [[[Double]]]? = nil, alternates: Int? = nil, elevationInterval: Float? = 0.0, roundaboutExits: Bool? = true) {
         self.units = units
         self.language = language
         self.directionsType = directionsType

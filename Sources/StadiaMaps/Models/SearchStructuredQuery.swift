@@ -55,18 +55,18 @@ public struct SearchStructuredQuery: Codable, JSONEncodable, Hashable {
     public var boundaryCircleRadius: Double?
     /** A list of countries to limit the search to. These may be either full names (ex: Canada), or an ISO 3116-1 alpha-2 or alpha-3 code. Prefer ISO codes when possible. */
     public var boundaryCountry: [String]?
-    /** The Pelias GID of an area to limit the search to. */
+    /** The GID of an area to limit the search to. */
     public var boundaryGid: String?
     /** A list of layers to limit the search to. */
-    public var layers: [PeliasLayer]?
+    public var layers: [GeocodingLayer]?
     /** A list of sources to limit the search to. */
-    public var sources: [PeliasSource]?
+    public var sources: [GeocodingSource]?
     /** The maximum number of results to return. */
     public var size: Int?
     /** A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a `langtag` (in RFC 5646 terms) can contain script, region, etc., only the `language` portion, an ISO 639 code, will be considered. So `en-US` and `en-GB` will both be treated as English. */
     public var lang: String?
 
-    public init(address: String? = nil, neighbourhood: String? = nil, borough: String? = nil, locality: String? = nil, county: String? = nil, region: String? = nil, postalCode: String? = nil, country: String? = nil, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [PeliasLayer]? = nil, sources: [PeliasSource]? = nil, size: Int? = nil, lang: String? = nil) {
+    public init(address: String? = nil, neighbourhood: String? = nil, borough: String? = nil, locality: String? = nil, county: String? = nil, region: String? = nil, postalCode: String? = nil, country: String? = nil, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) {
         self.address = address
         self.neighbourhood = neighbourhood
         self.borough = borough

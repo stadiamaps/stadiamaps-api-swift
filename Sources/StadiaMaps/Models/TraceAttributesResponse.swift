@@ -24,11 +24,11 @@ public struct TraceAttributesResponse: Codable, JSONEncodable, Hashable {
     public var confidenceScore: Double?
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
-    public var units: ValhallaLongUnits?
+    public var units: RoutingLongUnits?
     /** Alternate paths, if any, that were not classified as the best match. */
     public var alternatePaths: [TraceAttributesBaseResponse]?
 
-    public init(edges: [TraceEdge]? = nil, admins: [AdminRegion]? = nil, matchedPoints: [MatchedPoint]? = nil, osmChangeset: Int? = nil, shape: String? = nil, confidenceScore: Double? = nil, id: String? = nil, units: ValhallaLongUnits? = nil, alternatePaths: [TraceAttributesBaseResponse]? = nil) {
+    public init(edges: [TraceEdge]? = nil, admins: [AdminRegion]? = nil, matchedPoints: [MatchedPoint]? = nil, osmChangeset: Int? = nil, shape: String? = nil, confidenceScore: Double? = nil, id: String? = nil, units: RoutingLongUnits? = nil, alternatePaths: [TraceAttributesBaseResponse]? = nil) {
         self.edges = edges
         self.admins = admins
         self.matchedPoints = matchedPoints

@@ -24,7 +24,7 @@ public struct BaseTraceRequest: Codable, JSONEncodable, Hashable {
     }
 
     public var units: DistanceUnit?
-    public var language: ValhallaLanguages?
+    public var language: RoutingLanguages?
     /** The level of directional narrative to include. Locations and times will always be returned, but narrative generation verbosity can be controlled with this parameter. */
     public var directionsType: DirectionsType? = .instructions
     /** An identifier to disambiguate requests (echoed by the server). */
@@ -38,7 +38,7 @@ public struct BaseTraceRequest: Codable, JSONEncodable, Hashable {
     /** Three snapping modes provide some control over how the map matching occurs. `edge_walk` is fast, but requires extremely precise data that matches the route graph almost perfectly. `map_snap` can handle significantly noisier data, but is very expensive. `walk_or_snap`, the default, tries to use edge walking first and falls back to map matching if edge walking fails. In general, you should not need to change this parameter unless you want to trace a multi-leg route with multiple `break` locations in the `shape`. */
     public var shapeMatch: ShapeMatch?
 
-    public init(units: DistanceUnit? = nil, language: ValhallaLanguages? = nil, directionsType: DirectionsType? = .instructions, id: String? = nil, shape: [MapMatchWaypoint]? = nil, encodedPolyline: String? = nil, costing: MapMatchCostingModel, costingOptions: CostingOptions? = nil, shapeMatch: ShapeMatch? = nil) {
+    public init(units: DistanceUnit? = nil, language: RoutingLanguages? = nil, directionsType: DirectionsType? = .instructions, id: String? = nil, shape: [MapMatchWaypoint]? = nil, encodedPolyline: String? = nil, costing: MapMatchCostingModel, costingOptions: CostingOptions? = nil, shapeMatch: ShapeMatch? = nil) {
         self.units = units
         self.language = language
         self.directionsType = directionsType

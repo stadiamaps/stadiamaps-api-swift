@@ -19,7 +19,7 @@ public struct NearestRoadsRequest: Codable, JSONEncodable, Hashable {
 
     static let locationsRule = ArrayRule(minItems: 1, maxItems: nil, uniqueItems: false)
     public var units: DistanceUnit?
-    public var language: ValhallaLanguages?
+    public var language: RoutingLanguages?
     /** The level of directional narrative to include. Locations and times will always be returned, but narrative generation verbosity can be controlled with this parameter. */
     public var directionsType: DirectionsType? = .instructions
     public var locations: [Coordinate]
@@ -27,7 +27,7 @@ public struct NearestRoadsRequest: Codable, JSONEncodable, Hashable {
     public var costingOptions: CostingOptions?
     public var verbose: Bool? = false
 
-    public init(units: DistanceUnit? = nil, language: ValhallaLanguages? = nil, directionsType: DirectionsType? = .instructions, locations: [Coordinate], costing: CostingModel? = nil, costingOptions: CostingOptions? = nil, verbose: Bool? = false) {
+    public init(units: DistanceUnit? = nil, language: RoutingLanguages? = nil, directionsType: DirectionsType? = .instructions, locations: [Coordinate], costing: CostingModel? = nil, costingOptions: CostingOptions? = nil, verbose: Bool? = false) {
         self.units = units
         self.language = language
         self.directionsType = directionsType

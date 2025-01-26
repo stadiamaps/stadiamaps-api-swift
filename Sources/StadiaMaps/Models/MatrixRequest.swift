@@ -20,7 +20,7 @@ public struct MatrixRequest: Codable, JSONEncodable, Hashable {
     static let sourcesRule = ArrayRule(minItems: 1, maxItems: nil, uniqueItems: false)
     static let targetsRule = ArrayRule(minItems: 1, maxItems: nil, uniqueItems: false)
     public var units: DistanceUnit?
-    public var language: ValhallaLanguages?
+    public var language: RoutingLanguages?
     /** The level of directional narrative to include. Locations and times will always be returned, but narrative generation verbosity can be controlled with this parameter. */
     public var directionsType: DirectionsType? = .instructions
     /** An identifier to disambiguate requests (echoed by the server). */
@@ -34,7 +34,7 @@ public struct MatrixRequest: Codable, JSONEncodable, Hashable {
     /** Only applicable to one-to-many or many-to-one requests. This defaults to all locations. When specified explicitly, this option allows a partial result to be returned. This is basically equivalent to \"find the closest/best locations out of the full set.\" This can have a dramatic improvement for large requests. */
     public var matrixLocations: Int?
 
-    public init(units: DistanceUnit? = nil, language: ValhallaLanguages? = nil, directionsType: DirectionsType? = .instructions, id: String? = nil, sources: [MatrixWaypoint], targets: [MatrixWaypoint], costing: MatrixCostingModel, costingOptions: CostingOptions? = nil, matrixLocations: Int? = nil) {
+    public init(units: DistanceUnit? = nil, language: RoutingLanguages? = nil, directionsType: DirectionsType? = .instructions, id: String? = nil, sources: [MatrixWaypoint], targets: [MatrixWaypoint], costing: MatrixCostingModel, costingOptions: CostingOptions? = nil, matrixLocations: Int? = nil) {
         self.units = units
         self.language = language
         self.directionsType = directionsType

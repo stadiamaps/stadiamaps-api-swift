@@ -34,13 +34,15 @@ public struct TraceAttributesRequest: Codable, JSONEncodable, Hashable {
     /** Three snapping modes provide some control over how the map matching occurs. `edge_walk` is fast, but requires extremely precise data that matches the route graph almost perfectly. `map_snap` can handle significantly noisier data, but is very expensive. `walk_or_snap`, the default, tries to use edge walking first and falls back to map matching if edge walking fails. In general, you should not need to change this parameter unless you want to trace a multi-leg route with multiple `break` locations in the `shape`. */
     public var shapeMatch: ShapeMatch?
     public var units: DistanceUnit?
-    public var language: ValhallaLanguages?
+    public var language: RoutingLanguages?
     /** The level of directional narrative to include. Locations and times will always be returned, but narrative generation verbosity can be controlled with this parameter. */
     public var directionsType: DirectionsType? = .instructions
     /** If present, provides either a whitelist or a blacklist of keys to include/exclude in the response. This key is optional, and if omitted from the request, all available info will be returned. */
     public var filters: TraceAttributeFilterOptions?
+    /** If greater than zero, attempts to include elevation along the route at regular intervals. The \"native\" internal resolution is 30m, so we recommend you use this when possible. This number is interpreted as either meters or feet depending on the unit parameter. Elevation for route sections containing a bridge or tunnel is interpolated linearly. This doesn't always match the true elevation of the bridge/tunnel, but it prevents sharp artifacts from the surrounding terrain. This functionality is unique to the routing endpoints and is not available via the elevation API. NOTE: This has no effect on the OSRM response format. */
+    public var elevationInterval: Float? = 0.0
 
-    public init(id: String? = nil, shape: [MapMatchWaypoint]? = nil, encodedPolyline: String? = nil, costing: MapMatchCostingModel, costingOptions: CostingOptions? = nil, shapeMatch: ShapeMatch? = nil, units: DistanceUnit? = nil, language: ValhallaLanguages? = nil, directionsType: DirectionsType? = .instructions, filters: TraceAttributeFilterOptions? = nil) {
+    public init(id: String? = nil, shape: [MapMatchWaypoint]? = nil, encodedPolyline: String? = nil, costing: MapMatchCostingModel, costingOptions: CostingOptions? = nil, shapeMatch: ShapeMatch? = nil, units: DistanceUnit? = nil, language: RoutingLanguages? = nil, directionsType: DirectionsType? = .instructions, filters: TraceAttributeFilterOptions? = nil, elevationInterval: Float? = 0.0) {
         self.id = id
         self.shape = shape
         self.encodedPolyline = encodedPolyline
@@ -51,6 +53,7 @@ public struct TraceAttributesRequest: Codable, JSONEncodable, Hashable {
         self.language = language
         self.directionsType = directionsType
         self.filters = filters
+        self.elevationInterval = elevationInterval
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -64,6 +67,7 @@ public struct TraceAttributesRequest: Codable, JSONEncodable, Hashable {
         case language
         case directionsType = "directions_type"
         case filters
+        case elevationInterval = "elevation_interval"
     }
 
     // Encodable protocol methods
@@ -80,5 +84,6 @@ public struct TraceAttributesRequest: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(language, forKey: .language)
         try container.encodeIfPresent(directionsType, forKey: .directionsType)
         try container.encodeIfPresent(filters, forKey: .filters)
+        try container.encodeIfPresent(elevationInterval, forKey: .elevationInterval)
     }
 }

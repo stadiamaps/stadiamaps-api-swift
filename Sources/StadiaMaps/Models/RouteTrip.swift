@@ -15,13 +15,13 @@ public struct RouteTrip: Codable, JSONEncodable, Hashable {
     public var status: Int
     /** The response status message */
     public var statusMessage: String
-    public var units: ValhallaLongUnits
-    public var language: ValhallaLanguages
+    public var units: RoutingLongUnits
+    public var language: RoutingLanguages
     public var locations: [RoutingResponseWaypoint]
     public var legs: [RouteLeg]
     public var summary: RouteSummary
 
-    public init(status: Int, statusMessage: String, units: ValhallaLongUnits, language: ValhallaLanguages, locations: [RoutingResponseWaypoint], legs: [RouteLeg], summary: RouteSummary) {
+    public init(status: Int, statusMessage: String, units: RoutingLongUnits, language: RoutingLanguages, locations: [RoutingResponseWaypoint], legs: [RouteLeg], summary: RouteSummary) {
         self.status = status
         self.statusMessage = statusMessage
         self.units = units

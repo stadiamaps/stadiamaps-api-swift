@@ -24,7 +24,7 @@ public struct OptimizedRouteRequest: Codable, JSONEncodable, Hashable {
 
     static let locationsRule = ArrayRule(minItems: 3, maxItems: nil, uniqueItems: false)
     public var units: DistanceUnit?
-    public var language: ValhallaLanguages?
+    public var language: RoutingLanguages?
     /** The level of directional narrative to include. Locations and times will always be returned, but narrative generation verbosity can be controlled with this parameter. */
     public var directionsType: DirectionsType? = .instructions
     /** The output response format. The default JSON format is extremely compact and ideal for web or data-constrained use cases where you want to fetch additional attributes on demand in small chunks. The OSRM format is much richer and is configurable with significantly more info for turn-by-turn navigation use cases. */
@@ -40,8 +40,10 @@ public struct OptimizedRouteRequest: Codable, JSONEncodable, Hashable {
     public var locations: [Coordinate]
     public var costing: MatrixCostingModel
     public var costingOptions: CostingOptions?
+    /** If greater than zero, attempts to include elevation along the route at regular intervals. The \"native\" internal resolution is 30m, so we recommend you use this when possible. This number is interpreted as either meters or feet depending on the unit parameter. Elevation for route sections containing a bridge or tunnel is interpolated linearly. This doesn't always match the true elevation of the bridge/tunnel, but it prevents sharp artifacts from the surrounding terrain. This functionality is unique to the routing endpoints and is not available via the elevation API. NOTE: This has no effect on the OSRM response format. */
+    public var elevationInterval: Float? = 0.0
 
-    public init(units: DistanceUnit? = nil, language: ValhallaLanguages? = nil, directionsType: DirectionsType? = .instructions, format: Format? = nil, bannerInstructions: Bool? = nil, voiceInstructions: Bool? = nil, filters: AnnotationFilters? = nil, id: String? = nil, locations: [Coordinate], costing: MatrixCostingModel, costingOptions: CostingOptions? = nil) {
+    public init(units: DistanceUnit? = nil, language: RoutingLanguages? = nil, directionsType: DirectionsType? = .instructions, format: Format? = nil, bannerInstructions: Bool? = nil, voiceInstructions: Bool? = nil, filters: AnnotationFilters? = nil, id: String? = nil, locations: [Coordinate], costing: MatrixCostingModel, costingOptions: CostingOptions? = nil, elevationInterval: Float? = 0.0) {
         self.units = units
         self.language = language
         self.directionsType = directionsType
@@ -53,6 +55,7 @@ public struct OptimizedRouteRequest: Codable, JSONEncodable, Hashable {
         self.locations = locations
         self.costing = costing
         self.costingOptions = costingOptions
+        self.elevationInterval = elevationInterval
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -67,6 +70,7 @@ public struct OptimizedRouteRequest: Codable, JSONEncodable, Hashable {
         case locations
         case costing
         case costingOptions = "costing_options"
+        case elevationInterval = "elevation_interval"
     }
 
     // Encodable protocol methods
@@ -84,5 +88,6 @@ public struct OptimizedRouteRequest: Codable, JSONEncodable, Hashable {
         try container.encode(locations, forKey: .locations)
         try container.encode(costing, forKey: .costing)
         try container.encodeIfPresent(costingOptions, forKey: .costingOptions)
+        try container.encodeIfPresent(elevationInterval, forKey: .elevationInterval)
     }
 }

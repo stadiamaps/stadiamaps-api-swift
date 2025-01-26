@@ -157,6 +157,12 @@ public extension KeyedEncodingContainerProtocol {
         let formattedString = numberFormatter.string(from: decimalNumber) ?? "\(value)"
         try encode(formattedString, forKey: key)
     }
+
+    mutating func encodeIfPresent(_ value: Decimal?, forKey key: Self.Key) throws {
+        if let value = value {
+            try encode(value, forKey: key)
+        }
+    }
 }
 
 public extension KeyedDecodingContainerProtocol {

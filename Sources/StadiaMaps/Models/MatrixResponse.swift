@@ -23,9 +23,9 @@ public struct MatrixResponse: Codable, JSONEncodable, Hashable {
     /** The matrix of starting and ending locations, along with the computed distance and travel time. The array is row-ordered. This means that the time and distance from the first location to all others forms the first row of the array, followed by the time and distance from the second source location to all target locations, etc. */
     public var sourcesToTargets: [[MatrixDistance]]
     public var warnings: [Warning]?
-    public var units: ValhallaLongUnits
+    public var units: RoutingLongUnits
 
-    public init(id: String? = nil, sources: [Coordinate], targets: [Coordinate], sourcesToTargets: [[MatrixDistance]], warnings: [Warning]? = nil, units: ValhallaLongUnits) {
+    public init(id: String? = nil, sources: [Coordinate], targets: [Coordinate], sourcesToTargets: [[MatrixDistance]], warnings: [Warning]? = nil, units: RoutingLongUnits) {
         self.id = id
         self.sources = sources
         self.targets = targets

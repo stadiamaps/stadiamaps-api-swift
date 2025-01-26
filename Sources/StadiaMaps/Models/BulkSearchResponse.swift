@@ -12,11 +12,11 @@ import Foundation
 
 public struct BulkSearchResponse: Codable, JSONEncodable, Hashable {
     public var status: Int
-    public var response: PeliasResponse?
+    public var response: GeocodeResponse?
     /** An error message describing what went wrong (if the status is not 200). */
     public var msg: String?
 
-    public init(status: Int, response: PeliasResponse? = nil, msg: String? = nil) {
+    public init(status: Int, response: GeocodeResponse? = nil, msg: String? = nil) {
         self.status = status
         self.response = response
         self.msg = msg
