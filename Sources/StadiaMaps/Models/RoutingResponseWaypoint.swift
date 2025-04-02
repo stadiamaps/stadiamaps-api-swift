@@ -18,19 +18,19 @@ public struct RoutingResponseWaypoint: Codable, JSONEncodable, Hashable {
         case breakThrough = "break_through"
     }
 
-    static let latRule = NumericRule<Double>(minimum: -90, exclusiveMinimum: false, maximum: 90, exclusiveMaximum: false, multipleOf: nil)
-    static let lonRule = NumericRule<Double>(minimum: -180, exclusiveMinimum: false, maximum: 180, exclusiveMaximum: false, multipleOf: nil)
-    static let originalIndexRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
+    public static let latRule = NumericRule<Double>(minimum: -90, exclusiveMinimum: false, maximum: 90, exclusiveMaximum: false, multipleOf: nil)
+    public static let lonRule = NumericRule<Double>(minimum: -180, exclusiveMinimum: false, maximum: 180, exclusiveMaximum: false, multipleOf: nil)
+    public static let originalIndexRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
     /** The latitude of a point in the shape. */
     public var lat: Double
     /** The longitude of a point in the shape. */
     public var lon: Double
-    /** A `break` represents the start or end of a leg, and allows reversals. A `through` location is an intermediate waypoint that must be visited between `break`s, but at which reversals are not allowed. A `via` is similar to a `through` except that reversals are allowed. A `break_through` is similar to a `break` in that it can be the start/end of a leg, but does not allow reversals. */
-    public var type: ModelType? = ._break
+    /** A `break` represents the start or end of a leg, and allows reversals. A `through` location is an intermediate waypoint that must be visited between `break`s, but at which reversals are not allowed. A `via` is similar to a `through` except that reversals are allowed. A `break_through` is similar to a `break` in that it can be the start/end of a leg, but does not allow reversals. Defaults to `break`. */
+    public var type: ModelType?
     /** The original index of the location (locations may be reordered for optimized routes) */
     public var originalIndex: Int?
 
-    public init(lat: Double, lon: Double, type: ModelType? = ._break, originalIndex: Int? = nil) {
+    public init(lat: Double, lon: Double, type: ModelType? = nil, originalIndex: Int? = nil) {
         self.lat = lat
         self.lon = lon
         self.type = type

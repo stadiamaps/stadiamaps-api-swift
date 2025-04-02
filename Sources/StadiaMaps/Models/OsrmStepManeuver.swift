@@ -30,7 +30,7 @@ public struct OsrmStepManeuver: Codable, JSONEncodable, Hashable {
         case notification
     }
 
-    static let locationRule = ArrayRule(minItems: 2, maxItems: 2, uniqueItems: false)
+    public static let locationRule = ArrayRule(minItems: 2, maxItems: 2, uniqueItems: false)
     /** A (longitude, latitude) coordinate pair. */
     public var location: [Double]
     /** A human-readable instruction for the maneuver. */

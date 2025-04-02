@@ -24,7 +24,7 @@ open class GeocodingAPI {
      - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lon&#x60;. (optional)
      - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lat&#x60;. (optional)
      - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
-     - parameter boundaryCountry: (query) A list of countries to limit the search to. These may be either full names (ex: Canada), or an ISO 3116-1 alpha-2 or alpha-3 code. Prefer ISO codes when possible. (optional)
+     - parameter boundaryCountry: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter boundaryGid: (query) The GID of an area to limit the search to. (optional)
      - parameter layers: (query) A list of layers to limit the search to. (optional)
      - parameter sources: (query) A list of sources to limit the search to. (optional)
@@ -33,8 +33,8 @@ open class GeocodingAPI {
      - returns: GeocodeResponse
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func autocomplete(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) async throws -> GeocodeResponse {
-        try await autocompleteWithRequestBuilder(text: text, focusPointLat: focusPointLat, focusPointLon: focusPointLon, boundaryRectMinLat: boundaryRectMinLat, boundaryRectMaxLat: boundaryRectMaxLat, boundaryRectMinLon: boundaryRectMinLon, boundaryRectMaxLon: boundaryRectMaxLon, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, layers: layers, sources: sources, size: size, lang: lang).execute().body
+    open class func autocompleteV1(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) async throws -> GeocodeResponse {
+        try await autocompleteV1WithRequestBuilder(text: text, focusPointLat: focusPointLat, focusPointLon: focusPointLon, boundaryRectMinLat: boundaryRectMinLat, boundaryRectMaxLat: boundaryRectMaxLat, boundaryRectMinLon: boundaryRectMinLon, boundaryRectMaxLon: boundaryRectMaxLon, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, layers: layers, sources: sources, size: size, lang: lang).execute().body
     }
 
     /**
@@ -54,7 +54,7 @@ open class GeocodingAPI {
      - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lon&#x60;. (optional)
      - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lat&#x60;. (optional)
      - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
-     - parameter boundaryCountry: (query) A list of countries to limit the search to. These may be either full names (ex: Canada), or an ISO 3116-1 alpha-2 or alpha-3 code. Prefer ISO codes when possible. (optional)
+     - parameter boundaryCountry: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter boundaryGid: (query) The GID of an area to limit the search to. (optional)
      - parameter layers: (query) A list of layers to limit the search to. (optional)
      - parameter sources: (query) A list of sources to limit the search to. (optional)
@@ -62,7 +62,7 @@ open class GeocodingAPI {
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a &#x60;langtag&#x60; (in RFC 5646 terms) can contain script, region, etc., only the &#x60;language&#x60; portion, an ISO 639 code, will be considered. So &#x60;en-US&#x60; and &#x60;en-GB&#x60; will both be treated as English. (optional)
      - returns: RequestBuilder<GeocodeResponse>
      */
-    open class func autocompleteWithRequestBuilder(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponse> {
+    open class func autocompleteV1WithRequestBuilder(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponse> {
         let localVariablePath = "/geocoding/v1/autocomplete"
         let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
@@ -97,6 +97,88 @@ open class GeocodingAPI {
     }
 
     /**
+
+     - parameter text: (query) The text to search for (the start of an address, place name, etc.).
+     - parameter focusPointLat: (query) The latitude of a focus point.  If provided (along with longitude), the search results should be more locally relevant. (optional)
+     - parameter focusPointLon: (query) The longitude of a focus point.  If provided (along with longitude), the search results should be more locally relevant. (optional)
+     - parameter layers: (query) A list of layers to limit the search to. (optional)
+     - parameter sources: (query) A list of sources to limit the search to. (optional)
+     - parameter boundaryGid: (query) The GID of a region to limit the search to.  Note: these are not stable for all datasets! For example, OSM features may be deleted and re-added with a new ID. (optional)
+     - parameter boundaryCountry: (query) A list of comma-separated country codes in ISO 3116-1 alpha-2 or alpha-3 format. The search will be limited to these countries. (optional)
+     - parameter boundaryRectMinLat: (query) The minimum latitude component of a search bounding box.  NOTE: Requires all other boundary.rect parameters to be specified. (optional)
+     - parameter boundaryRectMinLon: (query) The minimum longitude component of a search bounding box.  NOTE: Requires all other boundary.rect parameters to be specified. (optional)
+     - parameter boundaryRectMaxLat: (query) The maximum latitude component of a search bounding box.  NOTE: Requires all other boundary.rect parameters to be specified. (optional)
+     - parameter boundaryRectMaxLon: (query) The maximum longitude component of a search bounding box.  NOTE: Requires all other boundary.rect parameters to be specified. (optional)
+     - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lon. (optional)
+     - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lon. (optional)
+     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to.  NOTE: Requires the other boundary.circle parameters to take effect. Defaults to 50km if unspecified. (optional)
+     - parameter size: (query) The maximum number of items to return from a query. (optional)
+     - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. There is no default value, so place names will be returned as-is, which is usually in the local language. NOTE: The Accept-Language header is also respected, and many user agents will set it automatically. (optional)
+     - returns: GeocodeResponseEnvelopePropertiesV2
+     */
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func autocompleteV2(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Int? = nil, size: Int? = nil, lang: String? = nil) async throws -> GeocodeResponseEnvelopePropertiesV2 {
+        try await autocompleteV2WithRequestBuilder(text: text, focusPointLat: focusPointLat, focusPointLon: focusPointLon, layers: layers, sources: sources, boundaryGid: boundaryGid, boundaryCountry: boundaryCountry, boundaryRectMinLat: boundaryRectMinLat, boundaryRectMinLon: boundaryRectMinLon, boundaryRectMaxLat: boundaryRectMaxLat, boundaryRectMaxLon: boundaryRectMaxLon, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, size: size, lang: lang).execute().body
+    }
+
+    /**
+     - GET /geocoding/v2/autocomplete
+     - API Key:
+       - type: apiKey api_key (QUERY)
+       - name: ApiKeyAuth
+     - parameter text: (query) The text to search for (the start of an address, place name, etc.).
+     - parameter focusPointLat: (query) The latitude of a focus point.  If provided (along with longitude), the search results should be more locally relevant. (optional)
+     - parameter focusPointLon: (query) The longitude of a focus point.  If provided (along with longitude), the search results should be more locally relevant. (optional)
+     - parameter layers: (query) A list of layers to limit the search to. (optional)
+     - parameter sources: (query) A list of sources to limit the search to. (optional)
+     - parameter boundaryGid: (query) The GID of a region to limit the search to.  Note: these are not stable for all datasets! For example, OSM features may be deleted and re-added with a new ID. (optional)
+     - parameter boundaryCountry: (query) A list of comma-separated country codes in ISO 3116-1 alpha-2 or alpha-3 format. The search will be limited to these countries. (optional)
+     - parameter boundaryRectMinLat: (query) The minimum latitude component of a search bounding box.  NOTE: Requires all other boundary.rect parameters to be specified. (optional)
+     - parameter boundaryRectMinLon: (query) The minimum longitude component of a search bounding box.  NOTE: Requires all other boundary.rect parameters to be specified. (optional)
+     - parameter boundaryRectMaxLat: (query) The maximum latitude component of a search bounding box.  NOTE: Requires all other boundary.rect parameters to be specified. (optional)
+     - parameter boundaryRectMaxLon: (query) The maximum longitude component of a search bounding box.  NOTE: Requires all other boundary.rect parameters to be specified. (optional)
+     - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lon. (optional)
+     - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lon. (optional)
+     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to.  NOTE: Requires the other boundary.circle parameters to take effect. Defaults to 50km if unspecified. (optional)
+     - parameter size: (query) The maximum number of items to return from a query. (optional)
+     - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. There is no default value, so place names will be returned as-is, which is usually in the local language. NOTE: The Accept-Language header is also respected, and many user agents will set it automatically. (optional)
+     - returns: RequestBuilder<GeocodeResponseEnvelopePropertiesV2>
+     */
+    open class func autocompleteV2WithRequestBuilder(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Int? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponseEnvelopePropertiesV2> {
+        let localVariablePath = "/geocoding/v2/autocomplete"
+        let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "text": (wrappedValue: text.encodeToJSON(), isExplode: true),
+            "focus.point.lat": (wrappedValue: focusPointLat?.encodeToJSON(), isExplode: true),
+            "focus.point.lon": (wrappedValue: focusPointLon?.encodeToJSON(), isExplode: true),
+            "layers": (wrappedValue: layers?.encodeToJSON(), isExplode: false),
+            "sources": (wrappedValue: sources?.encodeToJSON(), isExplode: false),
+            "boundary.gid": (wrappedValue: boundaryGid?.encodeToJSON(), isExplode: true),
+            "boundary.country": (wrappedValue: boundaryCountry?.encodeToJSON(), isExplode: false),
+            "boundary.rect.min_lat": (wrappedValue: boundaryRectMinLat?.encodeToJSON(), isExplode: true),
+            "boundary.rect.min_lon": (wrappedValue: boundaryRectMinLon?.encodeToJSON(), isExplode: true),
+            "boundary.rect.max_lat": (wrappedValue: boundaryRectMaxLat?.encodeToJSON(), isExplode: true),
+            "boundary.rect.max_lon": (wrappedValue: boundaryRectMaxLon?.encodeToJSON(), isExplode: true),
+            "boundary.circle.lat": (wrappedValue: boundaryCircleLat?.encodeToJSON(), isExplode: true),
+            "boundary.circle.lon": (wrappedValue: boundaryCircleLon?.encodeToJSON(), isExplode: true),
+            "boundary.circle.radius": (wrappedValue: boundaryCircleRadius?.encodeToJSON(), isExplode: true),
+            "size": (wrappedValue: size?.encodeToJSON(), isExplode: true),
+            "lang": (wrappedValue: lang?.encodeToJSON(), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: Any?] = [:]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<GeocodeResponseEnvelopePropertiesV2>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+    }
+
+    /**
      Retrieve details of a place using its GID.
 
      - parameter ids: (query) A list of GIDs to search for.
@@ -104,8 +186,8 @@ open class GeocodingAPI {
      - returns: GeocodeResponse
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func place(ids: [String], lang: String? = nil) async throws -> GeocodeResponse {
-        try await placeWithRequestBuilder(ids: ids, lang: lang).execute().body
+    open class func placeDetailsV1(ids: [String], lang: String? = nil) async throws -> GeocodeResponse {
+        try await placeDetailsV1WithRequestBuilder(ids: ids, lang: lang).execute().body
     }
 
     /**
@@ -119,7 +201,7 @@ open class GeocodingAPI {
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a &#x60;langtag&#x60; (in RFC 5646 terms) can contain script, region, etc., only the &#x60;language&#x60; portion, an ISO 639 code, will be considered. So &#x60;en-US&#x60; and &#x60;en-GB&#x60; will both be treated as English. (optional)
      - returns: RequestBuilder<GeocodeResponse>
      */
-    open class func placeWithRequestBuilder(ids: [String], lang: String? = nil) -> RequestBuilder<GeocodeResponse> {
+    open class func placeDetailsV1WithRequestBuilder(ids: [String], lang: String? = nil) -> RequestBuilder<GeocodeResponse> {
         let localVariablePath = "/geocoding/v1/place"
         let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
@@ -140,6 +222,46 @@ open class GeocodingAPI {
     }
 
     /**
+
+     - parameter ids: (query)
+     - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. There is no default value, so place names will be returned as-is, which is usually in the local language. NOTE: The Accept-Language header is also respected, and many user agents will set it automatically. (optional)
+     - returns: GeocodeResponseEnvelopePropertiesV2
+     */
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func placeDetailsV2(ids: [String], lang: String? = nil) async throws -> GeocodeResponseEnvelopePropertiesV2 {
+        try await placeDetailsV2WithRequestBuilder(ids: ids, lang: lang).execute().body
+    }
+
+    /**
+     - GET /geocoding/v2/place_details
+     - API Key:
+       - type: apiKey api_key (QUERY)
+       - name: ApiKeyAuth
+     - parameter ids: (query)
+     - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. There is no default value, so place names will be returned as-is, which is usually in the local language. NOTE: The Accept-Language header is also respected, and many user agents will set it automatically. (optional)
+     - returns: RequestBuilder<GeocodeResponseEnvelopePropertiesV2>
+     */
+    open class func placeDetailsV2WithRequestBuilder(ids: [String], lang: String? = nil) -> RequestBuilder<GeocodeResponseEnvelopePropertiesV2> {
+        let localVariablePath = "/geocoding/v2/place_details"
+        let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "ids": (wrappedValue: ids.encodeToJSON(), isExplode: false),
+            "lang": (wrappedValue: lang?.encodeToJSON(), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: Any?] = [:]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<GeocodeResponseEnvelopePropertiesV2>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+    }
+
+    /**
      Find places and addresses near geographic coordinates (reverse geocoding).
 
      - parameter pointLat: (query) The latitude of the point at which to perform the search.
@@ -147,15 +269,15 @@ open class GeocodingAPI {
      - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
      - parameter layers: (query) A list of layers to limit the search to. (optional)
      - parameter sources: (query) A list of sources to limit the search to. (optional)
-     - parameter boundaryCountry: (query) A list of countries to limit the search to. These may be either full names (ex: Canada), or an ISO 3116-1 alpha-2 or alpha-3 code. Prefer ISO codes when possible. (optional)
+     - parameter boundaryCountry: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter boundaryGid: (query) The GID of an area to limit the search to. (optional)
      - parameter size: (query) The maximum number of results to return. (optional)
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a &#x60;langtag&#x60; (in RFC 5646 terms) can contain script, region, etc., only the &#x60;language&#x60; portion, an ISO 639 code, will be considered. So &#x60;en-US&#x60; and &#x60;en-GB&#x60; will both be treated as English. (optional)
      - returns: GeocodeResponse
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func reverse(pointLat: Double, pointLon: Double, boundaryCircleRadius: Double? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, size: Int? = nil, lang: String? = nil) async throws -> GeocodeResponse {
-        try await reverseWithRequestBuilder(pointLat: pointLat, pointLon: pointLon, boundaryCircleRadius: boundaryCircleRadius, layers: layers, sources: sources, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, size: size, lang: lang).execute().body
+    open class func reverseV1(pointLat: Double, pointLon: Double, boundaryCircleRadius: Double? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, size: Int? = nil, lang: String? = nil) async throws -> GeocodeResponse {
+        try await reverseV1WithRequestBuilder(pointLat: pointLat, pointLon: pointLon, boundaryCircleRadius: boundaryCircleRadius, layers: layers, sources: sources, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, size: size, lang: lang).execute().body
     }
 
     /**
@@ -170,13 +292,13 @@ open class GeocodingAPI {
      - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
      - parameter layers: (query) A list of layers to limit the search to. (optional)
      - parameter sources: (query) A list of sources to limit the search to. (optional)
-     - parameter boundaryCountry: (query) A list of countries to limit the search to. These may be either full names (ex: Canada), or an ISO 3116-1 alpha-2 or alpha-3 code. Prefer ISO codes when possible. (optional)
+     - parameter boundaryCountry: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter boundaryGid: (query) The GID of an area to limit the search to. (optional)
      - parameter size: (query) The maximum number of results to return. (optional)
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a &#x60;langtag&#x60; (in RFC 5646 terms) can contain script, region, etc., only the &#x60;language&#x60; portion, an ISO 639 code, will be considered. So &#x60;en-US&#x60; and &#x60;en-GB&#x60; will both be treated as English. (optional)
      - returns: RequestBuilder<GeocodeResponse>
      */
-    open class func reverseWithRequestBuilder(pointLat: Double, pointLon: Double, boundaryCircleRadius: Double? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponse> {
+    open class func reverseV1WithRequestBuilder(pointLat: Double, pointLon: Double, boundaryCircleRadius: Double? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponse> {
         let localVariablePath = "/geocoding/v1/reverse"
         let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
@@ -204,99 +326,14 @@ open class GeocodingAPI {
     }
 
     /**
-     Search for location and other info using a place name or address (forward geocoding).
-
-     - parameter text: (query) The place name (address, venue name, etc.) to search for.
-     - parameter focusPointLat: (query) The latitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lon&#x60;. (optional)
-     - parameter focusPointLon: (query) The longitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lat&#x60;. (optional)
-     - parameter boundaryRectMinLat: (query) Defines the min latitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
-     - parameter boundaryRectMaxLat: (query) Defines the max latitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
-     - parameter boundaryRectMinLon: (query) Defines the min longitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
-     - parameter boundaryRectMaxLon: (query) Defines the max longitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
-     - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lon&#x60;. (optional)
-     - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lat&#x60;. (optional)
-     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
-     - parameter boundaryCountry: (query) A list of countries to limit the search to. These may be either full names (ex: Canada), or an ISO 3116-1 alpha-2 or alpha-3 code. Prefer ISO codes when possible. (optional)
-     - parameter boundaryGid: (query) The GID of an area to limit the search to. (optional)
-     - parameter layers: (query) A list of layers to limit the search to. (optional)
-     - parameter sources: (query) A list of sources to limit the search to. (optional)
-     - parameter size: (query) The maximum number of results to return. (optional)
-     - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a &#x60;langtag&#x60; (in RFC 5646 terms) can contain script, region, etc., only the &#x60;language&#x60; portion, an ISO 639 code, will be considered. So &#x60;en-US&#x60; and &#x60;en-GB&#x60; will both be treated as English. (optional)
-     - returns: GeocodeResponse
-     */
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func search(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) async throws -> GeocodeResponse {
-        try await searchWithRequestBuilder(text: text, focusPointLat: focusPointLat, focusPointLon: focusPointLon, boundaryRectMinLat: boundaryRectMinLat, boundaryRectMaxLat: boundaryRectMaxLat, boundaryRectMinLon: boundaryRectMinLon, boundaryRectMaxLon: boundaryRectMaxLon, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, layers: layers, sources: sources, size: size, lang: lang).execute().body
-    }
-
-    /**
-     Search for location and other info using a place name or address (forward geocoding).
-     - GET /geocoding/v1/search
-     - The search endpoint lets you search for addresses, points of interest, and administrative areas. This is most commonly used for forward geocoding applications where you need to find the geographic coordinates of an address.
-     - API Key:
-       - type: apiKey api_key (QUERY)
-       - name: ApiKeyAuth
-     - parameter text: (query) The place name (address, venue name, etc.) to search for.
-     - parameter focusPointLat: (query) The latitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lon&#x60;. (optional)
-     - parameter focusPointLon: (query) The longitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lat&#x60;. (optional)
-     - parameter boundaryRectMinLat: (query) Defines the min latitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
-     - parameter boundaryRectMaxLat: (query) Defines the max latitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
-     - parameter boundaryRectMinLon: (query) Defines the min longitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
-     - parameter boundaryRectMaxLon: (query) Defines the max longitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
-     - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lon&#x60;. (optional)
-     - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lat&#x60;. (optional)
-     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
-     - parameter boundaryCountry: (query) A list of countries to limit the search to. These may be either full names (ex: Canada), or an ISO 3116-1 alpha-2 or alpha-3 code. Prefer ISO codes when possible. (optional)
-     - parameter boundaryGid: (query) The GID of an area to limit the search to. (optional)
-     - parameter layers: (query) A list of layers to limit the search to. (optional)
-     - parameter sources: (query) A list of sources to limit the search to. (optional)
-     - parameter size: (query) The maximum number of results to return. (optional)
-     - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a &#x60;langtag&#x60; (in RFC 5646 terms) can contain script, region, etc., only the &#x60;language&#x60; portion, an ISO 639 code, will be considered. So &#x60;en-US&#x60; and &#x60;en-GB&#x60; will both be treated as English. (optional)
-     - returns: RequestBuilder<GeocodeResponse>
-     */
-    open class func searchWithRequestBuilder(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponse> {
-        let localVariablePath = "/geocoding/v1/search"
-        let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
-        let localVariableParameters: [String: Any]? = nil
-
-        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
-        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
-            "text": (wrappedValue: text.encodeToJSON(), isExplode: true),
-            "focus.point.lat": (wrappedValue: focusPointLat?.encodeToJSON(), isExplode: true),
-            "focus.point.lon": (wrappedValue: focusPointLon?.encodeToJSON(), isExplode: true),
-            "boundary.rect.min_lat": (wrappedValue: boundaryRectMinLat?.encodeToJSON(), isExplode: true),
-            "boundary.rect.max_lat": (wrappedValue: boundaryRectMaxLat?.encodeToJSON(), isExplode: true),
-            "boundary.rect.min_lon": (wrappedValue: boundaryRectMinLon?.encodeToJSON(), isExplode: true),
-            "boundary.rect.max_lon": (wrappedValue: boundaryRectMaxLon?.encodeToJSON(), isExplode: true),
-            "boundary.circle.lat": (wrappedValue: boundaryCircleLat?.encodeToJSON(), isExplode: true),
-            "boundary.circle.lon": (wrappedValue: boundaryCircleLon?.encodeToJSON(), isExplode: true),
-            "boundary.circle.radius": (wrappedValue: boundaryCircleRadius?.encodeToJSON(), isExplode: true),
-            "boundary.country": (wrappedValue: boundaryCountry?.encodeToJSON(), isExplode: false),
-            "boundary.gid": (wrappedValue: boundaryGid?.encodeToJSON(), isExplode: true),
-            "layers": (wrappedValue: layers?.encodeToJSON(), isExplode: false),
-            "sources": (wrappedValue: sources?.encodeToJSON(), isExplode: false),
-            "size": (wrappedValue: size?.encodeToJSON(), isExplode: true),
-            "lang": (wrappedValue: lang?.encodeToJSON(), isExplode: true),
-        ])
-
-        let localVariableNillableHeaders: [String: Any?] = [:]
-
-        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
-
-        let localVariableRequestBuilder: RequestBuilder<GeocodeResponse>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
-
-        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
-    }
-
-    /**
      Quickly run a batch of geocoding queries against the search or structured search endpoints.
 
      - parameter bulkRequest: (body)  (optional)
      - returns: [BulkSearchResponse]
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func searchBulk(bulkRequest: [BulkRequest]? = nil) async throws -> [BulkSearchResponse] {
-        try await searchBulkWithRequestBuilder(bulkRequest: bulkRequest).execute().body
+    open class func searchBulkV1(bulkRequest: [BulkRequest]? = nil) async throws -> [BulkSearchResponse] {
+        try await searchBulkV1WithRequestBuilder(bulkRequest: bulkRequest).execute().body
     }
 
     /**
@@ -309,7 +346,7 @@ open class GeocodingAPI {
      - parameter bulkRequest: (body)  (optional)
      - returns: RequestBuilder<[BulkSearchResponse]>
      */
-    open class func searchBulkWithRequestBuilder(bulkRequest: [BulkRequest]? = nil) -> RequestBuilder<[BulkSearchResponse]> {
+    open class func searchBulkV1WithRequestBuilder(bulkRequest: [BulkRequest]? = nil) -> RequestBuilder<[BulkSearchResponse]> {
         let localVariablePath = "/geocoding/v1/search/bulk"
         let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: bulkRequest)
@@ -337,7 +374,7 @@ open class GeocodingAPI {
      - parameter county: (query) Administrative divisions between localities and regions. Not commonly used as input to structured geocoding. (optional)
      - parameter region: (query) Typically the first administrative division within a country. For example, a US state or a Canadian province. (optional)
      - parameter postalcode: (query) A mail sorting code. (optional)
-     - parameter country: (query) A full name (ex: Canada), or a 2 or 3 character ISO code. Prefer ISO codes when possible. (optional)
+     - parameter country: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter focusPointLat: (query) The latitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lon&#x60;. (optional)
      - parameter focusPointLon: (query) The longitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lat&#x60;. (optional)
      - parameter boundaryRectMinLat: (query) Defines the min latitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
@@ -347,7 +384,7 @@ open class GeocodingAPI {
      - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lon&#x60;. (optional)
      - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lat&#x60;. (optional)
      - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
-     - parameter boundaryCountry: (query) A list of countries to limit the search to. These may be either full names (ex: Canada), or an ISO 3116-1 alpha-2 or alpha-3 code. Prefer ISO codes when possible. (optional)
+     - parameter boundaryCountry: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter boundaryGid: (query) The GID of an area to limit the search to. (optional)
      - parameter layers: (query) A list of layers to limit the search to. (optional)
      - parameter sources: (query) A list of sources to limit the search to. (optional)
@@ -356,8 +393,8 @@ open class GeocodingAPI {
      - returns: GeocodeResponse
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func searchStructured(address: String? = nil, neighbourhood: String? = nil, borough: String? = nil, locality: String? = nil, county: String? = nil, region: String? = nil, postalcode: String? = nil, country: String? = nil, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) async throws -> GeocodeResponse {
-        try await searchStructuredWithRequestBuilder(address: address, neighbourhood: neighbourhood, borough: borough, locality: locality, county: county, region: region, postalcode: postalcode, country: country, focusPointLat: focusPointLat, focusPointLon: focusPointLon, boundaryRectMinLat: boundaryRectMinLat, boundaryRectMaxLat: boundaryRectMaxLat, boundaryRectMinLon: boundaryRectMinLon, boundaryRectMaxLon: boundaryRectMaxLon, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, layers: layers, sources: sources, size: size, lang: lang).execute().body
+    open class func searchStructuredV1(address: String? = nil, neighbourhood: String? = nil, borough: String? = nil, locality: String? = nil, county: String? = nil, region: String? = nil, postalcode: String? = nil, country: String? = nil, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) async throws -> GeocodeResponse {
+        try await searchStructuredV1WithRequestBuilder(address: address, neighbourhood: neighbourhood, borough: borough, locality: locality, county: county, region: region, postalcode: postalcode, country: country, focusPointLat: focusPointLat, focusPointLon: focusPointLon, boundaryRectMinLat: boundaryRectMinLat, boundaryRectMaxLat: boundaryRectMaxLat, boundaryRectMinLon: boundaryRectMinLon, boundaryRectMaxLon: boundaryRectMaxLon, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, layers: layers, sources: sources, size: size, lang: lang).execute().body
     }
 
     /**
@@ -374,7 +411,7 @@ open class GeocodingAPI {
      - parameter county: (query) Administrative divisions between localities and regions. Not commonly used as input to structured geocoding. (optional)
      - parameter region: (query) Typically the first administrative division within a country. For example, a US state or a Canadian province. (optional)
      - parameter postalcode: (query) A mail sorting code. (optional)
-     - parameter country: (query) A full name (ex: Canada), or a 2 or 3 character ISO code. Prefer ISO codes when possible. (optional)
+     - parameter country: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter focusPointLat: (query) The latitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lon&#x60;. (optional)
      - parameter focusPointLon: (query) The longitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lat&#x60;. (optional)
      - parameter boundaryRectMinLat: (query) Defines the min latitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
@@ -384,7 +421,7 @@ open class GeocodingAPI {
      - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lon&#x60;. (optional)
      - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lat&#x60;. (optional)
      - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
-     - parameter boundaryCountry: (query) A list of countries to limit the search to. These may be either full names (ex: Canada), or an ISO 3116-1 alpha-2 or alpha-3 code. Prefer ISO codes when possible. (optional)
+     - parameter boundaryCountry: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter boundaryGid: (query) The GID of an area to limit the search to. (optional)
      - parameter layers: (query) A list of layers to limit the search to. (optional)
      - parameter sources: (query) A list of sources to limit the search to. (optional)
@@ -392,7 +429,7 @@ open class GeocodingAPI {
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a &#x60;langtag&#x60; (in RFC 5646 terms) can contain script, region, etc., only the &#x60;language&#x60; portion, an ISO 639 code, will be considered. So &#x60;en-US&#x60; and &#x60;en-GB&#x60; will both be treated as English. (optional)
      - returns: RequestBuilder<GeocodeResponse>
      */
-    open class func searchStructuredWithRequestBuilder(address: String? = nil, neighbourhood: String? = nil, borough: String? = nil, locality: String? = nil, county: String? = nil, region: String? = nil, postalcode: String? = nil, country: String? = nil, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponse> {
+    open class func searchStructuredV1WithRequestBuilder(address: String? = nil, neighbourhood: String? = nil, borough: String? = nil, locality: String? = nil, county: String? = nil, region: String? = nil, postalcode: String? = nil, country: String? = nil, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponse> {
         let localVariablePath = "/geocoding/v1/search/structured"
         let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
@@ -407,6 +444,91 @@ open class GeocodingAPI {
             "region": (wrappedValue: region?.encodeToJSON(), isExplode: true),
             "postalcode": (wrappedValue: postalcode?.encodeToJSON(), isExplode: true),
             "country": (wrappedValue: country?.encodeToJSON(), isExplode: true),
+            "focus.point.lat": (wrappedValue: focusPointLat?.encodeToJSON(), isExplode: true),
+            "focus.point.lon": (wrappedValue: focusPointLon?.encodeToJSON(), isExplode: true),
+            "boundary.rect.min_lat": (wrappedValue: boundaryRectMinLat?.encodeToJSON(), isExplode: true),
+            "boundary.rect.max_lat": (wrappedValue: boundaryRectMaxLat?.encodeToJSON(), isExplode: true),
+            "boundary.rect.min_lon": (wrappedValue: boundaryRectMinLon?.encodeToJSON(), isExplode: true),
+            "boundary.rect.max_lon": (wrappedValue: boundaryRectMaxLon?.encodeToJSON(), isExplode: true),
+            "boundary.circle.lat": (wrappedValue: boundaryCircleLat?.encodeToJSON(), isExplode: true),
+            "boundary.circle.lon": (wrappedValue: boundaryCircleLon?.encodeToJSON(), isExplode: true),
+            "boundary.circle.radius": (wrappedValue: boundaryCircleRadius?.encodeToJSON(), isExplode: true),
+            "boundary.country": (wrappedValue: boundaryCountry?.encodeToJSON(), isExplode: false),
+            "boundary.gid": (wrappedValue: boundaryGid?.encodeToJSON(), isExplode: true),
+            "layers": (wrappedValue: layers?.encodeToJSON(), isExplode: false),
+            "sources": (wrappedValue: sources?.encodeToJSON(), isExplode: false),
+            "size": (wrappedValue: size?.encodeToJSON(), isExplode: true),
+            "lang": (wrappedValue: lang?.encodeToJSON(), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: Any?] = [:]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<GeocodeResponse>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+    }
+
+    /**
+     Search for location and other info using a place name or address (forward geocoding).
+
+     - parameter text: (query) The place name (address, venue name, etc.) to search for.
+     - parameter focusPointLat: (query) The latitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lon&#x60;. (optional)
+     - parameter focusPointLon: (query) The longitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lat&#x60;. (optional)
+     - parameter boundaryRectMinLat: (query) Defines the min latitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
+     - parameter boundaryRectMaxLat: (query) Defines the max latitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
+     - parameter boundaryRectMinLon: (query) Defines the min longitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
+     - parameter boundaryRectMaxLon: (query) Defines the max longitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
+     - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lon&#x60;. (optional)
+     - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lat&#x60;. (optional)
+     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
+     - parameter boundaryCountry: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
+     - parameter boundaryGid: (query) The GID of an area to limit the search to. (optional)
+     - parameter layers: (query) A list of layers to limit the search to. (optional)
+     - parameter sources: (query) A list of sources to limit the search to. (optional)
+     - parameter size: (query) The maximum number of results to return. (optional)
+     - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a &#x60;langtag&#x60; (in RFC 5646 terms) can contain script, region, etc., only the &#x60;language&#x60; portion, an ISO 639 code, will be considered. So &#x60;en-US&#x60; and &#x60;en-GB&#x60; will both be treated as English. (optional)
+     - returns: GeocodeResponse
+     */
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func searchV1(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) async throws -> GeocodeResponse {
+        try await searchV1WithRequestBuilder(text: text, focusPointLat: focusPointLat, focusPointLon: focusPointLon, boundaryRectMinLat: boundaryRectMinLat, boundaryRectMaxLat: boundaryRectMaxLat, boundaryRectMinLon: boundaryRectMinLon, boundaryRectMaxLon: boundaryRectMaxLon, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, layers: layers, sources: sources, size: size, lang: lang).execute().body
+    }
+
+    /**
+     Search for location and other info using a place name or address (forward geocoding).
+     - GET /geocoding/v1/search
+     - The search endpoint lets you search for addresses, points of interest, and administrative areas. This is most commonly used for forward geocoding applications where you need to find the geographic coordinates of an address.
+     - API Key:
+       - type: apiKey api_key (QUERY)
+       - name: ApiKeyAuth
+     - parameter text: (query) The place name (address, venue name, etc.) to search for.
+     - parameter focusPointLat: (query) The latitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lon&#x60;. (optional)
+     - parameter focusPointLon: (query) The longitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lat&#x60;. (optional)
+     - parameter boundaryRectMinLat: (query) Defines the min latitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
+     - parameter boundaryRectMaxLat: (query) Defines the max latitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
+     - parameter boundaryRectMinLon: (query) Defines the min longitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
+     - parameter boundaryRectMaxLon: (query) Defines the max longitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
+     - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lon&#x60;. (optional)
+     - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lat&#x60;. (optional)
+     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
+     - parameter boundaryCountry: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
+     - parameter boundaryGid: (query) The GID of an area to limit the search to. (optional)
+     - parameter layers: (query) A list of layers to limit the search to. (optional)
+     - parameter sources: (query) A list of sources to limit the search to. (optional)
+     - parameter size: (query) The maximum number of results to return. (optional)
+     - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a &#x60;langtag&#x60; (in RFC 5646 terms) can contain script, region, etc., only the &#x60;language&#x60; portion, an ISO 639 code, will be considered. So &#x60;en-US&#x60; and &#x60;en-GB&#x60; will both be treated as English. (optional)
+     - returns: RequestBuilder<GeocodeResponse>
+     */
+    open class func searchV1WithRequestBuilder(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponse> {
+        let localVariablePath = "/geocoding/v1/search"
+        let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "text": (wrappedValue: text.encodeToJSON(), isExplode: true),
             "focus.point.lat": (wrappedValue: focusPointLat?.encodeToJSON(), isExplode: true),
             "focus.point.lon": (wrappedValue: focusPointLon?.encodeToJSON(), isExplode: true),
             "boundary.rect.min_lat": (wrappedValue: boundaryRectMinLat?.encodeToJSON(), isExplode: true),

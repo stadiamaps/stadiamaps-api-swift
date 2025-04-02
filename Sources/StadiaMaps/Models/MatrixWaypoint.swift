@@ -11,8 +11,8 @@ import Foundation
 #endif
 
 public struct MatrixWaypoint: Codable, JSONEncodable, Hashable {
-    static let latRule = NumericRule<Double>(minimum: -90, exclusiveMinimum: false, maximum: 90, exclusiveMaximum: false, multipleOf: nil)
-    static let lonRule = NumericRule<Double>(minimum: -180, exclusiveMinimum: false, maximum: 180, exclusiveMaximum: false, multipleOf: nil)
+    public static let latRule = NumericRule<Double>(minimum: -90, exclusiveMinimum: false, maximum: 90, exclusiveMaximum: false, multipleOf: nil)
+    public static let lonRule = NumericRule<Double>(minimum: -180, exclusiveMinimum: false, maximum: 180, exclusiveMaximum: false, multipleOf: nil)
     /** The latitude of a point in the shape. */
     public var lat: Double
     /** The longitude of a point in the shape. */

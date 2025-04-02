@@ -77,3 +77,6 @@ public struct BaseTraceRequest: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(shapeMatch, forKey: .shapeMatch)
     }
 }
+
+@available(iOS 13, tvOS 13, watchOS 6, macOS 10.15, *)
+extension BaseTraceRequest: Identifiable {}

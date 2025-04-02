@@ -22,13 +22,15 @@ public struct GeocodingGeoJSONProperties: Codable, JSONEncodable, Hashable {
         case fallback
     }
 
+    public static let confidenceRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     /** A scoped GID for this result. This can be passed to the place endpoint. Note that these are not always stable long-term. */
     public var gid: String?
     /** An ID referencing the original data source (specified via source) for the result. These IDs are specific to the source that they originated from. For example, in the case of OSM, these typically look like way/123 or point/123. */
     public var sourceId: String?
     /** A full, human-readable label. However, you may not necessarily want to use this; be sure to read the docs for name, locality, and region before making a decision. This field is mostly localized. The order of components is generally locally correct (ex: for an address in South Korea, the house number appears after the street name). However, components will use a request language equivalent if one exists (ex: Seoul instead of 서울 if lang=en). */
     public var label: String?
-    public var layer: GeocodingLayer?
+    /** The data layer containing the place (e.g. \"address\" or \"venue\"). */
+    public var layer: String?
     /** The ID of the data source that the result came from. */
     public var source: String?
     /** The name of the place, the street address including house number, or label of similar relevance. If your app is localized to a specific region, you may get better display results by combining name, locality OR region (or neither?), and postal code together in the local format. Experiment with what works best for your use case. */
@@ -67,8 +69,10 @@ public struct GeocodingGeoJSONProperties: Codable, JSONEncodable, Hashable {
     public var localadminGid: String?
     /** For search and structured search results, the type of match. */
     public var matchType: MatchType?
+    /** The level of confidence that the result matches what the user searched for. Only available on forward geocoding endpoints. */
+    public var confidence: Double?
 
-    public init(gid: String? = nil, sourceId: String? = nil, label: String? = nil, layer: GeocodingLayer? = nil, source: String? = nil, name: String? = nil, accuracy: Accuracy? = nil, addendum: GeocodingGeoJSONPropertiesAddendum? = nil, continent: String? = nil, continentGid: String? = nil, country: String? = nil, countryA: String? = nil, countryCode: String? = nil, countryGid: String? = nil, neighbourhood: String? = nil, neighbourhoodGid: String? = nil, borough: String? = nil, boroughGid: String? = nil, postalcode: String? = nil, street: String? = nil, housenumber: String? = nil, locality: String? = nil, localityGid: String? = nil, county: String? = nil, countyGid: String? = nil, region: String? = nil, regionA: String? = nil, regionGid: String? = nil, localadmin: String? = nil, localadminGid: String? = nil, matchType: MatchType? = nil) {
+    public init(gid: String? = nil, sourceId: String? = nil, label: String? = nil, layer: String? = nil, source: String? = nil, name: String? = nil, accuracy: Accuracy? = nil, addendum: GeocodingGeoJSONPropertiesAddendum? = nil, continent: String? = nil, continentGid: String? = nil, country: String? = nil, countryA: String? = nil, countryCode: String? = nil, countryGid: String? = nil, neighbourhood: String? = nil, neighbourhoodGid: String? = nil, borough: String? = nil, boroughGid: String? = nil, postalcode: String? = nil, street: String? = nil, housenumber: String? = nil, locality: String? = nil, localityGid: String? = nil, county: String? = nil, countyGid: String? = nil, region: String? = nil, regionA: String? = nil, regionGid: String? = nil, localadmin: String? = nil, localadminGid: String? = nil, matchType: MatchType? = nil, confidence: Double? = nil) {
         self.gid = gid
         self.sourceId = sourceId
         self.label = label
@@ -100,6 +104,7 @@ public struct GeocodingGeoJSONProperties: Codable, JSONEncodable, Hashable {
         self.localadmin = localadmin
         self.localadminGid = localadminGid
         self.matchType = matchType
+        self.confidence = confidence
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -134,6 +139,7 @@ public struct GeocodingGeoJSONProperties: Codable, JSONEncodable, Hashable {
         case localadmin
         case localadminGid = "localadmin_gid"
         case matchType = "match_type"
+        case confidence
     }
 
     public var additionalProperties: [String: AnyCodable] = [:]
@@ -186,6 +192,7 @@ public struct GeocodingGeoJSONProperties: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(localadmin, forKey: .localadmin)
         try container.encodeIfPresent(localadminGid, forKey: .localadminGid)
         try container.encodeIfPresent(matchType, forKey: .matchType)
+        try container.encodeIfPresent(confidence, forKey: .confidence)
         var additionalPropertiesContainer = encoder.container(keyedBy: String.self)
         try additionalPropertiesContainer.encodeMap(additionalProperties)
     }
@@ -198,7 +205,7 @@ public struct GeocodingGeoJSONProperties: Codable, JSONEncodable, Hashable {
         gid = try container.decodeIfPresent(String.self, forKey: .gid)
         sourceId = try container.decodeIfPresent(String.self, forKey: .sourceId)
         label = try container.decodeIfPresent(String.self, forKey: .label)
-        layer = try container.decodeIfPresent(GeocodingLayer.self, forKey: .layer)
+        layer = try container.decodeIfPresent(String.self, forKey: .layer)
         source = try container.decodeIfPresent(String.self, forKey: .source)
         name = try container.decodeIfPresent(String.self, forKey: .name)
         accuracy = try container.decodeIfPresent(Accuracy.self, forKey: .accuracy)
@@ -226,6 +233,7 @@ public struct GeocodingGeoJSONProperties: Codable, JSONEncodable, Hashable {
         localadmin = try container.decodeIfPresent(String.self, forKey: .localadmin)
         localadminGid = try container.decodeIfPresent(String.self, forKey: .localadminGid)
         matchType = try container.decodeIfPresent(MatchType.self, forKey: .matchType)
+        confidence = try container.decodeIfPresent(Double.self, forKey: .confidence)
         var nonAdditionalPropertyKeys = Set<String>()
         nonAdditionalPropertyKeys.insert("gid")
         nonAdditionalPropertyKeys.insert("source_id")
@@ -258,6 +266,7 @@ public struct GeocodingGeoJSONProperties: Codable, JSONEncodable, Hashable {
         nonAdditionalPropertyKeys.insert("localadmin")
         nonAdditionalPropertyKeys.insert("localadmin_gid")
         nonAdditionalPropertyKeys.insert("match_type")
+        nonAdditionalPropertyKeys.insert("confidence")
         let additionalPropertiesContainer = try decoder.container(keyedBy: String.self)
         additionalProperties = try additionalPropertiesContainer.decodeMap(AnyCodable.self, excludedKeys: nonAdditionalPropertyKeys)
     }

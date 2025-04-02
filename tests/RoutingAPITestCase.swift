@@ -31,7 +31,7 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
                                format: .osrm,
                                bannerInstructions: true,
                                filters: AnnotationFilters(action: .include, attributes: [
-                                   .speedLimit,
+                                   .shapeAttributesPeriodSpeedLimit,
                                ]),
                                id: "route",
                                locations: [

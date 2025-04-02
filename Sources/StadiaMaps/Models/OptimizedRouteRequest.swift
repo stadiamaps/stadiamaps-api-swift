@@ -22,7 +22,7 @@ public struct OptimizedRouteRequest: Codable, JSONEncodable, Hashable {
         case osrm
     }
 
-    static let locationsRule = ArrayRule(minItems: 3, maxItems: nil, uniqueItems: false)
+    public static let locationsRule = ArrayRule(minItems: 3, maxItems: nil, uniqueItems: false)
     public var units: DistanceUnit?
     public var language: RoutingLanguages?
     /** The level of directional narrative to include. Locations and times will always be returned, but narrative generation verbosity can be controlled with this parameter. */
@@ -91,3 +91,6 @@ public struct OptimizedRouteRequest: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(elevationInterval, forKey: .elevationInterval)
     }
 }
+
+@available(iOS 13, tvOS 13, watchOS 6, macOS 10.15, *)
+extension OptimizedRouteRequest: Identifiable {}

@@ -12,8 +12,8 @@ import Foundation
 
 public struct BulkRequest: Codable, JSONEncodable, Hashable {
     public enum Endpoint: String, Codable, CaseIterable {
-        case search = "/v1/search"
-        case searchSlashStructured = "/v1/search/structured"
+        case slashV1SlashSearch = "/v1/search"
+        case slashV1SlashSearchSlashStructured = "/v1/search/structured"
     }
 
     public var endpoint: Endpoint?

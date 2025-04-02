@@ -24,21 +24,21 @@ public struct RoutingWaypoint: Codable, JSONEncodable, Hashable {
         case either
     }
 
-    static let latRule = NumericRule<Double>(minimum: -90, exclusiveMinimum: false, maximum: 90, exclusiveMaximum: false, multipleOf: nil)
-    static let lonRule = NumericRule<Double>(minimum: -180, exclusiveMinimum: false, maximum: 180, exclusiveMaximum: false, multipleOf: nil)
-    static let headingRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: 360, exclusiveMaximum: false, multipleOf: nil)
-    static let headingToleranceRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: 360, exclusiveMaximum: false, multipleOf: nil)
-    static let minimumReachabilityRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
-    static let radiusRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
-    static let nodeSnapToleranceRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
-    static let streetSideToleranceRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
-    static let streetSideMaxDistanceRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
+    public static let latRule = NumericRule<Double>(minimum: -90, exclusiveMinimum: false, maximum: 90, exclusiveMaximum: false, multipleOf: nil)
+    public static let lonRule = NumericRule<Double>(minimum: -180, exclusiveMinimum: false, maximum: 180, exclusiveMaximum: false, multipleOf: nil)
+    public static let headingRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: 360, exclusiveMaximum: false, multipleOf: nil)
+    public static let headingToleranceRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: 360, exclusiveMaximum: false, multipleOf: nil)
+    public static let minimumReachabilityRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
+    public static let radiusRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
+    public static let nodeSnapToleranceRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
+    public static let streetSideToleranceRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
+    public static let streetSideMaxDistanceRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
     /** The latitude of a point in the shape. */
     public var lat: Double
     /** The longitude of a point in the shape. */
     public var lon: Double
-    /** A `break` represents the start or end of a leg, and allows reversals. A `through` location is an intermediate waypoint that must be visited between `break`s, but at which reversals are not allowed. A `via` is similar to a `through` except that reversals are allowed. A `break_through` is similar to a `break` in that it can be the start/end of a leg, but does not allow reversals. */
-    public var type: ModelType? = ._break
+    /** A `break` represents the start or end of a leg, and allows reversals. A `through` location is an intermediate waypoint that must be visited between `break`s, but at which reversals are not allowed. A `via` is similar to a `through` except that reversals are allowed. A `break_through` is similar to a `break` in that it can be the start/end of a leg, but does not allow reversals. Defaults to `break`. */
+    public var type: ModelType?
     /** The preferred direction of travel when starting the route, in integer clockwise degrees from north. North is 0, south is 180, east is 90, and west is 270. */
     public var heading: Int?
     /** The tolerance (in degrees) determining whether a street is considered the same direction. */
@@ -59,7 +59,7 @@ public struct RoutingWaypoint: Codable, JSONEncodable, Hashable {
     public var streetSideMaxDistance: Int? = 1000
     public var searchFilter: RoutingWaypointAllOfSearchFilter?
 
-    public init(lat: Double, lon: Double, type: ModelType? = ._break, heading: Int? = nil, headingTolerance: Int? = 60, minimumReachability: Int? = 50, radius: Int? = 0, rankCandidates: Bool? = true, preferredSide: PreferredSide? = nil, nodeSnapTolerance: Int? = 5, streetSideTolerance: Int? = 5, streetSideMaxDistance: Int? = 1000, searchFilter: RoutingWaypointAllOfSearchFilter? = nil) {
+    public init(lat: Double, lon: Double, type: ModelType? = nil, heading: Int? = nil, headingTolerance: Int? = 60, minimumReachability: Int? = 50, radius: Int? = 0, rankCandidates: Bool? = true, preferredSide: PreferredSide? = nil, nodeSnapTolerance: Int? = 5, streetSideTolerance: Int? = 5, streetSideMaxDistance: Int? = 1000, searchFilter: RoutingWaypointAllOfSearchFilter? = nil) {
         self.lat = lat
         self.lon = lon
         self.type = type

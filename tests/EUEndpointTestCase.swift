@@ -16,9 +16,9 @@ final class EUEndpointTestCase: IntegrationXCTestCase {
     }
 
     func testAutocomplete() async throws {
-        let res = try await GeocodingAPI.autocomplete(text: "Põhja pst 27")
+        let res = try await GeocodingAPI.autocompleteV1(text: "Põhja pst 27")
         XCTAssert(!res.features.isEmpty)
         XCTAssertEqual(res.features.first?.properties?.country, "Estonia")
-        XCTAssertEqual(res.features.first?.properties?.layer, .address)
+        XCTAssertEqual(res.features.first?.properties?.layer, "address")
     }
 }

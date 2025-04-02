@@ -16,8 +16,8 @@ public struct HeightRequest: Codable, JSONEncodable, Hashable {
         case polyline5
     }
 
-    static let heightPrecisionRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: 2, exclusiveMaximum: false, multipleOf: nil)
-    static let resampleDistanceRule = NumericRule<Int>(minimum: 10, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
+    public static let heightPrecisionRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: 2, exclusiveMaximum: false, multipleOf: nil)
+    public static let resampleDistanceRule = NumericRule<Int>(minimum: 10, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
     /** REQUIRED if `encoded_polyline` is not present. */
@@ -66,3 +66,6 @@ public struct HeightRequest: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(resampleDistance, forKey: .resampleDistance)
     }
 }
+
+@available(iOS 13, tvOS 13, watchOS 6, macOS 10.15, *)
+extension HeightRequest: Identifiable {}

@@ -11,15 +11,15 @@ import Foundation
 #endif
 
 public struct PedestrianCostingOptions: Codable, JSONEncodable, Hashable {
-    static let walkingSpeedRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: 25, exclusiveMaximum: false, multipleOf: nil)
-    static let useFerryRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
-    static let useLivingStreetsRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
-    static let useTracksRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
-    static let useHillsRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
-    static let useLitRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
-    static let maxHikingDifficultyRule = NumericRule<Int>(minimum: 1, exclusiveMinimum: false, maximum: 6, exclusiveMaximum: false, multipleOf: nil)
+    public static let walkingSpeedRule = NumericRule<Double>(minimum: 0.5, exclusiveMinimum: false, maximum: 25, exclusiveMaximum: false, multipleOf: nil)
+    public static let useFerryRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
+    public static let useLivingStreetsRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
+    public static let useTracksRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
+    public static let useHillsRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
+    public static let useLitRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
+    public static let maxHikingDifficultyRule = NumericRule<Int>(minimum: 1, exclusiveMinimum: false, maximum: 6, exclusiveMaximum: false, multipleOf: nil)
     /** Walking speed in kph. */
-    public var walkingSpeed: Int?
+    public var walkingSpeed: Double? = 5.1
     /** A factor that multiplies the cost when walkways are encountered. */
     public var walkwayFactor: Double? = 1
     /** A factor that multiplies the cost when sidewalks are encountered. */
@@ -50,8 +50,9 @@ public struct PedestrianCostingOptions: Codable, JSONEncodable, Hashable {
     public var bssRentCost: Int? = 120
     /** A penalty (in seconds) to rent a bicycle in `bikeshare` mode. */
     public var bssRentPenalty: Int? = 0
+    public var type: PedestrianType?
 
-    public init(walkingSpeed: Int? = nil, walkwayFactor: Double? = 1, sidewalkFactor: Double? = 1, alleyFactor: Double? = 2, drivewayFactor: Double? = 5, stepPenalty: Int? = 30, useFerry: Double? = 0.5, useLivingStreets: Double? = nil, useTracks: Double? = nil, useHills: Double? = 0.5, useLit: Double? = 0, servicePenalty: Int? = nil, serviceFactor: Double? = 1, maxHikingDifficulty: Int? = 1, bssRentCost: Int? = 120, bssRentPenalty: Int? = 0) {
+    public init(walkingSpeed: Double? = 5.1, walkwayFactor: Double? = 1, sidewalkFactor: Double? = 1, alleyFactor: Double? = 2, drivewayFactor: Double? = 5, stepPenalty: Int? = 30, useFerry: Double? = 0.5, useLivingStreets: Double? = nil, useTracks: Double? = nil, useHills: Double? = 0.5, useLit: Double? = 0, servicePenalty: Int? = nil, serviceFactor: Double? = 1, maxHikingDifficulty: Int? = 1, bssRentCost: Int? = 120, bssRentPenalty: Int? = 0, type: PedestrianType? = nil) {
         self.walkingSpeed = walkingSpeed
         self.walkwayFactor = walkwayFactor
         self.sidewalkFactor = sidewalkFactor
@@ -68,6 +69,7 @@ public struct PedestrianCostingOptions: Codable, JSONEncodable, Hashable {
         self.maxHikingDifficulty = maxHikingDifficulty
         self.bssRentCost = bssRentCost
         self.bssRentPenalty = bssRentPenalty
+        self.type = type
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -87,6 +89,7 @@ public struct PedestrianCostingOptions: Codable, JSONEncodable, Hashable {
         case maxHikingDifficulty = "max_hiking_difficulty"
         case bssRentCost = "bss_rent_cost"
         case bssRentPenalty = "bss_rent_penalty"
+        case type
     }
 
     // Encodable protocol methods
@@ -109,5 +112,6 @@ public struct PedestrianCostingOptions: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(maxHikingDifficulty, forKey: .maxHikingDifficulty)
         try container.encodeIfPresent(bssRentCost, forKey: .bssRentCost)
         try container.encodeIfPresent(bssRentPenalty, forKey: .bssRentPenalty)
+        try container.encodeIfPresent(type, forKey: .type)
     }
 }

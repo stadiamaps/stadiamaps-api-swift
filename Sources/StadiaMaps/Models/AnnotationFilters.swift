@@ -17,10 +17,10 @@ public struct AnnotationFilters: Codable, JSONEncodable, Hashable {
     }
 
     public enum Attributes: String, Codable, CaseIterable {
-        case speed = "shape_attributes.speed"
-        case speedLimit = "shape_attributes.speed_limit"
-        case time = "shape_attributes.time"
-        case length = "shape_attributes.length"
+        case shapeAttributesPeriodSpeed = "shape_attributes.speed"
+        case shapeAttributesPeriodSpeedLimit = "shape_attributes.speed_limit"
+        case shapeAttributesPeriodTime = "shape_attributes.time"
+        case shapeAttributesPeriodLength = "shape_attributes.length"
     }
 
     public var action: Action?

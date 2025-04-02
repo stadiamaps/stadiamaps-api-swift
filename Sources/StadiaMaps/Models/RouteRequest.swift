@@ -22,7 +22,7 @@ public struct RouteRequest: Codable, JSONEncodable, Hashable {
         case osrm
     }
 
-    static let locationsRule = ArrayRule(minItems: 2, maxItems: nil, uniqueItems: false)
+    public static let locationsRule = ArrayRule(minItems: 2, maxItems: nil, uniqueItems: false)
     public var units: DistanceUnit?
     public var language: RoutingLanguages?
     /** The level of directional narrative to include. Locations and times will always be returned, but narrative generation verbosity can be controlled with this parameter. */
@@ -110,3 +110,6 @@ public struct RouteRequest: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(roundaboutExits, forKey: .roundaboutExits)
     }
 }
+
+@available(iOS 13, tvOS 13, watchOS 6, macOS 10.15, *)
+extension RouteRequest: Identifiable {}

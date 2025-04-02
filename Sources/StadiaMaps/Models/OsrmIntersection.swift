@@ -20,7 +20,7 @@ public struct OsrmIntersection: Codable, JSONEncodable, Hashable {
         case tunnel
     }
 
-    static let locationRule = ArrayRule(minItems: 2, maxItems: 2, uniqueItems: false)
+    public static let locationRule = ArrayRule(minItems: 2, maxItems: 2, uniqueItems: false)
     /** A (longitude, latitude) coordinate pair. */
     public var location: [Double]
     /** A list of bearing values that are available for travel through the intersection. */

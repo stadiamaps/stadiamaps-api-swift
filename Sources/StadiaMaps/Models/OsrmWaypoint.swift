@@ -11,7 +11,7 @@ import Foundation
 #endif
 
 public struct OsrmWaypoint: Codable, JSONEncodable, Hashable {
-    static let locationRule = ArrayRule(minItems: 2, maxItems: 2, uniqueItems: false)
+    public static let locationRule = ArrayRule(minItems: 2, maxItems: 2, uniqueItems: false)
     public var name: String?
     /** A (longitude, latitude) coordinate pair. */
     public var location: [Double]

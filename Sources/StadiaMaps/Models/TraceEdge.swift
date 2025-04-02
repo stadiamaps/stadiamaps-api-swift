@@ -130,14 +130,14 @@ public struct TraceEdge: Codable, JSONEncodable, Hashable {
     public var sidewalk: Sidewalk?
     public var density: Int?
     /** The speed limit along the edge measured in `units`/hr. This may be either an integer or the string \"unlimited\" if speed limit data is available. If absent, there is no speed limit data available. */
-    public var speedLimit: AnyCodable?
+    public var speedLimit: Int?
     /** The truck speed of this edge in `units`/hr, in terms of average/free-flow speed for routing purposes. This is affected by any number of factors such as the road service, vehicle type, etc. and not just the posted speed limits. */
     public var truckSpeed: Int?
     /** True if the edge is part of a truck route/network. */
     public var truckRoute: Bool?
     public var endNode: EndNode?
 
-    public init(names: [String]? = nil, length: Double? = nil, speed: Int? = nil, roadClass: RoadClass? = nil, beginHeading: Int? = nil, endHeading: Int? = nil, beginShapeIndex: Int? = nil, endShapeIndex: Int? = nil, traversability: Traversability? = nil, use: EdgeUse? = nil, toll: Bool? = nil, unpaved: Bool? = nil, tunnel: Bool? = nil, bridge: Bool? = nil, roundabout: Bool? = nil, internalIntersection: Bool? = nil, driveOnRight: Bool? = nil, surface: Surface? = nil, sign: EdgeSign? = nil, travelMode: TravelMode? = nil, vehicleType: VehicleType? = nil, pedestrianType: PedestrianType? = nil, bicycleType: BicycleType? = nil, transitType: TransitType? = nil, id: Int64? = nil, wayId: Int64? = nil, weightedGrade: Double? = nil, maxUpwardGrade: Int? = nil, maxDownwardGrade: Int? = nil, meanElevation: Int? = nil, laneCount: Int? = nil, cycleLane: CycleLane? = nil, bicycleNetwork: Int? = nil, sacScale: Int? = nil, sidewalk: Sidewalk? = nil, density: Int? = nil, speedLimit: AnyCodable? = nil, truckSpeed: Int? = nil, truckRoute: Bool? = nil, endNode: EndNode? = nil) {
+    public init(names: [String]? = nil, length: Double? = nil, speed: Int? = nil, roadClass: RoadClass? = nil, beginHeading: Int? = nil, endHeading: Int? = nil, beginShapeIndex: Int? = nil, endShapeIndex: Int? = nil, traversability: Traversability? = nil, use: EdgeUse? = nil, toll: Bool? = nil, unpaved: Bool? = nil, tunnel: Bool? = nil, bridge: Bool? = nil, roundabout: Bool? = nil, internalIntersection: Bool? = nil, driveOnRight: Bool? = nil, surface: Surface? = nil, sign: EdgeSign? = nil, travelMode: TravelMode? = nil, vehicleType: VehicleType? = nil, pedestrianType: PedestrianType? = nil, bicycleType: BicycleType? = nil, transitType: TransitType? = nil, id: Int64? = nil, wayId: Int64? = nil, weightedGrade: Double? = nil, maxUpwardGrade: Int? = nil, maxDownwardGrade: Int? = nil, meanElevation: Int? = nil, laneCount: Int? = nil, cycleLane: CycleLane? = nil, bicycleNetwork: Int? = nil, sacScale: Int? = nil, sidewalk: Sidewalk? = nil, density: Int? = nil, speedLimit: Int? = nil, truckSpeed: Int? = nil, truckRoute: Bool? = nil, endNode: EndNode? = nil) {
         self.names = names
         self.length = length
         self.speed = speed
@@ -269,3 +269,6 @@ public struct TraceEdge: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(endNode, forKey: .endNode)
     }
 }
+
+@available(iOS 13, tvOS 13, watchOS 6, macOS 10.15, *)
+extension TraceEdge: Identifiable {}

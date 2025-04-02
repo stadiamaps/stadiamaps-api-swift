@@ -11,14 +11,14 @@ import Foundation
 #endif
 
 public struct SearchQuery: Codable, JSONEncodable, Hashable {
-    static let focusPointLatRule = NumericRule<Double>(minimum: -90, exclusiveMinimum: false, maximum: 90, exclusiveMaximum: false, multipleOf: nil)
-    static let focusPointLonRule = NumericRule<Double>(minimum: -180, exclusiveMinimum: false, maximum: 180, exclusiveMaximum: false, multipleOf: nil)
-    static let boundaryRectMinLatRule = NumericRule<Double>(minimum: -90, exclusiveMinimum: false, maximum: 90, exclusiveMaximum: false, multipleOf: nil)
-    static let boundaryRectMaxLatRule = NumericRule<Double>(minimum: -90, exclusiveMinimum: false, maximum: 90, exclusiveMaximum: false, multipleOf: nil)
-    static let boundaryRectMinLonRule = NumericRule<Double>(minimum: -180, exclusiveMinimum: false, maximum: 180, exclusiveMaximum: false, multipleOf: nil)
-    static let boundaryRectMaxLonRule = NumericRule<Double>(minimum: -180, exclusiveMinimum: false, maximum: 180, exclusiveMaximum: false, multipleOf: nil)
-    static let boundaryCircleLatRule = NumericRule<Double>(minimum: -90, exclusiveMinimum: false, maximum: 90, exclusiveMaximum: false, multipleOf: nil)
-    static let boundaryCircleLonRule = NumericRule<Double>(minimum: -180, exclusiveMinimum: false, maximum: 180, exclusiveMaximum: false, multipleOf: nil)
+    public static let focusPointLatRule = NumericRule<Double>(minimum: -90, exclusiveMinimum: false, maximum: 90, exclusiveMaximum: false, multipleOf: nil)
+    public static let focusPointLonRule = NumericRule<Double>(minimum: -180, exclusiveMinimum: false, maximum: 180, exclusiveMaximum: false, multipleOf: nil)
+    public static let boundaryRectMinLatRule = NumericRule<Double>(minimum: -90, exclusiveMinimum: false, maximum: 90, exclusiveMaximum: false, multipleOf: nil)
+    public static let boundaryRectMaxLatRule = NumericRule<Double>(minimum: -90, exclusiveMinimum: false, maximum: 90, exclusiveMaximum: false, multipleOf: nil)
+    public static let boundaryRectMinLonRule = NumericRule<Double>(minimum: -180, exclusiveMinimum: false, maximum: 180, exclusiveMaximum: false, multipleOf: nil)
+    public static let boundaryRectMaxLonRule = NumericRule<Double>(minimum: -180, exclusiveMinimum: false, maximum: 180, exclusiveMaximum: false, multipleOf: nil)
+    public static let boundaryCircleLatRule = NumericRule<Double>(minimum: -90, exclusiveMinimum: false, maximum: 90, exclusiveMaximum: false, multipleOf: nil)
+    public static let boundaryCircleLonRule = NumericRule<Double>(minimum: -180, exclusiveMinimum: false, maximum: 180, exclusiveMaximum: false, multipleOf: nil)
     /** The place name (address, venue name, etc.) to search for. */
     public var text: String?
     /** The latitude of the point to focus the search on. This will bias results toward the focus point. Requires `focus.point.lon`. */
@@ -39,7 +39,7 @@ public struct SearchQuery: Codable, JSONEncodable, Hashable {
     public var boundaryCircleLon: Double?
     /** The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. */
     public var boundaryCircleRadius: Double?
-    /** A list of countries to limit the search to. These may be either full names (ex: Canada), or an ISO 3116-1 alpha-2 or alpha-3 code. Prefer ISO codes when possible. */
+    /** A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. */
     public var boundaryCountry: [String]?
     /** The GID of an area to limit the search to. */
     public var boundaryGid: String?
