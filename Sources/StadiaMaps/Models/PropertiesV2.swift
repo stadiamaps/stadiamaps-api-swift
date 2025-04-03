@@ -12,12 +12,11 @@ import Foundation
 
 /** The GeoJSON properties object. */
 public struct PropertiesV2: Codable, JSONEncodable, Hashable {
-    /** Miscellaneous data from other sources. */
-    public var addendum: AnyCodable?
+    public var addendum: AddendumV2?
     public var addressComponents: AddressComponentsV2?
     /** The coarse-grained location of the place (e.g. Seoul, South Korea).  In search experiences, this is typically the second line of a result cell. */
     public var coarseLocation: String?
-    /** The level of confidence (0.0 - 1.0) that the result is what you actually searched for.  This is not necessarily the same as relevance (results are returned sorted by relevance already), but rather how closely the explicit or inferred components match the result. */
+    /** The level of confidence (0.0 - 1.0) that the result is what you actually searched for.  This is not necessarily the same as relevance (results are returned sorted by relevance already), but rather how closely the explicit or inferred components match the result. This is only present for forward geocoding responses (not autocomplete or place details). */
     public var confidence: Double?
     public var context: Context?
     /** The distance from the search focus point, in kilometers. */
@@ -30,13 +29,15 @@ public struct PropertiesV2: Codable, JSONEncodable, Hashable {
     public var gid: String
     /** The data layer containing the place (e.g. \"address\" or \"poi\"). */
     public var layer: String
+    /** The type of match (forward geocoding endpoints only). */
+    public var matchType: MatchType?
     /** The best name for the place, accounting for request language preferences.  When building an autocomplete search experience, this is the primary display string. */
     public var name: String
     public var precision: Precision
     /** A list of sources from which the result is derived. */
     public var sources: [SourceAttribution]?
 
-    public init(addendum: AnyCodable? = nil, addressComponents: AddressComponentsV2? = nil, coarseLocation: String? = nil, confidence: Double? = nil, context: Context? = nil, distance: Double? = nil, formattedAddressLine: String? = nil, formattedAddressLines: [String]? = nil, gid: String, layer: String, name: String, precision: Precision, sources: [SourceAttribution]? = nil) {
+    public init(addendum: AddendumV2? = nil, addressComponents: AddressComponentsV2? = nil, coarseLocation: String? = nil, confidence: Double? = nil, context: Context? = nil, distance: Double? = nil, formattedAddressLine: String? = nil, formattedAddressLines: [String]? = nil, gid: String, layer: String, matchType: MatchType? = nil, name: String, precision: Precision, sources: [SourceAttribution]? = nil) {
         self.addendum = addendum
         self.addressComponents = addressComponents
         self.coarseLocation = coarseLocation
@@ -47,6 +48,7 @@ public struct PropertiesV2: Codable, JSONEncodable, Hashable {
         self.formattedAddressLines = formattedAddressLines
         self.gid = gid
         self.layer = layer
+        self.matchType = matchType
         self.name = name
         self.precision = precision
         self.sources = sources
@@ -63,6 +65,7 @@ public struct PropertiesV2: Codable, JSONEncodable, Hashable {
         case formattedAddressLines = "formatted_address_lines"
         case gid
         case layer
+        case matchType = "match_type"
         case name
         case precision
         case sources
@@ -82,6 +85,7 @@ public struct PropertiesV2: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(formattedAddressLines, forKey: .formattedAddressLines)
         try container.encode(gid, forKey: .gid)
         try container.encode(layer, forKey: .layer)
+        try container.encodeIfPresent(matchType, forKey: .matchType)
         try container.encode(name, forKey: .name)
         try container.encode(precision, forKey: .precision)
         try container.encodeIfPresent(sources, forKey: .sources)

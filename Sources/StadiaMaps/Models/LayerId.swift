@@ -10,7 +10,7 @@ import Foundation
     import AnyCodable
 #endif
 
-/** Canonical geocoding layer IDs. */
+/** Canonical geocoding layer IDs for querying. */
 public enum LayerId: String, Codable, CaseIterable {
     case poi
     case address
@@ -25,5 +25,12 @@ public enum LayerId: String, Codable, CaseIterable {
     case borough
     case neighbourhood
     case postalcode
+    case dependency
+    case macrohood
+    case marinearea
+    case disputed
+    case empire
+    case continent
+    case ocean
     case coarse
 }

@@ -5,6 +5,44 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Version 6.0.0 - 2025-04-07
+
+### Added
+
+- Support for the v2 autocomplete and place details APIs!
+- Most request and response objects now conform to the `Identifiable` protocol.
+  This was an upstream change in the API generator, and may affect your app
+  if you had previously declared the protocol conformance manually.
+  The Swift compiler has flagged such uses as warnings for some time.
+- **BREAKING:** The `BulkRequest.Endpoint` and a few other enum variants have new names (automatic change by the OpenAPI generator).
+- **BREAKING:** We have renamed the Place Details method to clarify its purpose.
+
+If you want to keep using the v1 endpoint, you can amend your code like so:
+
+```diff
+- let res = try await GeocodingAPI.place(ids: ["openstreetmap:address:way/109867749"])
++ let res = try await GeocodingAPI.placeDetails(ids: ["openstreetmap:address:way/109867749"])
+```
+
+To upgrade to the v2 Place Details endpoint, which features improved address formatting,
+use the new V2 method:
+
+```diff
+- let res = try await GeocodingAPI.place(ids: ["openstreetmap:address:way/109867749"])
++ let res = try await GeocodingAPI.placeDetailsV2(ids: ["openstreetmap:address:way/109867749"])
+```
+
+We are also changing the `layer` property to a string.
+While layer identifiers are strongly typed at request time,
+we have relaxed the schema to allow new layers in the future without breaking all existing clients
+(Kotlin, Python, and others will crash when they see an unknown variant in enum mode).
+
+You will receive errors for all breaking changes at build time, so there should not be any hidden surprises.
+We expect the upgrade to take less than 5 minutes.
+
+For an overview of the structural changes we've made in the V2 API,
+refer to the [migration guide](https://docs.stadiamaps.com/geocoding-search-autocomplete/v2-api-migration-guide/).
+
 ## Version 5.0.0 - 2025-01-26
 
 ### Added

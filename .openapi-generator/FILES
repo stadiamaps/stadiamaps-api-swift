@@ -15,6 +15,7 @@ Sources/StadiaMaps/JSONDataEncoding.swift
 Sources/StadiaMaps/JSONEncodingHelper.swift
 Sources/StadiaMaps/Models.swift
 Sources/StadiaMaps/Models/Access.swift
+Sources/StadiaMaps/Models/AddendumV2.swift
 Sources/StadiaMaps/Models/AddressComponentsV2.swift
 Sources/StadiaMaps/Models/AdminRegion.swift
 Sources/StadiaMaps/Models/Administrative.swift
@@ -40,6 +41,7 @@ Sources/StadiaMaps/Models/EndNode.swift
 Sources/StadiaMaps/Models/ExtendedDirectionsOptions.swift
 Sources/StadiaMaps/Models/FeaturePropertiesV2.swift
 Sources/StadiaMaps/Models/FeaturePropertiesV2Properties.swift
+Sources/StadiaMaps/Models/FoursquareAddendum.swift
 Sources/StadiaMaps/Models/GeoAttributes.swift
 Sources/StadiaMaps/Models/GeoJSONGeometryBase.swift
 Sources/StadiaMaps/Models/GeoJSONPoint.swift
@@ -53,6 +55,7 @@ Sources/StadiaMaps/Models/GeocodingLayer.swift
 Sources/StadiaMaps/Models/GeocodingMeta.swift
 Sources/StadiaMaps/Models/GeocodingObject.swift
 Sources/StadiaMaps/Models/GeocodingSource.swift
+Sources/StadiaMaps/Models/GeonamesAddendum.swift
 Sources/StadiaMaps/Models/HeightRequest.swift
 Sources/StadiaMaps/Models/HeightResponse.swift
 Sources/StadiaMaps/Models/HighwayClassification.swift
@@ -76,6 +79,7 @@ Sources/StadiaMaps/Models/MapMatchRequest.swift
 Sources/StadiaMaps/Models/MapMatchRouteResponse.swift
 Sources/StadiaMaps/Models/MapMatchTraceOptions.swift
 Sources/StadiaMaps/Models/MapMatchWaypoint.swift
+Sources/StadiaMaps/Models/MatchType.swift
 Sources/StadiaMaps/Models/MatchedPoint.swift
 Sources/StadiaMaps/Models/MatrixCostingModel.swift
 Sources/StadiaMaps/Models/MatrixDistance.swift
@@ -87,6 +91,7 @@ Sources/StadiaMaps/Models/MotorcycleCostingOptions.swift
 Sources/StadiaMaps/Models/NearestRoadsRequest.swift
 Sources/StadiaMaps/Models/NodeId.swift
 Sources/StadiaMaps/Models/NodeType.swift
+Sources/StadiaMaps/Models/OpenStreetMapAddendum.swift
 Sources/StadiaMaps/Models/OptimizedRouteRequest.swift
 Sources/StadiaMaps/Models/OsrmAdmin.swift
 Sources/StadiaMaps/Models/OsrmAnnotation.swift
@@ -143,6 +148,7 @@ Sources/StadiaMaps/Models/Traversability.swift
 Sources/StadiaMaps/Models/TruckCostingOptions.swift
 Sources/StadiaMaps/Models/TzResponse.swift
 Sources/StadiaMaps/Models/Warning.swift
+Sources/StadiaMaps/Models/WhosOnFirstConcordances.swift
 Sources/StadiaMaps/Models/WofContext.swift
 Sources/StadiaMaps/Models/WofContextComponent.swift
 Sources/StadiaMaps/OpenISO8601DateFormatter.swift
@@ -151,6 +157,7 @@ Sources/StadiaMaps/URLSessionImplementations.swift
 Sources/StadiaMaps/Validation.swift
 StadiaMaps.podspec
 docs/Access.md
+docs/AddendumV2.md
 docs/AddressComponentsV2.md
 docs/AdminRegion.md
 docs/Administrative.md
@@ -176,6 +183,7 @@ docs/EndNode.md
 docs/ExtendedDirectionsOptions.md
 docs/FeaturePropertiesV2.md
 docs/FeaturePropertiesV2Properties.md
+docs/FoursquareAddendum.md
 docs/GeoAttributes.md
 docs/GeoJSONGeometryBase.md
 docs/GeoJSONPoint.md
@@ -190,6 +198,7 @@ docs/GeocodingLayer.md
 docs/GeocodingMeta.md
 docs/GeocodingObject.md
 docs/GeocodingSource.md
+docs/GeonamesAddendum.md
 docs/GeospatialAPI.md
 docs/HeightRequest.md
 docs/HeightResponse.md
@@ -214,6 +223,7 @@ docs/MapMatchRequest.md
 docs/MapMatchRouteResponse.md
 docs/MapMatchTraceOptions.md
 docs/MapMatchWaypoint.md
+docs/MatchType.md
 docs/MatchedPoint.md
 docs/MatrixCostingModel.md
 docs/MatrixDistance.md
@@ -225,6 +235,7 @@ docs/MotorcycleCostingOptions.md
 docs/NearestRoadsRequest.md
 docs/NodeId.md
 docs/NodeType.md
+docs/OpenStreetMapAddendum.md
 docs/OptimizedRouteRequest.md
 docs/OsrmAdmin.md
 docs/OsrmAnnotation.md
@@ -282,6 +293,7 @@ docs/Traversability.md
 docs/TruckCostingOptions.md
 docs/TzResponse.md
 docs/Warning.md
+docs/WhosOnFirstConcordances.md
 docs/WofContext.md
 docs/WofContextComponent.md
 git_push.sh
