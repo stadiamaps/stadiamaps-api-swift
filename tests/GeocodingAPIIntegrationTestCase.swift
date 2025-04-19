@@ -5,66 +5,66 @@ final class GeocodingAPIIntegrationTestCase: IntegrationXCTestCase {
     let address = "Põhja pst 27"
 
     func testAutocompleteV1() async throws {
-        let res = try await GeocodingAPI.autocomplete(text: address)
+        let res = try await GeocodingAPI.autocomplete(text: address, lang: "en")
         XCTAssert(!res.features.isEmpty)
         XCTAssertEqual(res.features.first?.properties?.country, "Estonia")
         XCTAssertEqual(res.features.first?.properties?.layer, "address")
     }
 
     func testAutocompleteV2() async throws {
-        let res = try await GeocodingAPI.autocompleteV2(text: address)
+        let res = try await GeocodingAPI.autocompleteV2(text: address, lang: "en")
         XCTAssert(!res.features.isEmpty)
         XCTAssertNil(res.features.first?.properties.context)
         XCTAssertEqual(res.features.first?.properties.layer, "address")
     }
 
     func testSearch() async throws {
-        let res = try await GeocodingAPI.search(text: address)
+        let res = try await GeocodingAPI.search(text: address, lang: "en")
         XCTAssert(!res.features.isEmpty)
         XCTAssertEqual(res.features.first?.properties?.country, "Estonia")
         XCTAssertEqual(res.features.first?.properties?.layer, "address")
     }
 
     func testStructuredSearch() async throws {
-        let res = try await GeocodingAPI.searchStructured(address: address, region: "Harju", country: "EE")
+        let res = try await GeocodingAPI.searchStructured(address: address, region: "Harju", country: "EE", lang: "en")
         XCTAssert(!res.features.isEmpty)
         XCTAssertEqual(res.features.first?.properties?.country, "Estonia")
         XCTAssertEqual(res.features.first?.properties?.layer, "address")
     }
 
     func testReverse() async throws {
-        let res = try await GeocodingAPI.reverse(pointLat: 59.444351, pointLon: 24.750645, layers: [.address, .localadmin])
+        let res = try await GeocodingAPI.reverse(pointLat: 59.444351, pointLon: 24.750645, layers: [.address, .localadmin], lang: "en")
         XCTAssert(!res.features.isEmpty)
         XCTAssertEqual(res.features.first?.properties?.country, "Estonia")
     }
 
     func testReverseV2() async throws {
-        let res = try await GeocodingAPI.reverseV2(pointLat: 59.444351, pointLon: 24.750645, layers: [.address, .localadmin])
+        let res = try await GeocodingAPI.reverseV2(pointLat: 59.444351, pointLon: 24.750645, layers: [.address, .localadmin], lang: "en")
         XCTAssert(!res.features.isEmpty)
         XCTAssertEqual(res.features.first?.properties.context?.iso3166A3, "EST")
     }
 
     func testReverseUncommonLayer() async throws {
-        let res = try await GeocodingAPI.reverse(pointLat: 24.750645, pointLon: 59.444351)
+        let res = try await GeocodingAPI.reverse(pointLat: 24.750645, pointLon: 59.444351, lang: "en")
         XCTAssert(!res.features.isEmpty)
         XCTAssertEqual(res.features.first?.properties?.layer, "marinearea")
     }
 
     func testReverseUncommonLayerV2() async throws {
-        let res = try await GeocodingAPI.reverseV2(pointLat: 24.750645, pointLon: 59.444351)
+        let res = try await GeocodingAPI.reverseV2(pointLat: 24.750645, pointLon: 59.444351, lang: "en")
         XCTAssert(!res.features.isEmpty)
         XCTAssertEqual(res.features.first?.properties.layer, "marinearea")
     }
 
     func testPlace() async throws {
-        let res = try await GeocodingAPI.placeDetails(ids: ["openstreetmap:address:way/109867749"])
+        let res = try await GeocodingAPI.placeDetails(ids: ["openstreetmap:address:way/109867749"], lang: "en")
         XCTAssert(!res.features.isEmpty)
         XCTAssertEqual(res.features.first?.properties?.country, "Estonia")
         XCTAssertEqual(res.features.first?.properties?.layer, "address")
     }
 
     func testPlaceV2() async throws {
-        let res = try await GeocodingAPI.placeDetailsV2(ids: ["openstreetmap:address:way/109867749"])
+        let res = try await GeocodingAPI.placeDetailsV2(ids: ["openstreetmap:address:way/109867749"], lang: "en")
         XCTAssert(!res.features.isEmpty)
         XCTAssertEqual(res.features.first?.properties.context?.whosonfirst.country?.name, "Estonia")
         XCTAssertEqual(res.features.first?.properties.context?.iso3166A3, "EST")
@@ -73,8 +73,8 @@ final class GeocodingAPIIntegrationTestCase: IntegrationXCTestCase {
 
     func testBulk() async throws {
         let res = try await GeocodingAPI.searchBulk(bulkRequest: [
-            BulkRequest(endpoint: .slashV1SlashSearch, query: .typeSearchQuery(SearchQuery(text: address))),
-            BulkRequest(endpoint: .slashV1SlashSearchSlashStructured, query: .typeSearchStructuredQuery(SearchStructuredQuery(address: address, country: "EE", layers: [.address, .coarse]))),
+            BulkRequest(endpoint: .slashV1SlashSearch, query: .typeSearchQuery(SearchQuery(text: address, lang: "en"))),
+            BulkRequest(endpoint: .slashV1SlashSearchSlashStructured, query: .typeSearchStructuredQuery(SearchStructuredQuery(address: address, country: "EE", layers: [.address, .coarse], lang: "en"))),
         ])
 
         XCTAssertEqual(res.count, 2)
