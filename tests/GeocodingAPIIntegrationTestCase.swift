@@ -38,10 +38,22 @@ final class GeocodingAPIIntegrationTestCase: IntegrationXCTestCase {
         XCTAssertEqual(res.features.first?.properties?.country, "Estonia")
     }
 
+    func testReverseV2() async throws {
+        let res = try await GeocodingAPI.reverseV2(pointLat: 59.444351, pointLon: 24.750645, layers: [.address, .localadmin])
+        XCTAssert(!res.features.isEmpty)
+        XCTAssertEqual(res.features.first?.properties.context?.iso3166A3, "EST")
+    }
+
     func testReverseUncommonLayer() async throws {
         let res = try await GeocodingAPI.reverse(pointLat: 24.750645, pointLon: 59.444351)
         XCTAssert(!res.features.isEmpty)
         XCTAssertEqual(res.features.first?.properties?.layer, "marinearea")
+    }
+
+    func testReverseUncommonLayerV2() async throws {
+        let res = try await GeocodingAPI.reverseV2(pointLat: 24.750645, pointLon: 59.444351)
+        XCTAssert(!res.features.isEmpty)
+        XCTAssertEqual(res.features.first?.properties.layer, "marinearea")
     }
 
     func testPlace() async throws {

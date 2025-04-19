@@ -326,6 +326,73 @@ open class GeocodingAPI {
     }
 
     /**
+
+     - parameter pointLat: (query) The latitude of the point at which to perform the search.
+     - parameter pointLon: (query) The longitude of the point at which to perform the search.
+     - parameter layers: (query) A list of layers to limit the search to. (optional)
+     - parameter sources: (query) A list of sources to limit the search to. (optional)
+     - parameter boundaryGid: (query) The GID of a region to limit the search to.  Note: these are not stable for all datasets! For example, OSM features may be deleted and re-added with a new ID. (optional)
+     - parameter boundaryCountry: (query) A list of comma-separated country codes in ISO 3116-1 alpha-2 or alpha-3 format. The search will be limited to these countries. (optional)
+     - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lon. (optional)
+     - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lat. (optional)
+     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to.  NOTE: Requires the other boundary.circle parameters to take effect. Defaults to 2km if unspecified. (optional)
+     - parameter size: (query) The maximum number of items to return from a query. (optional)
+     - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. There is no default value, so place names will be returned as-is, which is usually in the local language. NOTE: The Accept-Language header is also respected, and many user agents will set it automatically. (optional)
+     - returns: GeocodeResponseEnvelopePropertiesV2
+     */
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func reverseV2(pointLat: Double, pointLon: Double, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Int? = nil, size: Int? = nil, lang: String? = nil) async throws -> GeocodeResponseEnvelopePropertiesV2 {
+        try await reverseV2WithRequestBuilder(pointLat: pointLat, pointLon: pointLon, layers: layers, sources: sources, boundaryGid: boundaryGid, boundaryCountry: boundaryCountry, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, size: size, lang: lang).execute().body
+    }
+
+    /**
+     - GET /geocoding/v2/reverse
+     - API Key:
+       - type: apiKey api_key (QUERY)
+       - name: ApiKeyAuth
+     - parameter pointLat: (query) The latitude of the point at which to perform the search.
+     - parameter pointLon: (query) The longitude of the point at which to perform the search.
+     - parameter layers: (query) A list of layers to limit the search to. (optional)
+     - parameter sources: (query) A list of sources to limit the search to. (optional)
+     - parameter boundaryGid: (query) The GID of a region to limit the search to.  Note: these are not stable for all datasets! For example, OSM features may be deleted and re-added with a new ID. (optional)
+     - parameter boundaryCountry: (query) A list of comma-separated country codes in ISO 3116-1 alpha-2 or alpha-3 format. The search will be limited to these countries. (optional)
+     - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lon. (optional)
+     - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lat. (optional)
+     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to.  NOTE: Requires the other boundary.circle parameters to take effect. Defaults to 2km if unspecified. (optional)
+     - parameter size: (query) The maximum number of items to return from a query. (optional)
+     - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. There is no default value, so place names will be returned as-is, which is usually in the local language. NOTE: The Accept-Language header is also respected, and many user agents will set it automatically. (optional)
+     - returns: RequestBuilder<GeocodeResponseEnvelopePropertiesV2>
+     */
+    open class func reverseV2WithRequestBuilder(pointLat: Double, pointLon: Double, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Int? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponseEnvelopePropertiesV2> {
+        let localVariablePath = "/geocoding/v2/reverse"
+        let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "point.lat": (wrappedValue: pointLat.encodeToJSON(), isExplode: true),
+            "point.lon": (wrappedValue: pointLon.encodeToJSON(), isExplode: true),
+            "layers": (wrappedValue: layers?.encodeToJSON(), isExplode: false),
+            "sources": (wrappedValue: sources?.encodeToJSON(), isExplode: false),
+            "boundary.gid": (wrappedValue: boundaryGid?.encodeToJSON(), isExplode: true),
+            "boundary.country": (wrappedValue: boundaryCountry?.encodeToJSON(), isExplode: false),
+            "boundary.circle.lat": (wrappedValue: boundaryCircleLat?.encodeToJSON(), isExplode: true),
+            "boundary.circle.lon": (wrappedValue: boundaryCircleLon?.encodeToJSON(), isExplode: true),
+            "boundary.circle.radius": (wrappedValue: boundaryCircleRadius?.encodeToJSON(), isExplode: true),
+            "size": (wrappedValue: size?.encodeToJSON(), isExplode: true),
+            "lang": (wrappedValue: lang?.encodeToJSON(), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: Any?] = [:]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<GeocodeResponseEnvelopePropertiesV2>.Type = StadiaMapsAPI.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+    }
+
+    /**
      Search for location and other info using a place name or address (forward geocoding).
 
      - parameter text: (query) The place name (address, venue name, etc.) to search for.

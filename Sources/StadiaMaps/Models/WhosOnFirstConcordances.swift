@@ -27,8 +27,8 @@ public struct WhosOnFirstConcordances: Codable, JSONEncodable, Hashable {
     public var iataCode: String?
     public var icaoCode: String?
     public var ituId: String?
-    public var karmashapesId: Int64?
-    public var naturalEarthId: String?
+    public var karmashapesId: String?
+    public var naturalEarthId: Int64?
     /** A Eurostat NUTS 2021 ID */
     public var nuts2021Id: String?
     public var quattroshapesId: Int64?
@@ -38,7 +38,7 @@ public struct WhosOnFirstConcordances: Codable, JSONEncodable, Hashable {
     public var wikidataId: String?
     public var wikipediaPage: String?
 
-    public init(eurographicsGiscoId: String? = nil, faaCode: String? = nil, factualId: String? = nil, fifaId: String? = nil, fipsCode: String? = nil, frGovEpciCode: Int64? = nil, fraInseeCode: Int64? = nil, geonamesId: Int64? = nil, geoplanetId: Int64? = nil, hascId: String? = nil, iataCode: String? = nil, icaoCode: String? = nil, ituId: String? = nil, karmashapesId: Int64? = nil, naturalEarthId: String? = nil, nuts2021Id: String? = nil, quattroshapesId: Int64? = nil, quattroshapesPgId: Int64? = nil, usCensusGeoId: Int64? = nil, wikidataId: String? = nil, wikipediaPage: String? = nil) {
+    public init(eurographicsGiscoId: String? = nil, faaCode: String? = nil, factualId: String? = nil, fifaId: String? = nil, fipsCode: String? = nil, frGovEpciCode: Int64? = nil, fraInseeCode: Int64? = nil, geonamesId: Int64? = nil, geoplanetId: Int64? = nil, hascId: String? = nil, iataCode: String? = nil, icaoCode: String? = nil, ituId: String? = nil, karmashapesId: String? = nil, naturalEarthId: Int64? = nil, nuts2021Id: String? = nil, quattroshapesId: Int64? = nil, quattroshapesPgId: Int64? = nil, usCensusGeoId: Int64? = nil, wikidataId: String? = nil, wikipediaPage: String? = nil) {
         self.eurographicsGiscoId = eurographicsGiscoId
         self.faaCode = faaCode
         self.factualId = factualId

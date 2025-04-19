@@ -10,6 +10,7 @@ import Foundation
     import AnyCodable
 #endif
 
+/** OpenStreetMap-specific additional fields.  These values are exactly as they appear in the associated OSM tag. */
 public struct OpenStreetMapAddendum: Codable, JSONEncodable, Hashable {
     /** The principal brand of goods/services sold at a place, or the common identity for individually owned and operated stores. */
     public var brand: String?
@@ -23,12 +24,14 @@ public struct OpenStreetMapAddendum: Codable, JSONEncodable, Hashable {
     public var _operator: String?
     public var phone: String?
     public var website: String?
+    /** Is this place wheelchair accessible? */
+    public var wheelchair: String?
     /** Wikidata concordance ID. */
     public var wikidata: String?
     /** Wikipedia concordance ID. */
     public var wikipedia: String?
 
-    public init(brand: String? = nil, iata: String? = nil, icao: String? = nil, openingHours: String? = nil, _operator: String? = nil, phone: String? = nil, website: String? = nil, wikidata: String? = nil, wikipedia: String? = nil) {
+    public init(brand: String? = nil, iata: String? = nil, icao: String? = nil, openingHours: String? = nil, _operator: String? = nil, phone: String? = nil, website: String? = nil, wheelchair: String? = nil, wikidata: String? = nil, wikipedia: String? = nil) {
         self.brand = brand
         self.iata = iata
         self.icao = icao
@@ -36,6 +39,7 @@ public struct OpenStreetMapAddendum: Codable, JSONEncodable, Hashable {
         self._operator = _operator
         self.phone = phone
         self.website = website
+        self.wheelchair = wheelchair
         self.wikidata = wikidata
         self.wikipedia = wikipedia
     }
@@ -48,6 +52,7 @@ public struct OpenStreetMapAddendum: Codable, JSONEncodable, Hashable {
         case _operator = "operator"
         case phone
         case website
+        case wheelchair
         case wikidata
         case wikipedia
     }
@@ -63,6 +68,7 @@ public struct OpenStreetMapAddendum: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(_operator, forKey: ._operator)
         try container.encodeIfPresent(phone, forKey: .phone)
         try container.encodeIfPresent(website, forKey: .website)
+        try container.encodeIfPresent(wheelchair, forKey: .wheelchair)
         try container.encodeIfPresent(wikidata, forKey: .wikidata)
         try container.encodeIfPresent(wikipedia, forKey: .wikipedia)
     }
