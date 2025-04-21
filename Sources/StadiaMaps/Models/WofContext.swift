@@ -20,10 +20,12 @@ public struct WofContext: Codable, JSONEncodable, Hashable {
     public var locality: WofContextComponent?
     public var macrocounty: WofContextComponent?
     public var macroregion: WofContextComponent?
+    public var marinearea: WofContextComponent?
     public var neighbourhood: WofContextComponent?
+    public var ocean: WofContextComponent?
     public var region: WofContextComponent?
 
-    public init(borough: WofContextComponent? = nil, continent: WofContextComponent? = nil, country: WofContextComponent? = nil, county: WofContextComponent? = nil, dependency: WofContextComponent? = nil, localadmin: WofContextComponent? = nil, locality: WofContextComponent? = nil, macrocounty: WofContextComponent? = nil, macroregion: WofContextComponent? = nil, neighbourhood: WofContextComponent? = nil, region: WofContextComponent? = nil) {
+    public init(borough: WofContextComponent? = nil, continent: WofContextComponent? = nil, country: WofContextComponent? = nil, county: WofContextComponent? = nil, dependency: WofContextComponent? = nil, localadmin: WofContextComponent? = nil, locality: WofContextComponent? = nil, macrocounty: WofContextComponent? = nil, macroregion: WofContextComponent? = nil, marinearea: WofContextComponent? = nil, neighbourhood: WofContextComponent? = nil, ocean: WofContextComponent? = nil, region: WofContextComponent? = nil) {
         self.borough = borough
         self.continent = continent
         self.country = country
@@ -33,7 +35,9 @@ public struct WofContext: Codable, JSONEncodable, Hashable {
         self.locality = locality
         self.macrocounty = macrocounty
         self.macroregion = macroregion
+        self.marinearea = marinearea
         self.neighbourhood = neighbourhood
+        self.ocean = ocean
         self.region = region
     }
 
@@ -47,7 +51,9 @@ public struct WofContext: Codable, JSONEncodable, Hashable {
         case locality
         case macrocounty
         case macroregion
+        case marinearea
         case neighbourhood
+        case ocean
         case region
     }
 
@@ -64,7 +70,9 @@ public struct WofContext: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(locality, forKey: .locality)
         try container.encodeIfPresent(macrocounty, forKey: .macrocounty)
         try container.encodeIfPresent(macroregion, forKey: .macroregion)
+        try container.encodeIfPresent(marinearea, forKey: .marinearea)
         try container.encodeIfPresent(neighbourhood, forKey: .neighbourhood)
+        try container.encodeIfPresent(ocean, forKey: .ocean)
         try container.encodeIfPresent(region, forKey: .region)
     }
 }

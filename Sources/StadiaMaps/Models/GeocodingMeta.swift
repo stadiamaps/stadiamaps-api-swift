@@ -14,15 +14,19 @@ public struct GeocodingMeta: Codable, JSONEncodable, Hashable {
     public var attribution: String
     /** Errors encountered serving the request (if any). */
     public var error: String?
+    /** An object containing all valid, parsed query parameters.  For example, this will contain text and possibly other parameters for an autocomplete query. This will not be present for invalid requests. */
+    public var query: AnyCodable?
 
-    public init(attribution: String, error: String? = nil) {
+    public init(attribution: String, error: String? = nil, query: AnyCodable? = nil) {
         self.attribution = attribution
         self.error = error
+        self.query = query
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case attribution
         case error
+        case query
     }
 
     // Encodable protocol methods
@@ -31,5 +35,6 @@ public struct GeocodingMeta: Codable, JSONEncodable, Hashable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(attribution, forKey: .attribution)
         try container.encodeIfPresent(error, forKey: .error)
+        try container.encodeIfPresent(query, forKey: .query)
     }
 }

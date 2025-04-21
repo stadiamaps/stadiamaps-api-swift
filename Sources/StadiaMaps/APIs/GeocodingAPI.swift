@@ -23,7 +23,7 @@ open class GeocodingAPI {
      - parameter boundaryRectMaxLon: (query) Defines the max longitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
      - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lon&#x60;. (optional)
      - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lat&#x60;. (optional)
-     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
+     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km (search) or 1km (reverse) if unspecified. (optional)
      - parameter boundaryCountry: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter boundaryGid: (query) The GID of an area to limit the search to. (optional)
      - parameter layers: (query) A list of layers to limit the search to. (optional)
@@ -53,7 +53,7 @@ open class GeocodingAPI {
      - parameter boundaryRectMaxLon: (query) Defines the max longitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
      - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lon&#x60;. (optional)
      - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lat&#x60;. (optional)
-     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
+     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km (search) or 1km (reverse) if unspecified. (optional)
      - parameter boundaryCountry: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter boundaryGid: (query) The GID of an area to limit the search to. (optional)
      - parameter layers: (query) A list of layers to limit the search to. (optional)
@@ -110,7 +110,7 @@ open class GeocodingAPI {
      - parameter boundaryRectMaxLat: (query) The maximum latitude component of a search bounding box.  NOTE: Requires all other boundary.rect parameters to be specified. (optional)
      - parameter boundaryRectMaxLon: (query) The maximum longitude component of a search bounding box.  NOTE: Requires all other boundary.rect parameters to be specified. (optional)
      - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lon. (optional)
-     - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lon. (optional)
+     - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lat. (optional)
      - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to.  NOTE: Requires the other boundary.circle parameters to take effect. Defaults to 50km if unspecified. (optional)
      - parameter size: (query) The maximum number of items to return from a query. (optional)
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. There is no default value, so place names will be returned as-is, which is usually in the local language. NOTE: The Accept-Language header is also respected, and many user agents will set it automatically. (optional)
@@ -138,7 +138,7 @@ open class GeocodingAPI {
      - parameter boundaryRectMaxLat: (query) The maximum latitude component of a search bounding box.  NOTE: Requires all other boundary.rect parameters to be specified. (optional)
      - parameter boundaryRectMaxLon: (query) The maximum longitude component of a search bounding box.  NOTE: Requires all other boundary.rect parameters to be specified. (optional)
      - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lon. (optional)
-     - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lon. (optional)
+     - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lat. (optional)
      - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to.  NOTE: Requires the other boundary.circle parameters to take effect. Defaults to 50km if unspecified. (optional)
      - parameter size: (query) The maximum number of items to return from a query. (optional)
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. There is no default value, so place names will be returned as-is, which is usually in the local language. NOTE: The Accept-Language header is also respected, and many user agents will set it automatically. (optional)
@@ -266,7 +266,7 @@ open class GeocodingAPI {
 
      - parameter pointLat: (query) The latitude of the point at which to perform the search.
      - parameter pointLon: (query) The longitude of the point at which to perform the search.
-     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
+     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km (search) or 1km (reverse) if unspecified. (optional)
      - parameter layers: (query) A list of layers to limit the search to. (optional)
      - parameter sources: (query) A list of sources to limit the search to. (optional)
      - parameter boundaryCountry: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
@@ -289,7 +289,7 @@ open class GeocodingAPI {
        - name: ApiKeyAuth
      - parameter pointLat: (query) The latitude of the point at which to perform the search.
      - parameter pointLon: (query) The longitude of the point at which to perform the search.
-     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
+     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km (search) or 1km (reverse) if unspecified. (optional)
      - parameter layers: (query) A list of layers to limit the search to. (optional)
      - parameter sources: (query) A list of sources to limit the search to. (optional)
      - parameter boundaryCountry: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
@@ -333,16 +333,14 @@ open class GeocodingAPI {
      - parameter sources: (query) A list of sources to limit the search to. (optional)
      - parameter boundaryGid: (query) The GID of a region to limit the search to.  Note: these are not stable for all datasets! For example, OSM features may be deleted and re-added with a new ID. (optional)
      - parameter boundaryCountry: (query) A list of comma-separated country codes in ISO 3116-1 alpha-2 or alpha-3 format. The search will be limited to these countries. (optional)
-     - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lon. (optional)
-     - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lat. (optional)
-     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to.  NOTE: Requires the other boundary.circle parameters to take effect. Defaults to 2km if unspecified. (optional)
+     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to.  Defaults to 1km if unspecified. (optional)
      - parameter size: (query) The maximum number of items to return from a query. (optional)
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. There is no default value, so place names will be returned as-is, which is usually in the local language. NOTE: The Accept-Language header is also respected, and many user agents will set it automatically. (optional)
      - returns: GeocodeResponseEnvelopePropertiesV2
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func reverseV2(pointLat: Double, pointLon: Double, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Int? = nil, size: Int? = nil, lang: String? = nil) async throws -> GeocodeResponseEnvelopePropertiesV2 {
-        try await reverseV2WithRequestBuilder(pointLat: pointLat, pointLon: pointLon, layers: layers, sources: sources, boundaryGid: boundaryGid, boundaryCountry: boundaryCountry, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, size: size, lang: lang).execute().body
+    open class func reverseV2(pointLat: Double, pointLon: Double, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryCircleRadius: Int? = nil, size: Int? = nil, lang: String? = nil) async throws -> GeocodeResponseEnvelopePropertiesV2 {
+        try await reverseV2WithRequestBuilder(pointLat: pointLat, pointLon: pointLon, layers: layers, sources: sources, boundaryGid: boundaryGid, boundaryCountry: boundaryCountry, boundaryCircleRadius: boundaryCircleRadius, size: size, lang: lang).execute().body
     }
 
     /**
@@ -356,14 +354,12 @@ open class GeocodingAPI {
      - parameter sources: (query) A list of sources to limit the search to. (optional)
      - parameter boundaryGid: (query) The GID of a region to limit the search to.  Note: these are not stable for all datasets! For example, OSM features may be deleted and re-added with a new ID. (optional)
      - parameter boundaryCountry: (query) A list of comma-separated country codes in ISO 3116-1 alpha-2 or alpha-3 format. The search will be limited to these countries. (optional)
-     - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lon. (optional)
-     - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to.  NOTE: Requires boundary.circle.lat. (optional)
-     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to.  NOTE: Requires the other boundary.circle parameters to take effect. Defaults to 2km if unspecified. (optional)
+     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to.  Defaults to 1km if unspecified. (optional)
      - parameter size: (query) The maximum number of items to return from a query. (optional)
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. There is no default value, so place names will be returned as-is, which is usually in the local language. NOTE: The Accept-Language header is also respected, and many user agents will set it automatically. (optional)
      - returns: RequestBuilder<GeocodeResponseEnvelopePropertiesV2>
      */
-    open class func reverseV2WithRequestBuilder(pointLat: Double, pointLon: Double, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Int? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponseEnvelopePropertiesV2> {
+    open class func reverseV2WithRequestBuilder(pointLat: Double, pointLon: Double, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryCircleRadius: Int? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponseEnvelopePropertiesV2> {
         let localVariablePath = "/geocoding/v2/reverse"
         let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
@@ -376,8 +372,6 @@ open class GeocodingAPI {
             "sources": (wrappedValue: sources?.encodeToJSON(), isExplode: false),
             "boundary.gid": (wrappedValue: boundaryGid?.encodeToJSON(), isExplode: true),
             "boundary.country": (wrappedValue: boundaryCountry?.encodeToJSON(), isExplode: false),
-            "boundary.circle.lat": (wrappedValue: boundaryCircleLat?.encodeToJSON(), isExplode: true),
-            "boundary.circle.lon": (wrappedValue: boundaryCircleLon?.encodeToJSON(), isExplode: true),
             "boundary.circle.radius": (wrappedValue: boundaryCircleRadius?.encodeToJSON(), isExplode: true),
             "size": (wrappedValue: size?.encodeToJSON(), isExplode: true),
             "lang": (wrappedValue: lang?.encodeToJSON(), isExplode: true),
@@ -404,7 +398,7 @@ open class GeocodingAPI {
      - parameter boundaryRectMaxLon: (query) Defines the max longitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
      - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lon&#x60;. (optional)
      - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lat&#x60;. (optional)
-     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
+     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km (search) or 1km (reverse) if unspecified. (optional)
      - parameter boundaryCountry: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter boundaryGid: (query) The GID of an area to limit the search to. (optional)
      - parameter layers: (query) A list of layers to limit the search to. (optional)
@@ -434,7 +428,7 @@ open class GeocodingAPI {
      - parameter boundaryRectMaxLon: (query) Defines the max longitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
      - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lon&#x60;. (optional)
      - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lat&#x60;. (optional)
-     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
+     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km (search) or 1km (reverse) if unspecified. (optional)
      - parameter boundaryCountry: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter boundaryGid: (query) The GID of an area to limit the search to. (optional)
      - parameter layers: (query) A list of layers to limit the search to. (optional)
@@ -535,7 +529,7 @@ open class GeocodingAPI {
      - parameter boundaryRectMaxLon: (query) Defines the max longitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
      - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lon&#x60;. (optional)
      - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lat&#x60;. (optional)
-     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
+     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km (search) or 1km (reverse) if unspecified. (optional)
      - parameter boundaryCountry: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter boundaryGid: (query) The GID of an area to limit the search to. (optional)
      - parameter layers: (query) A list of layers to limit the search to. (optional)
@@ -572,7 +566,7 @@ open class GeocodingAPI {
      - parameter boundaryRectMaxLon: (query) Defines the max longitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
      - parameter boundaryCircleLat: (query) The latitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lon&#x60;. (optional)
      - parameter boundaryCircleLon: (query) The longitude of the center of a circle to limit the search to. Requires &#x60;boundary.circle.lat&#x60;. (optional)
-     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km if unspecified. (optional)
+     - parameter boundaryCircleRadius: (query) The radius of the circle (in kilometers) to limit the search to. Defaults to 50km (search) or 1km (reverse) if unspecified. (optional)
      - parameter boundaryCountry: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter boundaryGid: (query) The GID of an area to limit the search to. (optional)
      - parameter layers: (query) A list of layers to limit the search to. (optional)
