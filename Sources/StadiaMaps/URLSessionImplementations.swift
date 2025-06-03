@@ -199,7 +199,6 @@ open class URLSessionRequestBuilder<T>: RequestBuilder<T> {
 
         switch T.self {
         case is Void.Type:
-
             completion(.success(Response(response: httpResponse, body: () as! T, bodyData: data)))
 
         default:
@@ -283,7 +282,6 @@ open class URLSessionDecodableRequestBuilder<T: Decodable>: URLSessionRequestBui
 
         switch T.self {
         case is String.Type:
-
             let body = data.flatMap { String(data: $0, encoding: .utf8) } ?? ""
 
             completion(.success(Response<T>(response: httpResponse, body: body as! T, bodyData: data)))
@@ -325,15 +323,12 @@ open class URLSessionDecodableRequestBuilder<T: Decodable>: URLSessionRequestBui
             }
 
         case is Void.Type:
-
             completion(.success(Response(response: httpResponse, body: () as! T, bodyData: data)))
 
         case is Data.Type:
-
             completion(.success(Response(response: httpResponse, body: data as! T, bodyData: data)))
 
         default:
-
             guard let unwrappedData = data, !unwrappedData.isEmpty else {
                 if let expressibleByNilLiteralType = T.self as? ExpressibleByNilLiteral.Type {
                     completion(.success(Response(response: httpResponse, body: expressibleByNilLiteralType.init(nilLiteral: ()) as! T, bodyData: data)))
@@ -436,7 +431,6 @@ private class FormDataEncoding: ParameterEncoding {
             for value in value as? Array ?? [value] {
                 switch value {
                 case let fileURL as URL:
-
                     urlRequest = try configureFileUploadRequest(
                         urlRequest: urlRequest,
                         boundary: boundary,
@@ -445,7 +439,6 @@ private class FormDataEncoding: ParameterEncoding {
                     )
 
                 case let string as String:
-
                     if let data = string.data(using: .utf8) {
                         urlRequest = configureDataUploadRequest(
                             urlRequest: urlRequest,
@@ -456,7 +449,6 @@ private class FormDataEncoding: ParameterEncoding {
                     }
 
                 case let number as NSNumber:
-
                     if let data = number.stringValue.data(using: .utf8) {
                         urlRequest = configureDataUploadRequest(
                             urlRequest: urlRequest,
@@ -467,7 +459,6 @@ private class FormDataEncoding: ParameterEncoding {
                     }
 
                 case let data as Data:
-
                     urlRequest = configureDataUploadRequest(
                         urlRequest: urlRequest,
                         boundary: boundary,
@@ -476,7 +467,6 @@ private class FormDataEncoding: ParameterEncoding {
                     )
 
                 case let uuid as UUID:
-
                     if let data = uuid.uuidString.data(using: .utf8) {
                         urlRequest = configureDataUploadRequest(
                             urlRequest: urlRequest,

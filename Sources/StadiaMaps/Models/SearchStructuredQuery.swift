@@ -32,7 +32,7 @@ public struct SearchStructuredQuery: Codable, JSONEncodable, Hashable {
     /** Typically the first administrative division within a country. For example, a US state or a Canadian province. */
     public var region: String?
     /** A mail sorting code. */
-    public var postalCode: String?
+    public var postalcode: String?
     /** A country code in ISO 3116-1 alpha-2 or alpha-3 format. */
     public var country: String?
     /** The latitude of the point to focus the search on. This will bias results toward the focus point. Requires `focus.point.lon`. */
@@ -66,14 +66,14 @@ public struct SearchStructuredQuery: Codable, JSONEncodable, Hashable {
     /** A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a `langtag` (in RFC 5646 terms) can contain script, region, etc., only the `language` portion, an ISO 639 code, will be considered. So `en-US` and `en-GB` will both be treated as English. */
     public var lang: String?
 
-    public init(address: String? = nil, neighbourhood: String? = nil, borough: String? = nil, locality: String? = nil, county: String? = nil, region: String? = nil, postalCode: String? = nil, country: String? = nil, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) {
+    public init(address: String? = nil, neighbourhood: String? = nil, borough: String? = nil, locality: String? = nil, county: String? = nil, region: String? = nil, postalcode: String? = nil, country: String? = nil, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) {
         self.address = address
         self.neighbourhood = neighbourhood
         self.borough = borough
         self.locality = locality
         self.county = county
         self.region = region
-        self.postalCode = postalCode
+        self.postalcode = postalcode
         self.country = country
         self.focusPointLat = focusPointLat
         self.focusPointLon = focusPointLon
@@ -99,7 +99,7 @@ public struct SearchStructuredQuery: Codable, JSONEncodable, Hashable {
         case locality
         case county
         case region
-        case postalCode
+        case postalcode
         case country
         case focusPointLat = "focus.point.lat"
         case focusPointLon = "focus.point.lon"
@@ -128,7 +128,7 @@ public struct SearchStructuredQuery: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(locality, forKey: .locality)
         try container.encodeIfPresent(county, forKey: .county)
         try container.encodeIfPresent(region, forKey: .region)
-        try container.encodeIfPresent(postalCode, forKey: .postalCode)
+        try container.encodeIfPresent(postalcode, forKey: .postalcode)
         try container.encodeIfPresent(country, forKey: .country)
         try container.encodeIfPresent(focusPointLat, forKey: .focusPointLat)
         try container.encodeIfPresent(focusPointLon, forKey: .focusPointLon)

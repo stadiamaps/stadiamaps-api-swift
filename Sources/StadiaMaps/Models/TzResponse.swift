@@ -17,17 +17,29 @@ public struct TzResponse: Codable, JSONEncodable, Hashable {
     public var baseUtcOffset: Int
     /** The special offset, in seconds, from UTC that is in effect for this time zone as of the queried timestamp (defaults to now). If no additional offsets are in effect, this value is zero. This typically reflects Daylight Saving Time, but may indicate other special offsets. To get the total offset in effect, add `dst_offset` and `utc_offset` together. */
     public var dstOffset: Int
+    /** Integer non-leap seconds since January 1, 1970 (UNIX timestamp). If a timestamp is included with the request parameters, it will be echoed here. Otherwise, this will contain the current timestamp. */
+    public var timestamp: Int
+    /** The local time expressed as an RFC 2822 timestamp (e.g. Tue, 1 Jul 2003 10:52:37 +0200). If a timestamp is included in the request, it will be localized here. Otherwise, this will reflect the time of the request. */
+    public var localRfc2822Timestamp: String
+    /** The local time expressed as an RFC 3389 (ISO 8601) timestamp (e.g. 2003-06-01T10:52:37+02:00). If a timestamp is included in the request, it will be localized here. Otherwise, this will reflect the time of the request. */
+    public var localRfc3389Timestamp: String
 
-    public init(tzId: String, baseUtcOffset: Int, dstOffset: Int) {
+    public init(tzId: String, baseUtcOffset: Int, dstOffset: Int, timestamp: Int, localRfc2822Timestamp: String, localRfc3389Timestamp: String) {
         self.tzId = tzId
         self.baseUtcOffset = baseUtcOffset
         self.dstOffset = dstOffset
+        self.timestamp = timestamp
+        self.localRfc2822Timestamp = localRfc2822Timestamp
+        self.localRfc3389Timestamp = localRfc3389Timestamp
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case tzId = "tz_id"
         case baseUtcOffset = "base_utc_offset"
         case dstOffset = "dst_offset"
+        case timestamp
+        case localRfc2822Timestamp = "local_rfc_2822_timestamp"
+        case localRfc3389Timestamp = "local_rfc_3389_timestamp"
     }
 
     // Encodable protocol methods
@@ -37,5 +49,8 @@ public struct TzResponse: Codable, JSONEncodable, Hashable {
         try container.encode(tzId, forKey: .tzId)
         try container.encode(baseUtcOffset, forKey: .baseUtcOffset)
         try container.encode(dstOffset, forKey: .dstOffset)
+        try container.encode(timestamp, forKey: .timestamp)
+        try container.encode(localRfc2822Timestamp, forKey: .localRfc2822Timestamp)
+        try container.encode(localRfc3389Timestamp, forKey: .localRfc3389Timestamp)
     }
 }

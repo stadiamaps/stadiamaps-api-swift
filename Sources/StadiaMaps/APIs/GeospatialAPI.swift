@@ -51,7 +51,7 @@ open class GeospatialAPI {
     }
 
     /**
-     Get the current time zone information for any point on earth.
+     Get time zone information for any point on earth.
 
      - parameter lat: (query) The latitude of the point you are interested in.
      - parameter lng: (query) The longitude of the point you are interested in.
@@ -64,9 +64,9 @@ open class GeospatialAPI {
     }
 
     /**
-     Get the current time zone information for any point on earth.
+     Get time zone information for any point on earth.
      - GET /tz/lookup/v1
-     - The Stadia TZ API provides time zone information, as well as information about any special offset (such as DST) in effect based on the latest IANA TZDB. Note that this API may not be accurate for timestamps in the past and does not claim to report precise nautical times in the open ocean beyond territorial waters.
+     - Retrieve the time zone identifier, standard UTC offset, special offset (such as DST), and the localized time in several common formats.
      - API Key:
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth

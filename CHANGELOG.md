@@ -5,13 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Version 6.3.0 - 2025-06-03
+
+### Added
+
+- New fields to the time zone API responses including localized timestamps in several standard formats.
+
+### Fixed
+
+- Fix a bug which caused structured search bulk requests to incorrectly spell the `postalcode` field.
+
 ## Version 6.2.0 - 2025-04-21
 
-# Added
+### Added
 
 - Add documentation for the geocoding metadata `query` field.
 
-## Fixed
+### Fixed
 
 - Removed boundary circle properties that were mistakenly added.
   They did not behave as expected, so this is a bug fix despite being a code-breaking change if you used it.
