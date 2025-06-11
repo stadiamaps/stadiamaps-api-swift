@@ -15,7 +15,7 @@ public struct OsrmRoute: Codable, JSONEncodable, Hashable {
     public var distance: Double
     /** The estimated travel time, in number of seconds. */
     public var duration: Double
-    /** An encoded polyline (https://developers.google.com/maps/documentation/utilities/polylinealgorithm). */
+    /** An encoded polyline (https://developers.google.com/maps/documentation/utilities/polylinealgorithm). Note that the polyline is encoded with 6 digits of precision rather than the default 5! */
     public var geometry: String
     /** The total cost of the route computed by the routing engine. */
     public var weight: Double?

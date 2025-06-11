@@ -25,6 +25,13 @@ final class GeocodingAPIIntegrationTestCase: IntegrationXCTestCase {
         XCTAssertEqual(res.features.first?.properties?.layer, "address")
     }
 
+    func testSearchV2() async throws {
+        let res = try await GeocodingAPI.searchV2(text: address, lang: "en")
+        XCTAssert(!res.features.isEmpty)
+        XCTAssertEqual(res.features.first?.properties.context?.iso3166A3, "EST")
+        XCTAssertEqual(res.features.first?.properties.layer, "address")
+    }
+
     func testStructuredSearch() async throws {
         let res = try await GeocodingAPI.searchStructured(address: address, region: "Harju", country: "EE", lang: "en")
         XCTAssert(!res.features.isEmpty)

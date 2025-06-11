@@ -11,7 +11,7 @@ import Foundation
 #endif
 
 public enum MatchType: String, Codable, CaseIterable {
-    case exact
+    case match
     case interpolated
     case fallback
 }

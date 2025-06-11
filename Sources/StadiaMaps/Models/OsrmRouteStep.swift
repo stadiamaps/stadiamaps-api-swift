@@ -26,7 +26,7 @@ public struct OsrmRouteStep: Codable, JSONEncodable, Hashable {
     public var distance: Double
     /** The estimated travel time, in number of seconds. */
     public var duration: Double
-    /** An encoded polyline (https://developers.google.com/maps/documentation/utilities/polylinealgorithm) with 6 digits of decimal precision. */
+    /** An encoded polyline (https://developers.google.com/maps/documentation/utilities/polylinealgorithm) with 6 digits of decimal precision (NOTE: most implementations default to 5). */
     public var geometry: String
     public var weight: Double?
     /** The name of the segment (ex: road) being traversed */

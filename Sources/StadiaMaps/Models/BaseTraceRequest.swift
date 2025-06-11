@@ -31,7 +31,7 @@ public struct BaseTraceRequest: Codable, JSONEncodable, Hashable {
     public var id: String?
     /** REQUIRED if `encoded_polyline` is not present. Note that `break` type locations are only supported when `shape_match` is set to `map_match`. */
     public var shape: [MapMatchWaypoint]?
-    /** REQUIRED if `shape` is not present. An encoded polyline (https://developers.google.com/maps/documentation/utilities/polylinealgorithm). Note that the polyline must be encoded with 6 digits of precision rather than the usual 5. */
+    /** REQUIRED if `shape` is not present. An encoded polyline (https://developers.google.com/maps/documentation/utilities/polylinealgorithm). Note that the polyline must be encoded with 6 digits of precision rather than the default 5! */
     public var encodedPolyline: String?
     public var costing: MapMatchCostingModel
     public var costingOptions: CostingOptions?

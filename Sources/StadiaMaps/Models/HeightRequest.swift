@@ -26,7 +26,7 @@ public struct HeightRequest: Codable, JSONEncodable, Hashable {
     public var encodedPolyline: String?
     /** Specifies whether the polyline is encoded with 6 digit precision (polyline6) or 5 digit precision (polyline5). */
     public var shapeFormat: ShapeFormat? = .polyline6
-    /** Controls whether or not the returned array is one-dimensional (height only) or two-dimensional (with a range and height). The range dimension can be used to generate a graph or steepness gradient along a route. */
+    /** Controls whether the returned array is one-dimensional (height only) or two-dimensional (with a range and height). The range dimension can be used to generate a graph or steepness gradient along a route. */
     public var range: Bool? = false
     /** The decimal precision (number of digits after the point) of the output. When 0, integer values are returned. Valid values are 0, 1, and 2. */
     public var heightPrecision: Int? = 0
