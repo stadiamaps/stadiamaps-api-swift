@@ -51,6 +51,24 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
         })
     }
 
+    func testOsrmParseRegression() async throws {
+        let json = """
+        {
+            "modifier": "right",
+            "instruction": "Exit the roundabout onto Rua António da Conceição Bento.",
+            "type": "exit roundabout",
+            "bearing_after": 15,
+            "bearing_before": 316,
+            "location": [
+                -9.380354,
+                39.358754
+            ]
+        }
+        """
+        let maneuver = try JSONDecoder().decode(OsrmStepManeuver.self, from: json.data(using: .utf8)!)
+        XCTAssertEqual(maneuver.type, .exitRoundabout, "Failed to parse maneuver type")
+    }
+
     func testRouteWithAlternates() async throws {
         let req = RouteRequest(units: .mi,
                                id: "route",

@@ -28,6 +28,8 @@ public struct OsrmStepManeuver: Codable, JSONEncodable, Hashable {
         case rotary
         case roundaboutTurn = "roundabout turn"
         case notification
+        case exitRoundabout = "exit roundabout"
+        case exitRotary = "exit rotary"
     }
 
     public static let locationRule = ArrayRule(minItems: 2, maxItems: 2, uniqueItems: false)
