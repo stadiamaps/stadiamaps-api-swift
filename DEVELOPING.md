@@ -18,3 +18,7 @@ swiftformat .
 ## Tagging a release
 
 SPM releases are just tags. Publish a GitHub release for completeness.
+
+DocC documentation is automatically built and hosted by the Swift Package Index
+after each tagged release. No manual steps are needed. The documentation will be
+available at https://swiftpackageindex.com/stadiamaps/stadiamaps-api-swift/documentation/stadiamaps.

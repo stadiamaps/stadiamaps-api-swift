@@ -6,7 +6,7 @@ This SDK helps you access the full range of geospatial APIs from Stadia Maps usi
 all the goodies like autocomplete, type definitions, and documentation as you type. All API methods leverage the async
 features introduced in Swift 5.5, which make it easier than ever to write correct asynchronous code. 
 
-## Installation with Swift Package Mangaer
+## Installation with Swift Package Mangager
 
 The Xcode UI changes frequently, but you can usually add packages to your project using an option in the File menu.
 Then, you'll need to paste in the repository URL to search: https://github.com/stadiamaps/stadiamaps-api-swift.
@@ -44,5 +44,6 @@ You can find examples of how to call all of our API methods in the [integration 
 
 ## Documentation
 
-Official documentation lives at [docs.stadiamaps.com](https://docs.stadiamaps.com/?utm_source=github&utm_campaign=sdk_readme&utm_content=swift_readme),
-where we have both long-form prose explanations of each endpoint and an interactive [API reference](https://docs.stadiamaps.com/api-reference/?utm_source=github&utm_campaign=sdk_readme&utm_content=swift_readme).
+Full API documentation for this SDK is available on the [Swift Package Index](https://swiftpackageindex.com/stadiamaps/stadiamaps-api-swift/documentation/stadiamaps).
+For broader context including tutorials, guides, and an interactive API reference,
+[docs.stadiamaps.com](https://docs.stadiamaps.com/?utm_source=github&utm_campaign=sdk_readme&utm_content=swift_readme).
