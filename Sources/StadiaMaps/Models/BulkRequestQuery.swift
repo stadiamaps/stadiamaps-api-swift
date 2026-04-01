@@ -11,12 +11,15 @@ import Foundation
 #endif
 
 public enum BulkRequestQuery: Codable, JSONEncodable, Hashable {
+    case typeReverseQuery(ReverseQuery)
     case typeSearchQuery(SearchQuery)
     case typeSearchStructuredQuery(SearchStructuredQuery)
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
+        case let .typeReverseQuery(value):
+            try container.encode(value)
         case let .typeSearchQuery(value):
             try container.encode(value)
         case let .typeSearchStructuredQuery(value):
@@ -26,7 +29,9 @@ public enum BulkRequestQuery: Codable, JSONEncodable, Hashable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = try? container.decode(SearchQuery.self) {
+        if let value = try? container.decode(ReverseQuery.self) {
+            self = .typeReverseQuery(value)
+        } else if let value = try? container.decode(SearchQuery.self) {
             self = .typeSearchQuery(value)
         } else if let value = try? container.decode(SearchStructuredQuery.self) {
             self = .typeSearchStructuredQuery(value)

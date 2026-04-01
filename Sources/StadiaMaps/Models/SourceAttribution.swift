@@ -11,8 +11,11 @@ import Foundation
 #endif
 
 public struct SourceAttribution: Codable, JSONEncodable, Hashable {
+    /** A URL where you can submit changes to the source data for a place (e.g. edit on OpenStreetMap, Foursquare Placemaker, etc.). */
     public var fixitUrl: String?
+    /** The source identifier. */
     public var source: String
+    /** The ID of the record as it appears in the original source. */
     public var sourceId: String
 
     public init(fixitUrl: String? = nil, source: String, sourceId: String) {

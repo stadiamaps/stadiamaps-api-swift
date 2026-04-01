@@ -11,20 +11,21 @@ import Foundation
 #endif
 
 public struct TzResponse: Codable, JSONEncodable, Hashable {
-    /** The canonical time zone ID. In the event that multiple time zones could be returned, the first one from the Unicode CLDR timezone.xml is returned. */
+    /** The canonical time zone ID.  In the event that multiple time zones could be returned, the first one from the Unicode CLDR timezone.xml is returned. */
     public var tzId: String
     /** The base offset, in seconds, from UTC that is normally in effect for this time zone. */
     public var baseUtcOffset: Int
-    /** The special offset, in seconds, from UTC that is in effect for this time zone as of the queried timestamp (defaults to now). If no additional offsets are in effect, this value is zero. This typically reflects Daylight Saving Time, but may indicate other special offsets. To get the total offset in effect, add `dst_offset` and `utc_offset` together. */
+    /** The special offset, in seconds, from UTC that is in effect for this time zone as of the queried timestamp (defaults to now).  If no additional offsets are in effect, this value is zero. This typically reflects Daylight Saving Time, but may indicate other special offsets. To get the total offset in effect, add `dst_offset` and `utc_offset` together.  NOTE: This field can be somewhat confusing. We recommend switching to the v2 endpoint and using the is_dst filed if you need to identify whether DST is being observed. */
+    @available(*, deprecated, message: "This property is deprecated.")
     public var dstOffset: Int
-    /** Integer non-leap seconds since January 1, 1970 (UNIX timestamp). If a timestamp is included with the request parameters, it will be echoed here. Otherwise, this will contain the current timestamp. */
-    public var timestamp: Int
-    /** The local time expressed as an RFC 2822 timestamp (e.g. Tue, 1 Jul 2003 10:52:37 +0200). If a timestamp is included in the request, it will be localized here. Otherwise, this will reflect the time of the request. */
-    public var localRfc2822Timestamp: String
-    /** The local time expressed as an RFC 3389 (ISO 8601) timestamp (e.g. 2003-06-01T10:52:37+02:00). If a timestamp is included in the request, it will be localized here. Otherwise, this will reflect the time of the request. */
+    /** Integer non-leap seconds since January 1, 1970 (UNIX timestamp).  If present, offsets will be calculated as of this time. Otherwise, offsets will be effective as of the time of the query. */
+    public var timestamp: Int64
+    /** The local time expressed as an RFC 2822 timestamp (e.g. Tue, 1 Jun 2003 10:52:37 -0500).  If a timestamp is included in the request, it will be localized here. Otherwise, this will reflect the time of the request.  NOTE: RFC 2822 is more restrictive than other formats and cannot represent all dates. */
+    public var localRfc2822Timestamp: String?
+    /** The local time expressed as an RFC 3389 (ISO 8601) timestamp (e.g. 2003-06-01T10:52:37+02:00).  If a timestamp is included in the request, it will be localized here. Otherwise, this will reflect the time of the request. */
     public var localRfc3389Timestamp: String
 
-    public init(tzId: String, baseUtcOffset: Int, dstOffset: Int, timestamp: Int, localRfc2822Timestamp: String, localRfc3389Timestamp: String) {
+    public init(tzId: String, baseUtcOffset: Int, dstOffset: Int, timestamp: Int64, localRfc2822Timestamp: String? = nil, localRfc3389Timestamp: String) {
         self.tzId = tzId
         self.baseUtcOffset = baseUtcOffset
         self.dstOffset = dstOffset
@@ -50,7 +51,7 @@ public struct TzResponse: Codable, JSONEncodable, Hashable {
         try container.encode(baseUtcOffset, forKey: .baseUtcOffset)
         try container.encode(dstOffset, forKey: .dstOffset)
         try container.encode(timestamp, forKey: .timestamp)
-        try container.encode(localRfc2822Timestamp, forKey: .localRfc2822Timestamp)
+        try container.encodeIfPresent(localRfc2822Timestamp, forKey: .localRfc2822Timestamp)
         try container.encode(localRfc3389Timestamp, forKey: .localRfc3389Timestamp)
     }
 }

@@ -10,12 +10,20 @@ import Foundation
     import AnyCodable
 #endif
 
-/** A model which influences the routing based on the type of travel. The costing model affects parameters ranging from which roads are legally accessible to preferences based on comfort or speed. See https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-models for in-depth descriptions of each costing model. */
+/** A routing profile that determines which roads you can access, and how desirable they are based on the type of travel and other parameters. Profiles with a &#x60;_traffic&#x60; suffix use heuristically-selected traffic data sources to improve ETA and time-dependent route quality while balancing the credit cost. The &#x60;_traffic_premium&#x60; profiles leverage multiple types of data for maximum accuracy. Traffic-influenced profiles use the same costing options as their base profile (e.g., use the &#x60;auto&#x60; key in &#x60;costing_options&#x60; for &#x60;auto_traffic&#x60;). */
 public enum CostingModel: String, Codable, CaseIterable {
     case auto
+    case autoTraffic = "auto_traffic"
+    case autoTrafficPremium = "auto_traffic_premium"
     case bus
+    case busTraffic = "bus_traffic"
+    case busTrafficPremium = "bus_traffic_premium"
     case taxi
+    case taxiTraffic = "taxi_traffic"
+    case taxiTrafficPremium = "taxi_traffic_premium"
     case truck
+    case truckTraffic = "truck_traffic"
+    case truckTrafficPremium = "truck_traffic_premium"
     case bicycle
     case bikeshare
     case motorScooter = "motor_scooter"

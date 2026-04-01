@@ -31,6 +31,7 @@ public struct TraceAttributesRequest: Codable, JSONEncodable, Hashable {
     public var encodedPolyline: String?
     public var costing: MapMatchCostingModel
     public var costingOptions: CostingOptions?
+    public var dateTime: TimeConstraintV1?
     /** Three snapping modes provide some control over how the map matching occurs. `edge_walk` is fast, but requires extremely precise data that matches the route graph almost perfectly. `map_snap` can handle significantly noisier data, but is very expensive. `walk_or_snap`, the default, tries to use edge walking first and falls back to map matching if edge walking fails. In general, you should not need to change this parameter unless you want to trace a multi-leg route with multiple `break` locations in the `shape`. */
     public var shapeMatch: ShapeMatch?
     public var units: DistanceUnit?
@@ -42,12 +43,13 @@ public struct TraceAttributesRequest: Codable, JSONEncodable, Hashable {
     /** If greater than zero, attempts to include elevation along the route at regular intervals. The \"native\" internal resolution is 30m, so we recommend you use this when possible. This number is interpreted as either meters or feet depending on the unit parameter. Elevation for route sections containing a bridge or tunnel is interpolated linearly. This doesn't always match the true elevation of the bridge/tunnel, but it prevents sharp artifacts from the surrounding terrain. This functionality is unique to the routing endpoints and is not available via the elevation API. NOTE: This has no effect on the OSRM response format. */
     public var elevationInterval: Float? = 0.0
 
-    public init(id: String? = nil, shape: [MapMatchWaypoint]? = nil, encodedPolyline: String? = nil, costing: MapMatchCostingModel, costingOptions: CostingOptions? = nil, shapeMatch: ShapeMatch? = nil, units: DistanceUnit? = nil, language: RoutingLanguages? = nil, directionsType: DirectionsType? = .instructions, filters: TraceAttributeFilterOptions? = nil, elevationInterval: Float? = 0.0) {
+    public init(id: String? = nil, shape: [MapMatchWaypoint]? = nil, encodedPolyline: String? = nil, costing: MapMatchCostingModel, costingOptions: CostingOptions? = nil, dateTime: TimeConstraintV1? = nil, shapeMatch: ShapeMatch? = nil, units: DistanceUnit? = nil, language: RoutingLanguages? = nil, directionsType: DirectionsType? = .instructions, filters: TraceAttributeFilterOptions? = nil, elevationInterval: Float? = 0.0) {
         self.id = id
         self.shape = shape
         self.encodedPolyline = encodedPolyline
         self.costing = costing
         self.costingOptions = costingOptions
+        self.dateTime = dateTime
         self.shapeMatch = shapeMatch
         self.units = units
         self.language = language
@@ -62,6 +64,7 @@ public struct TraceAttributesRequest: Codable, JSONEncodable, Hashable {
         case encodedPolyline = "encoded_polyline"
         case costing
         case costingOptions = "costing_options"
+        case dateTime = "date_time"
         case shapeMatch = "shape_match"
         case units
         case language
@@ -79,6 +82,7 @@ public struct TraceAttributesRequest: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(encodedPolyline, forKey: .encodedPolyline)
         try container.encode(costing, forKey: .costing)
         try container.encodeIfPresent(costingOptions, forKey: .costingOptions)
+        try container.encodeIfPresent(dateTime, forKey: .dateTime)
         try container.encodeIfPresent(shapeMatch, forKey: .shapeMatch)
         try container.encodeIfPresent(units, forKey: .units)
         try container.encodeIfPresent(language, forKey: .language)

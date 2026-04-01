@@ -11,6 +11,7 @@ import Foundation
 #endif
 
 public struct IsochroneRequest: Codable, JSONEncodable, Hashable {
+    public static let locationsRule = ArrayRule(minItems: 1, maxItems: 1, uniqueItems: false)
     public static let contoursRule = ArrayRule(minItems: 1, maxItems: 4, uniqueItems: false)
     public static let denoiseRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     /** An identifier to disambiguate requests (echoed by the server). */
@@ -18,6 +19,7 @@ public struct IsochroneRequest: Codable, JSONEncodable, Hashable {
     public var locations: [Coordinate]
     public var costing: IsochroneCostingModel
     public var costingOptions: CostingOptions?
+    public var dateTime: TimeConstraintV1?
     public var contours: [Contour]
     /** If true, the generated GeoJSON will use polygons. The default is to use LineStrings. Polygon output makes it easier to render overlapping areas in some visualization tools (such as MapLibre renderers). */
     public var polygons: Bool? = false
@@ -28,11 +30,12 @@ public struct IsochroneRequest: Codable, JSONEncodable, Hashable {
     /** If true, then the output GeoJSON will include the input locations as two MultiPoint features: one for the exact input coordinates, and a second for the route network node location that the point was snapped to. */
     public var showLocations: Bool? = false
 
-    public init(id: String? = nil, locations: [Coordinate], costing: IsochroneCostingModel, costingOptions: CostingOptions? = nil, contours: [Contour], polygons: Bool? = false, denoise: Double? = 1, generalize: Double? = 200.0, showLocations: Bool? = false) {
+    public init(id: String? = nil, locations: [Coordinate], costing: IsochroneCostingModel, costingOptions: CostingOptions? = nil, dateTime: TimeConstraintV1? = nil, contours: [Contour], polygons: Bool? = false, denoise: Double? = 1, generalize: Double? = 200.0, showLocations: Bool? = false) {
         self.id = id
         self.locations = locations
         self.costing = costing
         self.costingOptions = costingOptions
+        self.dateTime = dateTime
         self.contours = contours
         self.polygons = polygons
         self.denoise = denoise
@@ -45,6 +48,7 @@ public struct IsochroneRequest: Codable, JSONEncodable, Hashable {
         case locations
         case costing
         case costingOptions = "costing_options"
+        case dateTime = "date_time"
         case contours
         case polygons
         case denoise
@@ -60,6 +64,7 @@ public struct IsochroneRequest: Codable, JSONEncodable, Hashable {
         try container.encode(locations, forKey: .locations)
         try container.encode(costing, forKey: .costing)
         try container.encodeIfPresent(costingOptions, forKey: .costingOptions)
+        try container.encodeIfPresent(dateTime, forKey: .dateTime)
         try container.encode(contours, forKey: .contours)
         try container.encodeIfPresent(polygons, forKey: .polygons)
         try container.encodeIfPresent(denoise, forKey: .denoise)

@@ -10,15 +10,17 @@ import Foundation
     import AnyCodable
 #endif
 
+/** Response from the elevation endpoint. */
 public struct HeightResponse: Codable, JSONEncodable, Hashable {
-    /** An identifier to disambiguate requests (echoed by the server). */
+    /** The request identifier, if provided. */
     public var id: String?
+    /** The input shape, if provided as coordinates. */
     public var shape: [Coordinate]?
     /** The input polyline. */
     public var encodedPolyline: String?
     /** The list of heights for each point, in meters. Present only if `range` is `false`. Null values indicate missing data. */
     public var height: [Float]?
-    /** The list of ranges and heights for each point in the shape, where each entry is an array of length 2. Present only if `range` is `true`. In each pair, the first element represents the range or distance along the input locations. It is the cumulative distance along the previous coordinates in the shape up to the current coordinate. This value for the first coordinate in the shape will always be 0. The second element in the pair represents the height or elevation at the associated coordinate. The height is null if no height data exists for a given location. Both values are expressed in meters. */
+    /** The list of ranges and heights for each point in the shape, where each entry is an array of length 2. Present only if `range` is `true`.  In each pair, the first element represents the range or distance along the input locations. It is the cumulative distance along the previous coordinates in the shape up to the current coordinate. This value for the first coordinate in the shape will always be 0. The second element in the pair represents the height or elevation at the associated coordinate. The height is null if no height data exists for a given location. Both values are expressed in meters. */
     public var rangeHeight: [[Float]]?
 
     public init(id: String? = nil, shape: [Coordinate]? = nil, encodedPolyline: String? = nil, height: [Float]? = nil, rangeHeight: [[Float]]? = nil) {

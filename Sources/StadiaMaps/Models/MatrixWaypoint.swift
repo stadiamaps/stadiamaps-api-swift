@@ -19,17 +19,21 @@ public struct MatrixWaypoint: Codable, JSONEncodable, Hashable {
     public var lon: Double
     /** The cutoff (in meters) at which we will assume the input is too far away from civilisation to be worth correlating to the nearest graph elements. The default is 35 km. */
     public var searchCutoff: Int?
+    /** Optional departure time for this specific waypoint in `YYYY-MM-DDTHH:MM` format. On matrix requests, per-waypoint date_time drives time-dependent routing behavior (e.g., accounting for traffic conditions at different times for different origins). Cannot be combined with a root-level `date_time`. */
+    public var dateTime: String?
 
-    public init(lat: Double, lon: Double, searchCutoff: Int? = nil) {
+    public init(lat: Double, lon: Double, searchCutoff: Int? = nil, dateTime: String? = nil) {
         self.lat = lat
         self.lon = lon
         self.searchCutoff = searchCutoff
+        self.dateTime = dateTime
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case lat
         case lon
         case searchCutoff = "search_cutoff"
+        case dateTime = "date_time"
     }
 
     // Encodable protocol methods
@@ -39,5 +43,6 @@ public struct MatrixWaypoint: Codable, JSONEncodable, Hashable {
         try container.encode(lat, forKey: .lat)
         try container.encode(lon, forKey: .lon)
         try container.encodeIfPresent(searchCutoff, forKey: .searchCutoff)
+        try container.encodeIfPresent(dateTime, forKey: .dateTime)
     }
 }

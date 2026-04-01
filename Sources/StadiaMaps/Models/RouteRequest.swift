@@ -39,7 +39,8 @@ public struct RouteRequest: Codable, JSONEncodable, Hashable {
     public var locations: [RoutingWaypoint]
     public var costing: CostingModel
     public var costingOptions: CostingOptions?
-    /** This has the same format as the locations list. Locations are mapped to the closed road(s), and these road(s) are excluded from the route path computation. */
+    public var dateTime: TimeConstraintV1?
+    /** This has the same format as the locations list. Locations are mapped to the closest road(s), and these road(s) are excluded from the route path computation. */
     public var excludeLocations: [RoutingWaypoint]?
     /** One or multiple exterior rings of polygons in the form of nested JSON arrays. Roads intersecting these rings will be avoided during path finding. Open rings will be closed automatically. If you only need to avoid a few specific roads, it's much more efficient to use `exclude_locations`. */
     public var excludePolygons: [[[Double]]]?
@@ -50,7 +51,7 @@ public struct RouteRequest: Codable, JSONEncodable, Hashable {
     /** Determines whether the output should include roundabout exit instructions. */
     public var roundaboutExits: Bool? = true
 
-    public init(units: DistanceUnit? = nil, language: RoutingLanguages? = nil, directionsType: DirectionsType? = .instructions, format: Format? = nil, bannerInstructions: Bool? = nil, voiceInstructions: Bool? = nil, filters: AnnotationFilters? = nil, id: String? = nil, locations: [RoutingWaypoint], costing: CostingModel, costingOptions: CostingOptions? = nil, excludeLocations: [RoutingWaypoint]? = nil, excludePolygons: [[[Double]]]? = nil, alternates: Int? = nil, elevationInterval: Float? = 0.0, roundaboutExits: Bool? = true) {
+    public init(units: DistanceUnit? = nil, language: RoutingLanguages? = nil, directionsType: DirectionsType? = .instructions, format: Format? = nil, bannerInstructions: Bool? = nil, voiceInstructions: Bool? = nil, filters: AnnotationFilters? = nil, id: String? = nil, locations: [RoutingWaypoint], costing: CostingModel, costingOptions: CostingOptions? = nil, dateTime: TimeConstraintV1? = nil, excludeLocations: [RoutingWaypoint]? = nil, excludePolygons: [[[Double]]]? = nil, alternates: Int? = nil, elevationInterval: Float? = 0.0, roundaboutExits: Bool? = true) {
         self.units = units
         self.language = language
         self.directionsType = directionsType
@@ -62,6 +63,7 @@ public struct RouteRequest: Codable, JSONEncodable, Hashable {
         self.locations = locations
         self.costing = costing
         self.costingOptions = costingOptions
+        self.dateTime = dateTime
         self.excludeLocations = excludeLocations
         self.excludePolygons = excludePolygons
         self.alternates = alternates
@@ -81,6 +83,7 @@ public struct RouteRequest: Codable, JSONEncodable, Hashable {
         case locations
         case costing
         case costingOptions = "costing_options"
+        case dateTime = "date_time"
         case excludeLocations = "exclude_locations"
         case excludePolygons = "exclude_polygons"
         case alternates
@@ -103,6 +106,7 @@ public struct RouteRequest: Codable, JSONEncodable, Hashable {
         try container.encode(locations, forKey: .locations)
         try container.encode(costing, forKey: .costing)
         try container.encodeIfPresent(costingOptions, forKey: .costingOptions)
+        try container.encodeIfPresent(dateTime, forKey: .dateTime)
         try container.encodeIfPresent(excludeLocations, forKey: .excludeLocations)
         try container.encodeIfPresent(excludePolygons, forKey: .excludePolygons)
         try container.encodeIfPresent(alternates, forKey: .alternates)

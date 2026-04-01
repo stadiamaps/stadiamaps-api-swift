@@ -10,7 +10,7 @@ import Foundation
     import AnyCodable
 #endif
 
-/** The level of precision for the geometry. */
+/** The level of detail for the geometry. */
 public enum Precision: String, Codable, CaseIterable {
     case point
     case centroid

@@ -37,5 +37,5 @@ public enum Route200Response: Codable, JSONEncodable, Hashable {
 }
 
 // Broken generated code
-//@available(iOS 13, tvOS 13, watchOS 6, macOS 10.15, *)
-//extension Route200Response: Identifiable {}
+// @available(iOS 13, tvOS 13, watchOS 6, macOS 10.15, *)
+// extension Route200Response: Identifiable {}

@@ -10,7 +10,7 @@ import Foundation
     import AnyCodable
 #endif
 
-/** Canonical geocoding source IDs. */
+/** Canonical data source identifiers. */
 public enum SourceId: String, Codable, CaseIterable {
     case openstreetmap
     case openaddresses

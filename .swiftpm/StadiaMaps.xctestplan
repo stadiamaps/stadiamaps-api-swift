@@ -12,7 +12,7 @@
     "codeCoverage" : false,
     "environmentVariableEntries" : [
       {
-        "key" : "API_KEY",
+        "key" : "STADIA_API_KEY",
         "value" : "YOUR-API-KEY"
       }
     ]

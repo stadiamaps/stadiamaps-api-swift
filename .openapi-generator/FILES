@@ -117,6 +117,7 @@ Sources/StadiaMaps/Models/Point.swift
 Sources/StadiaMaps/Models/Precision.swift
 Sources/StadiaMaps/Models/PropertiesV2.swift
 Sources/StadiaMaps/Models/Restrictions.swift
+Sources/StadiaMaps/Models/ReverseQuery.swift
 Sources/StadiaMaps/Models/RoadClass.swift
 Sources/StadiaMaps/Models/Route200Response.swift
 Sources/StadiaMaps/Models/RouteLeg.swift
@@ -133,10 +134,12 @@ Sources/StadiaMaps/Models/RoutingWaypoint.swift
 Sources/StadiaMaps/Models/RoutingWaypointAllOfSearchFilter.swift
 Sources/StadiaMaps/Models/SearchQuery.swift
 Sources/StadiaMaps/Models/SearchStructuredQuery.swift
+Sources/StadiaMaps/Models/ShapeFormat.swift
 Sources/StadiaMaps/Models/SimpleRoutingWaypoint.swift
 Sources/StadiaMaps/Models/SourceAttribution.swift
 Sources/StadiaMaps/Models/SourceId.swift
 Sources/StadiaMaps/Models/Speeds.swift
+Sources/StadiaMaps/Models/TimeConstraintV1.swift
 Sources/StadiaMaps/Models/TraceAttributeFilterOptions.swift
 Sources/StadiaMaps/Models/TraceAttributeKey.swift
 Sources/StadiaMaps/Models/TraceAttributesBaseResponse.swift
@@ -147,6 +150,7 @@ Sources/StadiaMaps/Models/TravelMode.swift
 Sources/StadiaMaps/Models/Traversability.swift
 Sources/StadiaMaps/Models/TruckCostingOptions.swift
 Sources/StadiaMaps/Models/TzResponse.swift
+Sources/StadiaMaps/Models/TzResponseV2.swift
 Sources/StadiaMaps/Models/Warning.swift
 Sources/StadiaMaps/Models/WhosOnFirstConcordances.swift
 Sources/StadiaMaps/Models/WofContext.swift
@@ -261,6 +265,7 @@ docs/Point.md
 docs/Precision.md
 docs/PropertiesV2.md
 docs/Restrictions.md
+docs/ReverseQuery.md
 docs/RoadClass.md
 docs/Route200Response.md
 docs/RouteLeg.md
@@ -278,10 +283,12 @@ docs/RoutingWaypoint.md
 docs/RoutingWaypointAllOfSearchFilter.md
 docs/SearchQuery.md
 docs/SearchStructuredQuery.md
+docs/ShapeFormat.md
 docs/SimpleRoutingWaypoint.md
 docs/SourceAttribution.md
 docs/SourceId.md
 docs/Speeds.md
+docs/TimeConstraintV1.md
 docs/TraceAttributeFilterOptions.md
 docs/TraceAttributeKey.md
 docs/TraceAttributesBaseResponse.md
@@ -292,6 +299,7 @@ docs/TravelMode.md
 docs/Traversability.md
 docs/TruckCostingOptions.md
 docs/TzResponse.md
+docs/TzResponseV2.md
 docs/Warning.md
 docs/WhosOnFirstConcordances.md
 docs/WofContext.md

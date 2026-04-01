@@ -40,10 +40,11 @@ public struct OptimizedRouteRequest: Codable, JSONEncodable, Hashable {
     public var locations: [Coordinate]
     public var costing: MatrixCostingModel
     public var costingOptions: CostingOptions?
+    public var dateTime: TimeConstraintV1?
     /** If greater than zero, attempts to include elevation along the route at regular intervals. The \"native\" internal resolution is 30m, so we recommend you use this when possible. This number is interpreted as either meters or feet depending on the unit parameter. Elevation for route sections containing a bridge or tunnel is interpolated linearly. This doesn't always match the true elevation of the bridge/tunnel, but it prevents sharp artifacts from the surrounding terrain. This functionality is unique to the routing endpoints and is not available via the elevation API. NOTE: This has no effect on the OSRM response format. */
     public var elevationInterval: Float? = 0.0
 
-    public init(units: DistanceUnit? = nil, language: RoutingLanguages? = nil, directionsType: DirectionsType? = .instructions, format: Format? = nil, bannerInstructions: Bool? = nil, voiceInstructions: Bool? = nil, filters: AnnotationFilters? = nil, id: String? = nil, locations: [Coordinate], costing: MatrixCostingModel, costingOptions: CostingOptions? = nil, elevationInterval: Float? = 0.0) {
+    public init(units: DistanceUnit? = nil, language: RoutingLanguages? = nil, directionsType: DirectionsType? = .instructions, format: Format? = nil, bannerInstructions: Bool? = nil, voiceInstructions: Bool? = nil, filters: AnnotationFilters? = nil, id: String? = nil, locations: [Coordinate], costing: MatrixCostingModel, costingOptions: CostingOptions? = nil, dateTime: TimeConstraintV1? = nil, elevationInterval: Float? = 0.0) {
         self.units = units
         self.language = language
         self.directionsType = directionsType
@@ -55,6 +56,7 @@ public struct OptimizedRouteRequest: Codable, JSONEncodable, Hashable {
         self.locations = locations
         self.costing = costing
         self.costingOptions = costingOptions
+        self.dateTime = dateTime
         self.elevationInterval = elevationInterval
     }
 
@@ -70,6 +72,7 @@ public struct OptimizedRouteRequest: Codable, JSONEncodable, Hashable {
         case locations
         case costing
         case costingOptions = "costing_options"
+        case dateTime = "date_time"
         case elevationInterval = "elevation_interval"
     }
 
@@ -88,6 +91,7 @@ public struct OptimizedRouteRequest: Codable, JSONEncodable, Hashable {
         try container.encode(locations, forKey: .locations)
         try container.encode(costing, forKey: .costing)
         try container.encodeIfPresent(costingOptions, forKey: .costingOptions)
+        try container.encodeIfPresent(dateTime, forKey: .dateTime)
         try container.encodeIfPresent(elevationInterval, forKey: .elevationInterval)
     }
 }

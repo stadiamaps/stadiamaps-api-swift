@@ -18,6 +18,8 @@ public struct PedestrianCostingOptions: Codable, JSONEncodable, Hashable {
     public static let useHillsRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     public static let useLitRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     public static let maxHikingDifficultyRule = NumericRule<Int>(minimum: 1, exclusiveMinimum: false, maximum: 6, exclusiveMaximum: false, multipleOf: nil)
+    public static let maxDistanceRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
+    public static let maxGradeRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: 90, exclusiveMaximum: false, multipleOf: nil)
     /** Walking speed in kph. */
     public var walkingSpeed: Double? = 5.1
     /** A factor that multiplies the cost when walkways are encountered. */
@@ -51,8 +53,16 @@ public struct PedestrianCostingOptions: Codable, JSONEncodable, Hashable {
     /** A penalty (in seconds) to rent a bicycle in `bikeshare` mode. */
     public var bssRentPenalty: Int? = 0
     public var type: PedestrianType?
+    /** Maximum total walking distance (in meters). Defaults to 100,000 for foot, 10,000 for wheelchair. */
+    public var maxDistance: Int?
+    /** Maximum grade (steepness) as a percentage. Defaults to 90 for foot, 12 for wheelchair. */
+    public var maxGrade: Int?
+    /** A factor that modifies the cost when transitioning between travel modes. Setting this value higher than 1 will avoid walking, while setting it lower than 1 will prefer walking. */
+    public var modeFactor: Double? = 1.5
+    /** A penalty (in seconds) for using an elevator. */
+    public var elevatorPenalty: Int? = 5
 
-    public init(walkingSpeed: Double? = 5.1, walkwayFactor: Double? = 1, sidewalkFactor: Double? = 1, alleyFactor: Double? = 2, drivewayFactor: Double? = 5, stepPenalty: Int? = 30, useFerry: Double? = 0.5, useLivingStreets: Double? = nil, useTracks: Double? = nil, useHills: Double? = 0.5, useLit: Double? = 0, servicePenalty: Int? = nil, serviceFactor: Double? = 1, maxHikingDifficulty: Int? = 1, bssRentCost: Int? = 120, bssRentPenalty: Int? = 0, type: PedestrianType? = nil) {
+    public init(walkingSpeed: Double? = 5.1, walkwayFactor: Double? = 1, sidewalkFactor: Double? = 1, alleyFactor: Double? = 2, drivewayFactor: Double? = 5, stepPenalty: Int? = 30, useFerry: Double? = 0.5, useLivingStreets: Double? = nil, useTracks: Double? = nil, useHills: Double? = 0.5, useLit: Double? = 0, servicePenalty: Int? = nil, serviceFactor: Double? = 1, maxHikingDifficulty: Int? = 1, bssRentCost: Int? = 120, bssRentPenalty: Int? = 0, type: PedestrianType? = nil, maxDistance: Int? = nil, maxGrade: Int? = nil, modeFactor: Double? = 1.5, elevatorPenalty: Int? = 5) {
         self.walkingSpeed = walkingSpeed
         self.walkwayFactor = walkwayFactor
         self.sidewalkFactor = sidewalkFactor
@@ -70,6 +80,10 @@ public struct PedestrianCostingOptions: Codable, JSONEncodable, Hashable {
         self.bssRentCost = bssRentCost
         self.bssRentPenalty = bssRentPenalty
         self.type = type
+        self.maxDistance = maxDistance
+        self.maxGrade = maxGrade
+        self.modeFactor = modeFactor
+        self.elevatorPenalty = elevatorPenalty
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -90,6 +104,10 @@ public struct PedestrianCostingOptions: Codable, JSONEncodable, Hashable {
         case bssRentCost = "bss_rent_cost"
         case bssRentPenalty = "bss_rent_penalty"
         case type
+        case maxDistance = "max_distance"
+        case maxGrade = "max_grade"
+        case modeFactor = "mode_factor"
+        case elevatorPenalty = "elevator_penalty"
     }
 
     // Encodable protocol methods
@@ -113,5 +131,9 @@ public struct PedestrianCostingOptions: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(bssRentCost, forKey: .bssRentCost)
         try container.encodeIfPresent(bssRentPenalty, forKey: .bssRentPenalty)
         try container.encodeIfPresent(type, forKey: .type)
+        try container.encodeIfPresent(maxDistance, forKey: .maxDistance)
+        try container.encodeIfPresent(maxGrade, forKey: .maxGrade)
+        try container.encodeIfPresent(modeFactor, forKey: .modeFactor)
+        try container.encodeIfPresent(elevatorPenalty, forKey: .elevatorPenalty)
     }
 }

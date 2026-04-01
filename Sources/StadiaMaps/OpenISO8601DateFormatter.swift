@@ -7,7 +7,7 @@
 
 import Foundation
 
-// https://stackoverflow.com/a/50281094/976628
+/// https://stackoverflow.com/a/50281094/976628
 public class OpenISO8601DateFormatter: DateFormatter {
     static let withoutSeconds: DateFormatter = {
         let formatter = DateFormatter()

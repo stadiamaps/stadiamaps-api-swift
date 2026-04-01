@@ -41,11 +41,11 @@ open class CodableHelper {
         set { customJSONEncoder = newValue }
     }
 
-    open class func decode<T>(_ type: T.Type, from data: Data) -> Swift.Result<T, Error> where T: Decodable {
+    open class func decode<T: Decodable>(_ type: T.Type, from data: Data) -> Swift.Result<T, Error> {
         Swift.Result { try jsonDecoder.decode(type, from: data) }
     }
 
-    open class func encode<T>(_ value: T) -> Swift.Result<Data, Error> where T: Encodable {
+    open class func encode<T: Encodable>(_ value: T) -> Swift.Result<Data, Error> {
         Swift.Result { try jsonEncoder.encode(value) }
     }
 }

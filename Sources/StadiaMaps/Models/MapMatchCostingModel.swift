@@ -12,9 +12,17 @@ import Foundation
 
 public enum MapMatchCostingModel: String, Codable, CaseIterable {
     case auto
+    case autoTraffic = "auto_traffic"
+    case autoTrafficPremium = "auto_traffic_premium"
     case bus
+    case busTraffic = "bus_traffic"
+    case busTrafficPremium = "bus_traffic_premium"
     case taxi
+    case taxiTraffic = "taxi_traffic"
+    case taxiTrafficPremium = "taxi_traffic_premium"
     case truck
+    case truckTraffic = "truck_traffic"
+    case truckTrafficPremium = "truck_traffic_premium"
     case bicycle
     case bikeshare
     case motorScooter = "motor_scooter"

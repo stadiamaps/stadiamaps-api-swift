@@ -10,7 +10,7 @@ import Foundation
     import AnyCodable
 #endif
 
-/** A point geometry. */
+/** A point geometry in GeoJSON format. */
 public struct Point: Codable, JSONEncodable, Hashable {
     public static let coordinatesRule = ArrayRule(minItems: 2, maxItems: 2, uniqueItems: false)
     public var coordinates: [Double]

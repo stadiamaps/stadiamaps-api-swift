@@ -12,8 +12,8 @@ import Foundation
     import UniformTypeIdentifiers
 #endif
 
-// Protocol defined for a session data task. This allows mocking out the URLSessionProtocol below since
-// you may not want to create or return a real URLSessionDataTask.
+/// Protocol defined for a session data task. This allows mocking out the URLSessionProtocol below since
+/// you may not want to create or return a real URLSessionDataTask.
 public protocol URLSessionDataTaskProtocol {
     func resume()
 
@@ -24,15 +24,15 @@ public protocol URLSessionDataTaskProtocol {
     func cancel()
 }
 
-// Protocol allowing implementations to alter what is returned or to test their implementations.
+/// Protocol allowing implementations to alter what is returned or to test their implementations.
 public protocol URLSessionProtocol {
-    // Task which performs the network fetch. Expected to be from URLSession.dataTask(with:completionHandler:) such that a network request
-    // is sent off when `.resume()` is called.
+    /// Task which performs the network fetch. Expected to be from URLSession.dataTask(with:completionHandler:) such that a network request
+    /// is sent off when `.resume()` is called.
     func dataTaskFromProtocol(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol
 }
 
 extension URLSession: URLSessionProtocol {
-    // Passthrough to URLSession.dataTask(with:completionHandler) since URLSessionDataTask conforms to URLSessionDataTaskProtocol and fetches the network data.
+    /// Passthrough to URLSession.dataTask(with:completionHandler) since URLSessionDataTask conforms to URLSessionDataTaskProtocol and fetches the network data.
     public func dataTaskFromProtocol(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, (any Error)?) -> Void) -> any URLSessionDataTaskProtocol {
         dataTask(with: request, completionHandler: completionHandler)
     }
@@ -52,16 +52,16 @@ class URLSessionRequestBuilderFactory: RequestBuilderFactory {
 
 public typealias StadiaMapsAPIChallengeHandler = (URLSession, URLSessionTask, URLAuthenticationChallenge) -> (URLSession.AuthChallengeDisposition, URLCredential?)
 
-// Store the URLSession's delegate to retain its reference
+/// Store the URLSession's delegate to retain its reference
 private let sessionDelegate = SessionDelegate()
 
-// Store the URLSession to retain its reference
+/// Store the URLSession to retain its reference
 private let defaultURLSession = URLSession(configuration: .default, delegate: sessionDelegate, delegateQueue: nil)
 
-// Store current taskDidReceiveChallenge for every URLSessionTask
+/// Store current taskDidReceiveChallenge for every URLSessionTask
 private var challengeHandlerStore = SynchronizedDictionary<Int, StadiaMapsAPIChallengeHandler>()
 
-// Store current URLCredential for every URLSessionTask
+/// Store current URLCredential for every URLSessionTask
 private var credentialStore = SynchronizedDictionary<Int, URLCredential>()
 
 open class URLSessionRequestBuilder<T>: RequestBuilder<T> {
@@ -110,9 +110,7 @@ open class URLSessionRequestBuilder<T>: RequestBuilder<T> {
             originalRequest.setValue(value, forHTTPHeaderField: key)
         }
 
-        let modifiedRequest = try encoding.encode(originalRequest, with: parameters)
-
-        return modifiedRequest
+        return try encoding.encode(originalRequest, with: parameters)
     }
 
     @discardableResult
@@ -132,13 +130,13 @@ open class URLSessionRequestBuilder<T>: RequestBuilder<T> {
         case .options, .post, .put, .patch, .delete, .trace, .connect:
             let contentType = headers["Content-Type"] ?? "application/json"
 
-            if contentType.hasPrefix("application/"), contentType.contains("json") {
+            if contentType.hasPrefix("application/") && contentType.contains("json") {
                 encoding = JSONDataEncoding()
             } else if contentType.hasPrefix("multipart/form-data") {
                 encoding = FormDataEncoding(contentTypeForFormPart: contentTypeForFormPart(fileURL:))
             } else if contentType.hasPrefix("application/x-www-form-urlencoded") {
                 encoding = FormURLEncoding()
-            } else if contentType.hasPrefix("application/octet-stream") {
+            } else if contentType.hasPrefix("application/octet-stream") || contentType.hasPrefix("image/") {
                 encoding = OctetStreamEncoding()
             } else {
                 fatalError("Unsupported Media Type - \(contentType)")
@@ -582,9 +580,9 @@ private class FormURLEncoding: ParameterEncoding {
         var requestBodyComponents = URLComponents()
         let queryItems = APIHelper.mapValuesToQueryItems(parameters ?? [:])
 
-        /// `httpBody` needs to be percent encoded
-        /// -> https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
-        /// "application/x-www-form-urlencoded: [...] Non-alphanumeric characters in both keys and values are percent-encoded"
+        // `httpBody` needs to be percent encoded
+        // -> https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
+        // "application/x-www-form-urlencoded: [...] Non-alphanumeric characters in both keys and values are percent-encoded"
         let percentEncodedQueryItems = queryItems?.compactMap { queryItem in
             URLQueryItem(
                 name: queryItem.name.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? queryItem.name,
@@ -597,8 +595,8 @@ private class FormURLEncoding: ParameterEncoding {
             urlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         }
 
-        /// We can't use `requestBodyComponents.percentEncodedQuery` since this does NOT percent encode the `+` sign
-        /// that is why we do the percent encoding manually for each key/value pair
+        // We can't use `requestBodyComponents.percentEncodedQuery` since this does NOT percent encode the `+` sign
+        // that is why we do the percent encoding manually for each key/value pair
         urlRequest.httpBody = requestBodyComponents.query?.data(using: .utf8)
 
         return urlRequest
@@ -629,11 +627,11 @@ private class OctetStreamEncoding: ParameterEncoding {
 }
 
 private extension Data {
-    /// Append string to Data
-    ///
-    /// Rather than littering my code with calls to `dataUsingEncoding` to convert strings to Data, and then add that data to the Data, this wraps it in a nice convenient little extension to Data. This converts using UTF-8.
-    ///
-    /// - parameter string:       The string to be added to the `Data`.
+    // Append string to Data
+    //
+    // Rather than littering my code with calls to `dataUsingEncoding` to convert strings to Data, and then add that data to the Data, this wraps it in a nice convenient little extension to Data. This converts using UTF-8.
+    //
+    // - parameter string:       The string to be added to the `Data`.
 
     mutating func append(_ string: String) {
         if let data = string.data(using: .utf8) {

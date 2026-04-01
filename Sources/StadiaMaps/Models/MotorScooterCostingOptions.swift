@@ -13,10 +13,13 @@ import Foundation
 public struct MotorScooterCostingOptions: Codable, JSONEncodable, Hashable {
     public static let useLivingStreetsRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     public static let useFerryRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
+    public static let useRailFerryRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     public static let useHighwaysRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     public static let useTollsRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     public static let useTracksRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     public static let topSpeedRule = NumericRule<Int>(minimum: 10, exclusiveMinimum: false, maximum: 252, exclusiveMaximum: false, multipleOf: nil)
+    public static let useDistanceRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
+    public static let closureFactorRule = NumericRule<Double>(minimum: 1, exclusiveMinimum: false, maximum: 10, exclusiveMaximum: false, multipleOf: nil)
     public static let usePrimaryRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     public static let useHillsRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     /** A penalty (in seconds) applied when transitioning between roads (determined by name). */
@@ -43,6 +46,18 @@ public struct MotorScooterCostingOptions: Codable, JSONEncodable, Hashable {
     public var ignoreNonVehicularRestrictions: Bool?
     /** If set to true, ignores directional restrictions on roads. Useful for matching GPS traces to the road network regardless of restrictions. */
     public var ignoreOneways: Bool?
+    /** A penalty (in seconds) for accessing private roads. */
+    public var privateAccessPenalty: Double? = 450
+    /** A penalty (in seconds) for using alleys. */
+    public var alleyPenalty: Double?
+    /** The estimated cost (in seconds) when a rail ferry is encountered. Only applies to costing models that support rail ferries (auto, truck, motorcycle). */
+    public var railFerryCost: Int? = 300
+    /** A measure of willingness to take rail ferries. Values near 0 attempt to avoid rail ferries, and values near 1 will favor them. Note that as some routes may be impossible without rail ferries, 0 does not guarantee avoidance of them. Only applies to auto, truck, and motorcycle costing. */
+    public var useRailFerry: Double? = 0.4
+    /** If set to true, ignores access restrictions for the route. */
+    public var ignoreAccess: Bool? = false
+    /** The estimated cost (in seconds) when a ferry is encountered. */
+    public var ferryCost: Int? = 300
     /** The height of the automobile (in meters). */
     public var height: Double? = 1.9
     /** The width of the automobile (in meters). */
@@ -51,8 +66,10 @@ public struct MotorScooterCostingOptions: Codable, JSONEncodable, Hashable {
     public var tollBoothCost: Int? = 15
     /** A penalty (in seconds) applied to the route cost when a toll booth is encountered. This penalty can be used to reduce the likelihood of suggesting a route with toll booths unless absolutely necessary. */
     public var tollBoothPenalty: Int? = 0
-    /** The estimated cost (in seconds) when a ferry is encountered. */
-    public var ferryCost: Int? = 300
+    /** If true, avoids routes with cash-only tolls. */
+    public var excludeCashOnlyTolls: Bool? = false
+    /** Indicates whether or not the path may include unpaved roads. If true, the route is allowed to start and end with unpaved roads, but is not allowed to have them in the middle of the route path. Otherwise they are allowed. */
+    public var excludeUnpaved: Bool? = false
     /** A measure of willingness to take highways. Values near 0 attempt to avoid highways, and values near 1 will favour them. Note that as some routes may be impossible without highways, 0 does not guarantee avoidance of them. */
     public var useHighways: Double? = 0.5
     /** A measure of willingness to take toll roads. Values near 0 attempt to avoid tolls, and values near 1 will favour them. Note that as some routes may be impossible without tolls, 0 does not guarantee avoidance of them. */
@@ -73,12 +90,16 @@ public struct MotorScooterCostingOptions: Codable, JSONEncodable, Hashable {
     public var includeHot: Bool? = false
     /** A factor that multiplies the cost when alleys are encountered. */
     public var alleyFactor: Double? = 1
+    /** A measure of preference for time vs. distance. Values near 0 (default) optimize for time, while values near 1 optimize for shortest distance. */
+    public var useDistance: Double? = 0
+    /** A factor that penalizes the cost of traversing closed edges. The value is a multiplier on the cost of a closed edge; higher values make closed edges less likely to be used. */
+    public var closureFactor: Double? = 9
     /** A measure of willingness to use primary roads. Values near 0 attempt to avoid primary roads and stay on roads with lower speeds, and values near 1 indicate the rider is more comfortable on these roads. */
     public var usePrimary: Double? = 0.5
     /** A measure of willingness to take tackle hills. Values near 0 attempt to avoid hills and steeper grades even if it means a longer route, and values near 1 indicates that the rider does not fear them. Note that as some routes may be impossible without hills, 0 does not guarantee avoidance of them. */
     public var useHills: Double? = 0.5
 
-    public init(maneuverPenalty: Int? = 5, gateCost: Int? = 15, gatePenalty: Int? = 300, countryCrossingCost: Int? = 600, countryCrossingPenalty: Int? = 0, servicePenalty: Int? = nil, serviceFactor: Double? = 1, useLivingStreets: Double? = nil, useFerry: Double? = 0.5, ignoreRestrictions: Bool? = nil, ignoreNonVehicularRestrictions: Bool? = nil, ignoreOneways: Bool? = nil, height: Double? = 1.9, width: Double? = 1.6, tollBoothCost: Int? = 15, tollBoothPenalty: Int? = 0, ferryCost: Int? = 300, useHighways: Double? = 0.5, useTolls: Double? = 0.5, useTracks: Double? = nil, topSpeed: Int? = 140, shortest: Bool? = false, ignoreClosures: Bool? = false, includeHov2: Bool? = false, includeHov3: Bool? = false, includeHot: Bool? = false, alleyFactor: Double? = 1, usePrimary: Double? = 0.5, useHills: Double? = 0.5) {
+    public init(maneuverPenalty: Int? = 5, gateCost: Int? = 15, gatePenalty: Int? = 300, countryCrossingCost: Int? = 600, countryCrossingPenalty: Int? = 0, servicePenalty: Int? = nil, serviceFactor: Double? = 1, useLivingStreets: Double? = nil, useFerry: Double? = 0.5, ignoreRestrictions: Bool? = nil, ignoreNonVehicularRestrictions: Bool? = nil, ignoreOneways: Bool? = nil, privateAccessPenalty: Double? = 450, alleyPenalty: Double? = nil, railFerryCost: Int? = 300, useRailFerry: Double? = 0.4, ignoreAccess: Bool? = false, ferryCost: Int? = 300, height: Double? = 1.9, width: Double? = 1.6, tollBoothCost: Int? = 15, tollBoothPenalty: Int? = 0, excludeCashOnlyTolls: Bool? = false, excludeUnpaved: Bool? = false, useHighways: Double? = 0.5, useTolls: Double? = 0.5, useTracks: Double? = nil, topSpeed: Int? = 140, shortest: Bool? = false, ignoreClosures: Bool? = false, includeHov2: Bool? = false, includeHov3: Bool? = false, includeHot: Bool? = false, alleyFactor: Double? = 1, useDistance: Double? = 0, closureFactor: Double? = 9, usePrimary: Double? = 0.5, useHills: Double? = 0.5) {
         self.maneuverPenalty = maneuverPenalty
         self.gateCost = gateCost
         self.gatePenalty = gatePenalty
@@ -91,11 +112,18 @@ public struct MotorScooterCostingOptions: Codable, JSONEncodable, Hashable {
         self.ignoreRestrictions = ignoreRestrictions
         self.ignoreNonVehicularRestrictions = ignoreNonVehicularRestrictions
         self.ignoreOneways = ignoreOneways
+        self.privateAccessPenalty = privateAccessPenalty
+        self.alleyPenalty = alleyPenalty
+        self.railFerryCost = railFerryCost
+        self.useRailFerry = useRailFerry
+        self.ignoreAccess = ignoreAccess
+        self.ferryCost = ferryCost
         self.height = height
         self.width = width
         self.tollBoothCost = tollBoothCost
         self.tollBoothPenalty = tollBoothPenalty
-        self.ferryCost = ferryCost
+        self.excludeCashOnlyTolls = excludeCashOnlyTolls
+        self.excludeUnpaved = excludeUnpaved
         self.useHighways = useHighways
         self.useTolls = useTolls
         self.useTracks = useTracks
@@ -106,6 +134,8 @@ public struct MotorScooterCostingOptions: Codable, JSONEncodable, Hashable {
         self.includeHov3 = includeHov3
         self.includeHot = includeHot
         self.alleyFactor = alleyFactor
+        self.useDistance = useDistance
+        self.closureFactor = closureFactor
         self.usePrimary = usePrimary
         self.useHills = useHills
     }
@@ -123,11 +153,18 @@ public struct MotorScooterCostingOptions: Codable, JSONEncodable, Hashable {
         case ignoreRestrictions = "ignore_restrictions"
         case ignoreNonVehicularRestrictions = "ignore_non_vehicular_restrictions"
         case ignoreOneways = "ignore_oneways"
+        case privateAccessPenalty = "private_access_penalty"
+        case alleyPenalty = "alley_penalty"
+        case railFerryCost = "rail_ferry_cost"
+        case useRailFerry = "use_rail_ferry"
+        case ignoreAccess = "ignore_access"
+        case ferryCost = "ferry_cost"
         case height
         case width
         case tollBoothCost = "toll_booth_cost"
         case tollBoothPenalty = "toll_booth_penalty"
-        case ferryCost = "ferry_cost"
+        case excludeCashOnlyTolls = "exclude_cash_only_tolls"
+        case excludeUnpaved = "exclude_unpaved"
         case useHighways = "use_highways"
         case useTolls = "use_tolls"
         case useTracks = "use_tracks"
@@ -138,6 +175,8 @@ public struct MotorScooterCostingOptions: Codable, JSONEncodable, Hashable {
         case includeHov3 = "include_hov3"
         case includeHot = "include_hot"
         case alleyFactor = "alley_factor"
+        case useDistance = "use_distance"
+        case closureFactor = "closure_factor"
         case usePrimary = "use_primary"
         case useHills = "use_hills"
     }
@@ -158,11 +197,18 @@ public struct MotorScooterCostingOptions: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(ignoreRestrictions, forKey: .ignoreRestrictions)
         try container.encodeIfPresent(ignoreNonVehicularRestrictions, forKey: .ignoreNonVehicularRestrictions)
         try container.encodeIfPresent(ignoreOneways, forKey: .ignoreOneways)
+        try container.encodeIfPresent(privateAccessPenalty, forKey: .privateAccessPenalty)
+        try container.encodeIfPresent(alleyPenalty, forKey: .alleyPenalty)
+        try container.encodeIfPresent(railFerryCost, forKey: .railFerryCost)
+        try container.encodeIfPresent(useRailFerry, forKey: .useRailFerry)
+        try container.encodeIfPresent(ignoreAccess, forKey: .ignoreAccess)
+        try container.encodeIfPresent(ferryCost, forKey: .ferryCost)
         try container.encodeIfPresent(height, forKey: .height)
         try container.encodeIfPresent(width, forKey: .width)
         try container.encodeIfPresent(tollBoothCost, forKey: .tollBoothCost)
         try container.encodeIfPresent(tollBoothPenalty, forKey: .tollBoothPenalty)
-        try container.encodeIfPresent(ferryCost, forKey: .ferryCost)
+        try container.encodeIfPresent(excludeCashOnlyTolls, forKey: .excludeCashOnlyTolls)
+        try container.encodeIfPresent(excludeUnpaved, forKey: .excludeUnpaved)
         try container.encodeIfPresent(useHighways, forKey: .useHighways)
         try container.encodeIfPresent(useTolls, forKey: .useTolls)
         try container.encodeIfPresent(useTracks, forKey: .useTracks)
@@ -173,6 +219,8 @@ public struct MotorScooterCostingOptions: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(includeHov3, forKey: .includeHov3)
         try container.encodeIfPresent(includeHot, forKey: .includeHot)
         try container.encodeIfPresent(alleyFactor, forKey: .alleyFactor)
+        try container.encodeIfPresent(useDistance, forKey: .useDistance)
+        try container.encodeIfPresent(closureFactor, forKey: .closureFactor)
         try container.encodeIfPresent(usePrimary, forKey: .usePrimary)
         try container.encodeIfPresent(useHills, forKey: .useHills)
     }

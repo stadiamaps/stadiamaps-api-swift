@@ -13,6 +13,7 @@ import Foundation
 public struct BaseCostingOptions: Codable, JSONEncodable, Hashable {
     public static let useLivingStreetsRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     public static let useFerryRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
+    public static let useRailFerryRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     /** A penalty (in seconds) applied when transitioning between roads (determined by name). */
     public var maneuverPenalty: Int? = 5
     /** The estimated cost (in seconds) when a gate is encountered. */
@@ -37,8 +38,20 @@ public struct BaseCostingOptions: Codable, JSONEncodable, Hashable {
     public var ignoreNonVehicularRestrictions: Bool?
     /** If set to true, ignores directional restrictions on roads. Useful for matching GPS traces to the road network regardless of restrictions. */
     public var ignoreOneways: Bool?
+    /** A penalty (in seconds) for accessing private roads. */
+    public var privateAccessPenalty: Double? = 450
+    /** A penalty (in seconds) for using alleys. */
+    public var alleyPenalty: Double?
+    /** The estimated cost (in seconds) when a rail ferry is encountered. Only applies to costing models that support rail ferries (auto, truck, motorcycle). */
+    public var railFerryCost: Int? = 300
+    /** A measure of willingness to take rail ferries. Values near 0 attempt to avoid rail ferries, and values near 1 will favor them. Note that as some routes may be impossible without rail ferries, 0 does not guarantee avoidance of them. Only applies to auto, truck, and motorcycle costing. */
+    public var useRailFerry: Double? = 0.4
+    /** If set to true, ignores access restrictions for the route. */
+    public var ignoreAccess: Bool? = false
+    /** The estimated cost (in seconds) when a ferry is encountered. */
+    public var ferryCost: Int? = 300
 
-    public init(maneuverPenalty: Int? = 5, gateCost: Int? = 15, gatePenalty: Int? = 300, countryCrossingCost: Int? = 600, countryCrossingPenalty: Int? = 0, servicePenalty: Int? = nil, serviceFactor: Double? = 1, useLivingStreets: Double? = nil, useFerry: Double? = 0.5, ignoreRestrictions: Bool? = nil, ignoreNonVehicularRestrictions: Bool? = nil, ignoreOneways: Bool? = nil) {
+    public init(maneuverPenalty: Int? = 5, gateCost: Int? = 15, gatePenalty: Int? = 300, countryCrossingCost: Int? = 600, countryCrossingPenalty: Int? = 0, servicePenalty: Int? = nil, serviceFactor: Double? = 1, useLivingStreets: Double? = nil, useFerry: Double? = 0.5, ignoreRestrictions: Bool? = nil, ignoreNonVehicularRestrictions: Bool? = nil, ignoreOneways: Bool? = nil, privateAccessPenalty: Double? = 450, alleyPenalty: Double? = nil, railFerryCost: Int? = 300, useRailFerry: Double? = 0.4, ignoreAccess: Bool? = false, ferryCost: Int? = 300) {
         self.maneuverPenalty = maneuverPenalty
         self.gateCost = gateCost
         self.gatePenalty = gatePenalty
@@ -51,6 +64,12 @@ public struct BaseCostingOptions: Codable, JSONEncodable, Hashable {
         self.ignoreRestrictions = ignoreRestrictions
         self.ignoreNonVehicularRestrictions = ignoreNonVehicularRestrictions
         self.ignoreOneways = ignoreOneways
+        self.privateAccessPenalty = privateAccessPenalty
+        self.alleyPenalty = alleyPenalty
+        self.railFerryCost = railFerryCost
+        self.useRailFerry = useRailFerry
+        self.ignoreAccess = ignoreAccess
+        self.ferryCost = ferryCost
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -66,6 +85,12 @@ public struct BaseCostingOptions: Codable, JSONEncodable, Hashable {
         case ignoreRestrictions = "ignore_restrictions"
         case ignoreNonVehicularRestrictions = "ignore_non_vehicular_restrictions"
         case ignoreOneways = "ignore_oneways"
+        case privateAccessPenalty = "private_access_penalty"
+        case alleyPenalty = "alley_penalty"
+        case railFerryCost = "rail_ferry_cost"
+        case useRailFerry = "use_rail_ferry"
+        case ignoreAccess = "ignore_access"
+        case ferryCost = "ferry_cost"
     }
 
     // Encodable protocol methods
@@ -84,5 +109,11 @@ public struct BaseCostingOptions: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(ignoreRestrictions, forKey: .ignoreRestrictions)
         try container.encodeIfPresent(ignoreNonVehicularRestrictions, forKey: .ignoreNonVehicularRestrictions)
         try container.encodeIfPresent(ignoreOneways, forKey: .ignoreOneways)
+        try container.encodeIfPresent(privateAccessPenalty, forKey: .privateAccessPenalty)
+        try container.encodeIfPresent(alleyPenalty, forKey: .alleyPenalty)
+        try container.encodeIfPresent(railFerryCost, forKey: .railFerryCost)
+        try container.encodeIfPresent(useRailFerry, forKey: .useRailFerry)
+        try container.encodeIfPresent(ignoreAccess, forKey: .ignoreAccess)
+        try container.encodeIfPresent(ferryCost, forKey: .ferryCost)
     }
 }
