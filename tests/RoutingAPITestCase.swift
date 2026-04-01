@@ -46,12 +46,12 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
         }
         XCTAssertEqual(.ok, res.code)
         XCTAssertEqual(res.routes?.count, 1)
-        XCTAssert(res.routes!.first!.legs.first!.steps.contains { step in
+        XCTAssert(try XCTUnwrap(res.routes?.first?.legs.first?.steps.contains { step in
             step.bannerInstructions?.count ?? 0 > 0
-        })
+        }))
     }
 
-    func testOsrmParseRegression() async throws {
+    func testOsrmParseRegression() throws {
         let json = """
         {
             "modifier": "right",
@@ -65,7 +65,7 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
             ]
         }
         """
-        let maneuver = try JSONDecoder().decode(OsrmStepManeuver.self, from: json.data(using: .utf8)!)
+        let maneuver = try JSONDecoder().decode(OsrmStepManeuver.self, from: XCTUnwrap(json.data(using: .utf8)))
         XCTAssertEqual(maneuver.type, .exitRoundabout, "Failed to parse maneuver type")
     }
 
@@ -140,8 +140,9 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
                                             locationC,
                                             locationA,
                                         ],
-                                        costing: .auto,
-                                        costingOptions: CostingOptions(auto: AutoCostingOptions(useHighways: 0.3)))
+                                        costing: .autoTraffic,
+                                        costingOptions: CostingOptions(auto: AutoCostingOptions(useHighways: 0.3)),
+                                        dateTime: TimeConstraintV1(type: ._0))
         guard case let .typeRouteResponse(res) = try await RoutingAPI.optimizedRoute(optimizedRouteRequest: req) else {
             XCTFail("Expected a Valhalla JSON format route response")
             return
@@ -173,7 +174,8 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
 
     func testNearestRoads() async throws {
         let req = NearestRoadsRequest(
-            locations: [locationA, locationB, locationC])
+            locations: [locationA, locationB, locationC]
+        )
         let res = try await RoutingAPI.nearestRoads(nearestRoadsRequest: req)
         XCTAssertEqual(res.count, req.locations.count)
         XCTAssert(res[0].edges?.count ?? 0 > 1)
@@ -210,7 +212,8 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
         let req = TraceAttributesRequest(
             id: "trace",
             encodedPolyline: "kydw~@zm|g`DE`i@`JhDrAjEzM|FzWfL^sYH_EToCl@gAnE?rOBxKHE~B",
-            costing: .pedestrian, shapeMatch: .mapSnap
+            costing: .pedestrian,
+            shapeMatch: .mapSnap
         )
         let res = try await RoutingAPI.traceAttributes(traceAttributesRequest: req)
         XCTAssertEqual(req.id, res.id)
