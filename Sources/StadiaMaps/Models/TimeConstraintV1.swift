@@ -10,17 +10,17 @@ import Foundation
     import AnyCodable
 #endif
 
-/** Specifies the time context for time-dependent routing (e.g., to account for traffic patterns or time-based access restrictions). Defaults \&quot;now\&quot; for traffic-influenced routing profiles like &#x60;auto_traffic&#x60;. */
+/** Specifies the time context for time-dependent routing (e.g., to account for traffic patterns or time-based access restrictions). Defaults to depart_now for traffic-influenced routing profiles like &#x60;auto_traffic&#x60;. */
 public struct TimeConstraintV1: Codable, JSONEncodable, Hashable {
-    public enum ModelType: Int, Codable, CaseIterable {
-        case _0 = 0
-        case _1 = 1
-        case _2 = 2
+    public enum ModelType: String, Codable, CaseIterable {
+        case departNow = "depart_now"
+        case departAt = "depart_at"
+        case arriveAt = "arrive_at"
     }
 
-    /** The type of time constraint: 0 = current time (depart now), 1 = depart at the specified time, 2 = arrive by the specified time. */
+    /** The type of time constraint: `depart_now` = depart now (current time), `depart_at` = depart at the specified time, `arrive_at` = arrive by the specified time. */
     public var type: ModelType
-    /** The date and time in `YYYY-MM-DDTHH:MM` format (seconds are accepted, but will be ignored). The date and time are local (civil) time as observed at the location. Required for types 1 and 2. Must not be provided for type 0. */
+    /** The date and time in `YYYY-MM-DDTHH:MM` format (seconds are accepted, but will be ignored). The date and time are local (civil) time as observed at the location. Required when type is depart_at or arrive_at. Must not be provided for depart_now. */
     public var value: String?
 
     public init(type: ModelType, value: String? = nil) {

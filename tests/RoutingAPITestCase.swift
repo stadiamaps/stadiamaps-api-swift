@@ -142,7 +142,7 @@ final class RoutingAPITestCase: IntegrationXCTestCase {
                                         ],
                                         costing: .autoTraffic,
                                         costingOptions: CostingOptions(auto: AutoCostingOptions(useHighways: 0.3)),
-                                        dateTime: TimeConstraintV1(type: ._0))
+                                        dateTime: TimeConstraintV1(type: .departNow))
         guard case let .typeRouteResponse(res) = try await RoutingAPI.optimizedRoute(optimizedRouteRequest: req) else {
             XCTFail("Expected a Valhalla JSON format route response")
             return
