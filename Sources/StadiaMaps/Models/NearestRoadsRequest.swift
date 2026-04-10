@@ -13,11 +13,11 @@ import Foundation
 public struct NearestRoadsRequest: Codable, JSONEncodable, Hashable {
     public static let locationsRule = ArrayRule(minItems: 1, maxItems: nil, uniqueItems: false)
     public var locations: [Coordinate]
-    public var costing: CostingModel?
+    public var costing: NearestRoadsCostingModel?
     public var costingOptions: CostingOptions?
     public var verbose: Bool? = false
 
-    public init(locations: [Coordinate], costing: CostingModel? = nil, costingOptions: CostingOptions? = nil, verbose: Bool? = false) {
+    public init(locations: [Coordinate], costing: NearestRoadsCostingModel? = nil, costingOptions: CostingOptions? = nil, verbose: Bool? = false) {
         self.locations = locations
         self.costing = costing
         self.costingOptions = costingOptions

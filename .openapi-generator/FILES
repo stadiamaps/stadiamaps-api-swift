@@ -88,6 +88,7 @@ Sources/StadiaMaps/Models/MatrixResponse.swift
 Sources/StadiaMaps/Models/MatrixWaypoint.swift
 Sources/StadiaMaps/Models/MotorScooterCostingOptions.swift
 Sources/StadiaMaps/Models/MotorcycleCostingOptions.swift
+Sources/StadiaMaps/Models/NearestRoadsCostingModel.swift
 Sources/StadiaMaps/Models/NearestRoadsRequest.swift
 Sources/StadiaMaps/Models/NodeId.swift
 Sources/StadiaMaps/Models/NodeType.swift
@@ -236,6 +237,7 @@ docs/MatrixResponse.md
 docs/MatrixWaypoint.md
 docs/MotorScooterCostingOptions.md
 docs/MotorcycleCostingOptions.md
+docs/NearestRoadsCostingModel.md
 docs/NearestRoadsRequest.md
 docs/NodeId.md
 docs/NodeType.md
