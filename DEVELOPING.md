@@ -2,8 +2,9 @@
 
 ## Running integration tests locally
 
-You will need an API key with access to all features to run integration tests. You can set this via the env variable
-API_KEY in the test plan (in Xcode) or on your shell when running `swift test`.
+You will need an API key with access to all features to run integration tests.
+You can set this via the env variable
+`STADIA_API_KEY` in the test plan (in Xcode) or on your shell when running `swift test`.
 
 ## Regenerating the code
 

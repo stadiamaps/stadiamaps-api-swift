@@ -18,6 +18,7 @@ public struct LowSpeedVehicleCostingOptions: Codable, JSONEncodable, Hashable {
 
     public static let useLivingStreetsRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     public static let useFerryRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
+    public static let useRailFerryRule = NumericRule<Double>(minimum: 0, exclusiveMinimum: false, maximum: 1, exclusiveMaximum: false, multipleOf: nil)
     public static let topSpeedRule = NumericRule<Int>(minimum: 20, exclusiveMinimum: false, maximum: 60, exclusiveMaximum: false, multipleOf: nil)
     public static let maxAllowedSpeedLimitRule = NumericRule<Int>(minimum: 20, exclusiveMinimum: false, maximum: 80, exclusiveMaximum: false, multipleOf: nil)
     /** A penalty (in seconds) applied when transitioning between roads (determined by name). */
@@ -44,6 +45,18 @@ public struct LowSpeedVehicleCostingOptions: Codable, JSONEncodable, Hashable {
     public var ignoreNonVehicularRestrictions: Bool?
     /** If set to true, ignores directional restrictions on roads. Useful for matching GPS traces to the road network regardless of restrictions. */
     public var ignoreOneways: Bool?
+    /** A penalty (in seconds) for accessing private roads. */
+    public var privateAccessPenalty: Double? = 450
+    /** A penalty (in seconds) for using alleys. */
+    public var alleyPenalty: Double?
+    /** The estimated cost (in seconds) when a rail ferry is encountered. Only applies to costing models that support rail ferries (auto, truck, motorcycle). */
+    public var railFerryCost: Int? = 300
+    /** A measure of willingness to take rail ferries. Values near 0 attempt to avoid rail ferries, and values near 1 will favor them. Note that as some routes may be impossible without rail ferries, 0 does not guarantee avoidance of them. Only applies to auto, truck, and motorcycle costing. */
+    public var useRailFerry: Double? = 0.4
+    /** If set to true, ignores access restrictions for the route. */
+    public var ignoreAccess: Bool? = false
+    /** The estimated cost (in seconds) when a ferry is encountered. */
+    public var ferryCost: Int? = 300
     /** The type of vehicle: * low_speed_vehicle (BETA): a low-speed vehicle which falls under a different regulatory and licensing regime than automobiles (ex: LSV in the US and Canada, Quadricycles in the EU, etc.) * golf_cart: a street legal golf cart that is under a similar regulator regime as the generic LSV laws, but may need to follow special paths when available or abide by restrictions specific to golf carts. */
     public var vehicleType: VehicleType? = .lowSpeedVehicle
     /** The top speed (in kph) that the vehicle is capable of travelling. This impacts travel time calculations as well as which roads are preferred. A very low speed vehicle will tend to prefer lower speed roads even in the presence of other legal routes. */
@@ -51,7 +64,7 @@ public struct LowSpeedVehicleCostingOptions: Codable, JSONEncodable, Hashable {
     /** The maximum speed limit for highways on which it is legal for the vehicle to travel. Defaults to 57 (kph; around 35 mph). Acceptable values range from 20 to 80. Highways with *tagged* speed limits higher than this value will not be routed over (some caveats apply; this feature is still BETA). */
     public var maxAllowedSpeedLimit: Int? = 57
 
-    public init(maneuverPenalty: Int? = 5, gateCost: Int? = 15, gatePenalty: Int? = 300, countryCrossingCost: Int? = 600, countryCrossingPenalty: Int? = 0, servicePenalty: Int? = nil, serviceFactor: Double? = 1, useLivingStreets: Double? = nil, useFerry: Double? = 0.5, ignoreRestrictions: Bool? = nil, ignoreNonVehicularRestrictions: Bool? = nil, ignoreOneways: Bool? = nil, vehicleType: VehicleType? = .lowSpeedVehicle, topSpeed: Int? = 35, maxAllowedSpeedLimit: Int? = 57) {
+    public init(maneuverPenalty: Int? = 5, gateCost: Int? = 15, gatePenalty: Int? = 300, countryCrossingCost: Int? = 600, countryCrossingPenalty: Int? = 0, servicePenalty: Int? = nil, serviceFactor: Double? = 1, useLivingStreets: Double? = nil, useFerry: Double? = 0.5, ignoreRestrictions: Bool? = nil, ignoreNonVehicularRestrictions: Bool? = nil, ignoreOneways: Bool? = nil, privateAccessPenalty: Double? = 450, alleyPenalty: Double? = nil, railFerryCost: Int? = 300, useRailFerry: Double? = 0.4, ignoreAccess: Bool? = false, ferryCost: Int? = 300, vehicleType: VehicleType? = .lowSpeedVehicle, topSpeed: Int? = 35, maxAllowedSpeedLimit: Int? = 57) {
         self.maneuverPenalty = maneuverPenalty
         self.gateCost = gateCost
         self.gatePenalty = gatePenalty
@@ -64,6 +77,12 @@ public struct LowSpeedVehicleCostingOptions: Codable, JSONEncodable, Hashable {
         self.ignoreRestrictions = ignoreRestrictions
         self.ignoreNonVehicularRestrictions = ignoreNonVehicularRestrictions
         self.ignoreOneways = ignoreOneways
+        self.privateAccessPenalty = privateAccessPenalty
+        self.alleyPenalty = alleyPenalty
+        self.railFerryCost = railFerryCost
+        self.useRailFerry = useRailFerry
+        self.ignoreAccess = ignoreAccess
+        self.ferryCost = ferryCost
         self.vehicleType = vehicleType
         self.topSpeed = topSpeed
         self.maxAllowedSpeedLimit = maxAllowedSpeedLimit
@@ -82,6 +101,12 @@ public struct LowSpeedVehicleCostingOptions: Codable, JSONEncodable, Hashable {
         case ignoreRestrictions = "ignore_restrictions"
         case ignoreNonVehicularRestrictions = "ignore_non_vehicular_restrictions"
         case ignoreOneways = "ignore_oneways"
+        case privateAccessPenalty = "private_access_penalty"
+        case alleyPenalty = "alley_penalty"
+        case railFerryCost = "rail_ferry_cost"
+        case useRailFerry = "use_rail_ferry"
+        case ignoreAccess = "ignore_access"
+        case ferryCost = "ferry_cost"
         case vehicleType = "vehicle_type"
         case topSpeed = "top_speed"
         case maxAllowedSpeedLimit = "max_allowed_speed_limit"
@@ -103,6 +128,12 @@ public struct LowSpeedVehicleCostingOptions: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(ignoreRestrictions, forKey: .ignoreRestrictions)
         try container.encodeIfPresent(ignoreNonVehicularRestrictions, forKey: .ignoreNonVehicularRestrictions)
         try container.encodeIfPresent(ignoreOneways, forKey: .ignoreOneways)
+        try container.encodeIfPresent(privateAccessPenalty, forKey: .privateAccessPenalty)
+        try container.encodeIfPresent(alleyPenalty, forKey: .alleyPenalty)
+        try container.encodeIfPresent(railFerryCost, forKey: .railFerryCost)
+        try container.encodeIfPresent(useRailFerry, forKey: .useRailFerry)
+        try container.encodeIfPresent(ignoreAccess, forKey: .ignoreAccess)
+        try container.encodeIfPresent(ferryCost, forKey: .ferryCost)
         try container.encodeIfPresent(vehicleType, forKey: .vehicleType)
         try container.encodeIfPresent(topSpeed, forKey: .topSpeed)
         try container.encodeIfPresent(maxAllowedSpeedLimit, forKey: .maxAllowedSpeedLimit)

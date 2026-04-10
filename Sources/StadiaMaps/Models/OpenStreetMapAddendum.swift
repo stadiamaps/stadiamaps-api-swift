@@ -20,7 +20,7 @@ public struct OpenStreetMapAddendum: Codable, JSONEncodable, Hashable {
     public var icao: String?
     /** The opening hours of the place, in the OSM Opening Hours specification.  See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification for details. */
     public var openingHours: String?
-    /** THe company, corp, person, or other entity directly in charge of operating something.  This is often used for public transport, hotels, restaurants, and postal services. See https://wiki.openstreetmap.org/wiki/Key:operator for details */
+    /** The company, corp, person, or other entity directly in charge of operating something.  This is often used for public transport, hotels, restaurants, and postal services. See https://wiki.openstreetmap.org/wiki/Key:operator for details */
     public var _operator: String?
     public var phone: String?
     public var website: String?

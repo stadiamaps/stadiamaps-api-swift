@@ -11,26 +11,13 @@ import Foundation
 #endif
 
 public struct NearestRoadsRequest: Codable, JSONEncodable, Hashable {
-    public enum DirectionsType: String, Codable, CaseIterable {
-        case _none = "none"
-        case maneuvers
-        case instructions
-    }
-
     public static let locationsRule = ArrayRule(minItems: 1, maxItems: nil, uniqueItems: false)
-    public var units: DistanceUnit?
-    public var language: RoutingLanguages?
-    /** The level of directional narrative to include. Locations and times will always be returned, but narrative generation verbosity can be controlled with this parameter. */
-    public var directionsType: DirectionsType? = .instructions
     public var locations: [Coordinate]
-    public var costing: CostingModel?
+    public var costing: NearestRoadsCostingModel?
     public var costingOptions: CostingOptions?
     public var verbose: Bool? = false
 
-    public init(units: DistanceUnit? = nil, language: RoutingLanguages? = nil, directionsType: DirectionsType? = .instructions, locations: [Coordinate], costing: CostingModel? = nil, costingOptions: CostingOptions? = nil, verbose: Bool? = false) {
-        self.units = units
-        self.language = language
-        self.directionsType = directionsType
+    public init(locations: [Coordinate], costing: NearestRoadsCostingModel? = nil, costingOptions: CostingOptions? = nil, verbose: Bool? = false) {
         self.locations = locations
         self.costing = costing
         self.costingOptions = costingOptions
@@ -38,9 +25,6 @@ public struct NearestRoadsRequest: Codable, JSONEncodable, Hashable {
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case units
-        case language
-        case directionsType = "directions_type"
         case locations
         case costing
         case costingOptions = "costing_options"
@@ -51,9 +35,6 @@ public struct NearestRoadsRequest: Codable, JSONEncodable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(units, forKey: .units)
-        try container.encodeIfPresent(language, forKey: .language)
-        try container.encodeIfPresent(directionsType, forKey: .directionsType)
         try container.encode(locations, forKey: .locations)
         try container.encodeIfPresent(costing, forKey: .costing)
         try container.encodeIfPresent(costingOptions, forKey: .costingOptions)

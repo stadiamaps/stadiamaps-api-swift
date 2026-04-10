@@ -97,6 +97,7 @@ open class GeocodingAPI {
     }
 
     /**
+     Search and geocode quickly based on partial input.
 
      - parameter text: (query) The text to search for (the start of an address, place name, etc.).
      - parameter focusPointLat: (query) The latitude of a focus point.  If provided (along with longitude), the search results should be more locally relevant. (optional)
@@ -117,12 +118,14 @@ open class GeocodingAPI {
      - returns: GeocodeResponseEnvelopePropertiesV2
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func autocompleteV2(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Int? = nil, size: Int? = nil, lang: String? = nil) async throws -> GeocodeResponseEnvelopePropertiesV2 {
+    open class func autocompleteV2(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Int64? = nil, size: Int64? = nil, lang: String? = nil) async throws -> GeocodeResponseEnvelopePropertiesV2 {
         try await autocompleteV2WithRequestBuilder(text: text, focusPointLat: focusPointLat, focusPointLon: focusPointLon, layers: layers, sources: sources, boundaryGid: boundaryGid, boundaryCountry: boundaryCountry, boundaryRectMinLat: boundaryRectMinLat, boundaryRectMinLon: boundaryRectMinLon, boundaryRectMaxLat: boundaryRectMaxLat, boundaryRectMaxLon: boundaryRectMaxLon, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, size: size, lang: lang).execute().body
     }
 
     /**
+     Search and geocode quickly based on partial input.
      - GET /geocoding/v2/autocomplete
+     - Autocomplete enables interactive search-as-you-type user experiences, suggesting places as you type, along with information that will help your users find the correct place quickly.
      - API Key:
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
@@ -144,7 +147,7 @@ open class GeocodingAPI {
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. There is no default value, so place names will be returned as-is, which is usually in the local language. NOTE: The Accept-Language header is also respected, and many user agents will set it automatically. (optional)
      - returns: RequestBuilder<GeocodeResponseEnvelopePropertiesV2>
      */
-    open class func autocompleteV2WithRequestBuilder(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Int? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponseEnvelopePropertiesV2> {
+    open class func autocompleteV2WithRequestBuilder(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Int64? = nil, size: Int64? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponseEnvelopePropertiesV2> {
         let localVariablePath = "/geocoding/v2/autocomplete"
         let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
@@ -222,6 +225,7 @@ open class GeocodingAPI {
     }
 
     /**
+     Retrieve detailed information about a place by its GID.
 
      - parameter ids: (query)
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. There is no default value, so place names will be returned as-is, which is usually in the local language. NOTE: The Accept-Language header is also respected, and many user agents will set it automatically. (optional)
@@ -233,7 +237,9 @@ open class GeocodingAPI {
     }
 
     /**
+     Retrieve detailed information about a place by its GID.
      - GET /geocoding/v2/place_details
+     - Many search result components include an associated GID field (for example, an address may have a `localadmin_gid`). The place endpoint lets you look up these places directly by ID. Note that GIDs are not stable for all sources. See the [online documentation](https://docs.stadiamaps.com/geocoding-search-autocomplete/place-lookup/) for details.
      - API Key:
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
@@ -326,6 +332,7 @@ open class GeocodingAPI {
     }
 
     /**
+     Find places and addresses near a location point (reverse geocoding).
 
      - parameter pointLat: (query) The latitude of the point at which to perform the search.
      - parameter pointLon: (query) The longitude of the point at which to perform the search.
@@ -339,12 +346,14 @@ open class GeocodingAPI {
      - returns: GeocodeResponseEnvelopePropertiesV2
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func reverseV2(pointLat: Double, pointLon: Double, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryCircleRadius: Int? = nil, size: Int? = nil, lang: String? = nil) async throws -> GeocodeResponseEnvelopePropertiesV2 {
+    open class func reverseV2(pointLat: Double, pointLon: Double, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryCircleRadius: Int64? = nil, size: Int64? = nil, lang: String? = nil) async throws -> GeocodeResponseEnvelopePropertiesV2 {
         try await reverseV2WithRequestBuilder(pointLat: pointLat, pointLon: pointLon, layers: layers, sources: sources, boundaryGid: boundaryGid, boundaryCountry: boundaryCountry, boundaryCircleRadius: boundaryCircleRadius, size: size, lang: lang).execute().body
     }
 
     /**
+     Find places and addresses near a location point (reverse geocoding).
      - GET /geocoding/v2/reverse
+     - Reverse geocoding and search finds places and addresses near any geographic coordinates.
      - API Key:
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
@@ -359,7 +368,7 @@ open class GeocodingAPI {
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. There is no default value, so place names will be returned as-is, which is usually in the local language. NOTE: The Accept-Language header is also respected, and many user agents will set it automatically. (optional)
      - returns: RequestBuilder<GeocodeResponseEnvelopePropertiesV2>
      */
-    open class func reverseV2WithRequestBuilder(pointLat: Double, pointLon: Double, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryCircleRadius: Int? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponseEnvelopePropertiesV2> {
+    open class func reverseV2WithRequestBuilder(pointLat: Double, pointLon: Double, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryCircleRadius: Int64? = nil, size: Int64? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponseEnvelopePropertiesV2> {
         let localVariablePath = "/geocoding/v2/reverse"
         let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
@@ -472,7 +481,7 @@ open class GeocodingAPI {
     }
 
     /**
-     Quickly run a batch of geocoding queries against the search or structured search endpoints.
+     Quickly run a batch of geocoding queries against the search, structured search, or reverse endpoints.
 
      - parameter bulkRequest: (body)  (optional)
      - returns: [BulkSearchResponse]
@@ -483,9 +492,9 @@ open class GeocodingAPI {
     }
 
     /**
-     Quickly run a batch of geocoding queries against the search or structured search endpoints.
+     Quickly run a batch of geocoding queries against the search, structured search, or reverse endpoints.
      - POST /geocoding/v1/search/bulk
-     - The batch endpoint lets you specify many search or structured search requests at once. Once received, all requests will be processed internally on our infrastructure, improving throughput when you need to do a lot of queries.
+     - The batch endpoint lets you specify many search, structured search, or reverse requests at once. Once received, all requests will be processed internally on our infrastructure, improving throughput when you need to do a lot of queries.
      - API Key:
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
@@ -520,7 +529,7 @@ open class GeocodingAPI {
      - parameter county: (query) Administrative divisions between localities and regions. Not commonly used as input to structured geocoding. (optional)
      - parameter region: (query) Typically the first administrative division within a country. For example, a US state or a Canadian province. (optional)
      - parameter postalcode: (query) A mail sorting code. (optional)
-     - parameter country: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
+     - parameter country: (query) A country code in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter focusPointLat: (query) The latitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lon&#x60;. (optional)
      - parameter focusPointLon: (query) The longitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lat&#x60;. (optional)
      - parameter boundaryRectMinLat: (query) Defines the min latitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
@@ -557,7 +566,7 @@ open class GeocodingAPI {
      - parameter county: (query) Administrative divisions between localities and regions. Not commonly used as input to structured geocoding. (optional)
      - parameter region: (query) Typically the first administrative division within a country. For example, a US state or a Canadian province. (optional)
      - parameter postalcode: (query) A mail sorting code. (optional)
-     - parameter country: (query) A list of country codes in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
+     - parameter country: (query) A country code in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter focusPointLat: (query) The latitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lon&#x60;. (optional)
      - parameter focusPointLon: (query) The longitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lat&#x60;. (optional)
      - parameter boundaryRectMinLat: (query) Defines the min latitude component of a bounding box to limit the search to. Requires all other &#x60;boundary.rect&#x60; parameters to be specified. (optional)
@@ -617,6 +626,7 @@ open class GeocodingAPI {
     }
 
     /**
+     Search for location and other info using a place name or address (forward geocoding).
 
      - parameter text: (query) The text to search for (the start of an address, place name, etc.).
      - parameter focusPointLat: (query) The latitude of a focus point.  If provided (along with longitude), the search results should be more locally relevant. (optional)
@@ -637,11 +647,12 @@ open class GeocodingAPI {
      - returns: GeocodeResponseEnvelopePropertiesV2
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func searchV2(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Int? = nil, size: Int? = nil, lang: String? = nil) async throws -> GeocodeResponseEnvelopePropertiesV2 {
+    open class func searchV2(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Int64? = nil, size: Int64? = nil, lang: String? = nil) async throws -> GeocodeResponseEnvelopePropertiesV2 {
         try await searchV2WithRequestBuilder(text: text, focusPointLat: focusPointLat, focusPointLon: focusPointLon, layers: layers, sources: sources, boundaryGid: boundaryGid, boundaryCountry: boundaryCountry, boundaryRectMinLat: boundaryRectMinLat, boundaryRectMinLon: boundaryRectMinLon, boundaryRectMaxLat: boundaryRectMaxLat, boundaryRectMaxLon: boundaryRectMaxLon, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, size: size, lang: lang).execute().body
     }
 
     /**
+     Search for location and other info using a place name or address (forward geocoding).
      - GET /geocoding/v2/search
      - API Key:
        - type: apiKey api_key (QUERY)
@@ -664,7 +675,7 @@ open class GeocodingAPI {
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. There is no default value, so place names will be returned as-is, which is usually in the local language. NOTE: The Accept-Language header is also respected, and many user agents will set it automatically. (optional)
      - returns: RequestBuilder<GeocodeResponseEnvelopePropertiesV2>
      */
-    open class func searchV2WithRequestBuilder(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Int? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponseEnvelopePropertiesV2> {
+    open class func searchV2WithRequestBuilder(text: String, focusPointLat: Double? = nil, focusPointLon: Double? = nil, layers: [LayerId]? = nil, sources: [SourceId]? = nil, boundaryGid: String? = nil, boundaryCountry: [String]? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Int64? = nil, size: Int64? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponseEnvelopePropertiesV2> {
         let localVariablePath = "/geocoding/v2/search"
         let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil

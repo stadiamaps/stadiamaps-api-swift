@@ -31,10 +31,12 @@ public struct MatrixRequest: Codable, JSONEncodable, Hashable {
     public var targets: [MatrixWaypoint]
     public var costing: MatrixCostingModel
     public var costingOptions: CostingOptions?
+    /** Time-dependent routing constraint applied globally. Cannot be combined with per-waypoint `date_time` on sources/targets. */
+    public var dateTime: TimeConstraintV1?
     /** Only applicable to one-to-many or many-to-one requests. This defaults to all locations. When specified explicitly, this option allows a partial result to be returned. This is basically equivalent to \"find the closest/best locations out of the full set.\" This can have a dramatic improvement for large requests. */
     public var matrixLocations: Int?
 
-    public init(units: DistanceUnit? = nil, language: RoutingLanguages? = nil, directionsType: DirectionsType? = .instructions, id: String? = nil, sources: [MatrixWaypoint], targets: [MatrixWaypoint], costing: MatrixCostingModel, costingOptions: CostingOptions? = nil, matrixLocations: Int? = nil) {
+    public init(units: DistanceUnit? = nil, language: RoutingLanguages? = nil, directionsType: DirectionsType? = .instructions, id: String? = nil, sources: [MatrixWaypoint], targets: [MatrixWaypoint], costing: MatrixCostingModel, costingOptions: CostingOptions? = nil, dateTime: TimeConstraintV1? = nil, matrixLocations: Int? = nil) {
         self.units = units
         self.language = language
         self.directionsType = directionsType
@@ -43,6 +45,7 @@ public struct MatrixRequest: Codable, JSONEncodable, Hashable {
         self.targets = targets
         self.costing = costing
         self.costingOptions = costingOptions
+        self.dateTime = dateTime
         self.matrixLocations = matrixLocations
     }
 
@@ -55,6 +58,7 @@ public struct MatrixRequest: Codable, JSONEncodable, Hashable {
         case targets
         case costing
         case costingOptions = "costing_options"
+        case dateTime = "date_time"
         case matrixLocations = "matrix_locations"
     }
 
@@ -70,6 +74,7 @@ public struct MatrixRequest: Codable, JSONEncodable, Hashable {
         try container.encode(targets, forKey: .targets)
         try container.encode(costing, forKey: .costing)
         try container.encodeIfPresent(costingOptions, forKey: .costingOptions)
+        try container.encodeIfPresent(dateTime, forKey: .dateTime)
         try container.encodeIfPresent(matrixLocations, forKey: .matrixLocations)
     }
 }

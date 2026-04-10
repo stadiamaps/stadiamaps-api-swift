@@ -19,7 +19,7 @@ public struct OsrmRoute: Codable, JSONEncodable, Hashable {
     public var geometry: String
     /** The total cost of the route computed by the routing engine. */
     public var weight: Double?
-    /** The costing model used for the route. */
+    /** The routing profile (costing) used for the route. */
     public var weightName: String?
     public var legs: [OsrmRouteLeg]
 

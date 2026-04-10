@@ -29,7 +29,7 @@ public struct FeaturePropertiesV2Properties: Codable, JSONEncodable, Hashable {
     public var gid: String
     /** The data layer containing the place (e.g. \"address\" or \"poi\"). */
     public var layer: String
-    /** The type of match (forward geocoding endpoints only). */
+    /** The type of match (search and structured search only). */
     public var matchType: MatchType?
     /** The best name for the place, accounting for request language preferences.  When building an autocomplete search experience, this is the primary display string. */
     public var name: String

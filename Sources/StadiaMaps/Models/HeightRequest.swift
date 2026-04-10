@@ -10,30 +10,26 @@ import Foundation
     import AnyCodable
 #endif
 
+/** Request body for the elevation endpoint. */
 public struct HeightRequest: Codable, JSONEncodable, Hashable {
-    public enum ShapeFormat: String, Codable, CaseIterable {
-        case polyline6
-        case polyline5
-    }
-
-    public static let heightPrecisionRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: 2, exclusiveMaximum: false, multipleOf: nil)
-    public static let resampleDistanceRule = NumericRule<Int>(minimum: 10, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
+    public static let heightPrecisionRule = NumericRule<Int64>(minimum: 0, exclusiveMinimum: false, maximum: 2, exclusiveMaximum: false, multipleOf: nil)
+    public static let resampleDistanceRule = NumericRule<Int64>(minimum: 10, exclusiveMinimum: false, maximum: 1000, exclusiveMaximum: false, multipleOf: nil)
     /** An identifier to disambiguate requests (echoed by the server). */
     public var id: String?
-    /** REQUIRED if `encoded_polyline` is not present. */
+    /** The path to get the height along, expressed as a sequence of coordinates.  REQUIRED if `encoded_polyline` is not present. */
     public var shape: [Coordinate]?
-    /** REQUIRED if `shape` is not present. An encoded polyline (https://developers.google.com/maps/documentation/utilities/polylinealgorithm). */
+    /** An [encoded polyline string](https://developers.google.com/maps/documentation/utilities/polylinealgorithm).  REQUIRED if `shape` is not present. */
     public var encodedPolyline: String?
     /** Specifies whether the polyline is encoded with 6 digit precision (polyline6) or 5 digit precision (polyline5). */
-    public var shapeFormat: ShapeFormat? = .polyline6
+    public var shapeFormat: ShapeFormat?
     /** Controls whether the returned array is one-dimensional (height only) or two-dimensional (with a range and height). The range dimension can be used to generate a graph or steepness gradient along a route. */
-    public var range: Bool? = false
-    /** The decimal precision (number of digits after the point) of the output. When 0, integer values are returned. Valid values are 0, 1, and 2. */
-    public var heightPrecision: Int? = 0
+    public var range: Bool?
+    /** The decimal precision (number of digits after the point) of the output. */
+    public var heightPrecision: Int64?
     /** The distance at which the input polyline should be sampled to provide uniform distances between points. If not set, the input shape will be used as-is. */
-    public var resampleDistance: Int?
+    public var resampleDistance: Int64?
 
-    public init(id: String? = nil, shape: [Coordinate]? = nil, encodedPolyline: String? = nil, shapeFormat: ShapeFormat? = .polyline6, range: Bool? = false, heightPrecision: Int? = 0, resampleDistance: Int? = nil) {
+    public init(id: String? = nil, shape: [Coordinate]? = nil, encodedPolyline: String? = nil, shapeFormat: ShapeFormat? = nil, range: Bool? = nil, heightPrecision: Int64? = nil, resampleDistance: Int64? = nil) {
         self.id = id
         self.shape = shape
         self.encodedPolyline = encodedPolyline

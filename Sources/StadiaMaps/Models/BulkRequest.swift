@@ -14,12 +14,13 @@ public struct BulkRequest: Codable, JSONEncodable, Hashable {
     public enum Endpoint: String, Codable, CaseIterable {
         case slashV1SlashSearch = "/v1/search"
         case slashV1SlashSearchSlashStructured = "/v1/search/structured"
+        case slashV1SlashReverse = "/v1/reverse"
     }
 
-    public var endpoint: Endpoint?
-    public var query: BulkRequestQuery?
+    public var endpoint: Endpoint
+    public var query: BulkRequestQuery
 
-    public init(endpoint: Endpoint? = nil, query: BulkRequestQuery? = nil) {
+    public init(endpoint: Endpoint, query: BulkRequestQuery) {
         self.endpoint = endpoint
         self.query = query
     }
@@ -33,7 +34,7 @@ public struct BulkRequest: Codable, JSONEncodable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(endpoint, forKey: .endpoint)
-        try container.encodeIfPresent(query, forKey: .query)
+        try container.encode(endpoint, forKey: .endpoint)
+        try container.encode(query, forKey: .query)
     }
 }

@@ -33,19 +33,20 @@ public struct RoutingWaypoint: Codable, JSONEncodable, Hashable {
     public static let nodeSnapToleranceRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
     public static let streetSideToleranceRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
     public static let streetSideMaxDistanceRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
+    public static let searchCutoffRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
     /** The latitude of a point in the shape. */
     public var lat: Double
     /** The longitude of a point in the shape. */
     public var lon: Double
     /** A `break` represents the start or end of a leg, and allows reversals. A `through` location is an intermediate waypoint that must be visited between `break`s, but at which reversals are not allowed. A `via` is similar to a `through` except that reversals are allowed. A `break_through` is similar to a `break` in that it can be the start/end of a leg, but does not allow reversals. Defaults to `break`. */
     public var type: ModelType?
-    /** The preferred direction of travel when starting the route, in integer clockwise degrees from north. North is 0, south is 180, east is 90, and west is 270. */
+    /** The preferred direction of travel when starting the route, in integer clockwise degrees from north. North is 0, south is 180, east is 90, and west is 270. Avoid specifying this unless you really know what you're doing. Most use cases for this are better served by `preferred_side`. */
     public var heading: Int?
     /** The tolerance (in degrees) determining whether a street is considered the same direction. */
     public var headingTolerance: Int? = 60
     /** The minimum number of nodes that must be reachable for a given edge to consider that edge as belonging to a connected region. If a candidate edge has fewer connections, it will be considered a disconnected island. */
     public var minimumReachability: Int? = 50
-    /** The distance (in meters) to look for candidate edges around the location for purposes of snapping locations to the route graph. If there are no candidates within this distance, the closest candidate within a reasonable search distance will be used. This is subject to clamping by internal limits. */
+    /** The distance (in meters) to look for candidate edges around the location for purposes of snapping locations to the route graph. If there are no candidates within this distance, the closest candidate within a reasonable search distance will be used. This is subject to clamping by internal limits. This allows the routing engine to match another edge which is NOT the closest to your location, but in within this range. This can be useful if you have other constraints and want to disambiguate, but beware that this can lead to very strange results, particularly if you have specified other parameters like `heading`. This is an advanced feature and should only be used with extreme care. */
     public var radius: Int? = 0
     /** If true, candidates will be ranked according to their distance from the target location as well as other factors. If false, candidates will only be ranked using their distance from the target. */
     public var rankCandidates: Bool? = true
@@ -55,11 +56,13 @@ public struct RoutingWaypoint: Codable, JSONEncodable, Hashable {
     public var nodeSnapTolerance: Int? = 5
     /** A tolerance in meters from the edge centerline used for determining the side of the street that the location is on. If the distance to the centerline is less than this tolerance, no side will be inferred. Otherwise, the left or right side will be selected depending on the direction of travel. */
     public var streetSideTolerance: Int? = 5
-    /** A tolerance in meters from the edge centerline used for determining the side of the street that the location is on. If the distance to the centerline is greater than this tolerance, no side will be inferred. Otherwise, the left or right side will be selected depending on the direction of travel. */
+    /** The max distance in meters that the input coordinates or display lat/lon can be from the edge centerline for them to be used for determining the side of the street. Beyond this distance, no street side is inferred. */
     public var streetSideMaxDistance: Int? = 1000
     public var searchFilter: RoutingWaypointAllOfSearchFilter?
+    /** A hard cutoff (in meters) for the search distance when matching this location to the road network. This overrides the server default and limits how far from the input coordinate the router will search for candidate edges. Use this sparingly. */
+    public var searchCutoff: Int?
 
-    public init(lat: Double, lon: Double, type: ModelType? = nil, heading: Int? = nil, headingTolerance: Int? = 60, minimumReachability: Int? = 50, radius: Int? = 0, rankCandidates: Bool? = true, preferredSide: PreferredSide? = nil, nodeSnapTolerance: Int? = 5, streetSideTolerance: Int? = 5, streetSideMaxDistance: Int? = 1000, searchFilter: RoutingWaypointAllOfSearchFilter? = nil) {
+    public init(lat: Double, lon: Double, type: ModelType? = nil, heading: Int? = nil, headingTolerance: Int? = 60, minimumReachability: Int? = 50, radius: Int? = 0, rankCandidates: Bool? = true, preferredSide: PreferredSide? = nil, nodeSnapTolerance: Int? = 5, streetSideTolerance: Int? = 5, streetSideMaxDistance: Int? = 1000, searchFilter: RoutingWaypointAllOfSearchFilter? = nil, searchCutoff: Int? = nil) {
         self.lat = lat
         self.lon = lon
         self.type = type
@@ -73,6 +76,7 @@ public struct RoutingWaypoint: Codable, JSONEncodable, Hashable {
         self.streetSideTolerance = streetSideTolerance
         self.streetSideMaxDistance = streetSideMaxDistance
         self.searchFilter = searchFilter
+        self.searchCutoff = searchCutoff
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -89,6 +93,7 @@ public struct RoutingWaypoint: Codable, JSONEncodable, Hashable {
         case streetSideTolerance = "street_side_tolerance"
         case streetSideMaxDistance = "street_side_max_distance"
         case searchFilter = "search_filter"
+        case searchCutoff = "search_cutoff"
     }
 
     // Encodable protocol methods
@@ -108,5 +113,6 @@ public struct RoutingWaypoint: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(streetSideTolerance, forKey: .streetSideTolerance)
         try container.encodeIfPresent(streetSideMaxDistance, forKey: .streetSideMaxDistance)
         try container.encodeIfPresent(searchFilter, forKey: .searchFilter)
+        try container.encodeIfPresent(searchCutoff, forKey: .searchCutoff)
     }
 }

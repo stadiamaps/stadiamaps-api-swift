@@ -54,7 +54,7 @@ public struct HighwayClassification: Codable, JSONEncodable, Hashable {
         case railFerry = "rail-ferry"
         case bus
         case egressConnection = "egress_connection"
-        case platformConnnection = "platform_connnection"
+        case platformConnection = "platform_connection"
         case transitConnection = "transit_connection"
         case construction
     }

@@ -11,6 +11,8 @@ import Foundation
 #endif
 
 public struct Contour: Codable, JSONEncodable, Hashable {
+    public static let timeRule = NumericRule<Double>(minimum: nil, exclusiveMinimum: false, maximum: 120, exclusiveMaximum: false, multipleOf: nil)
+    public static let distanceRule = NumericRule<Double>(minimum: nil, exclusiveMinimum: false, maximum: 200, exclusiveMaximum: false, multipleOf: nil)
     /** The time in minutes for the contour. Mutually exclusive of distance. */
     public var time: Double?
     /** The distance in km for the contour. Mutually exclusive of time. */

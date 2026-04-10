@@ -13,47 +13,69 @@ import Foundation
 #endif
 
 extension Bool: JSONEncodable {
-    func encodeToJSON() -> Any { self }
+    func encodeToJSON() -> Any {
+        self
+    }
 }
 
 extension Float: JSONEncodable {
-    func encodeToJSON() -> Any { self }
+    func encodeToJSON() -> Any {
+        self
+    }
 }
 
 extension Int: JSONEncodable {
-    func encodeToJSON() -> Any { self }
+    func encodeToJSON() -> Any {
+        self
+    }
 }
 
 extension Int32: JSONEncodable {
-    func encodeToJSON() -> Any { self }
+    func encodeToJSON() -> Any {
+        self
+    }
 }
 
 extension Int64: JSONEncodable {
-    func encodeToJSON() -> Any { self }
+    func encodeToJSON() -> Any {
+        self
+    }
 }
 
 extension Double: JSONEncodable {
-    func encodeToJSON() -> Any { self }
+    func encodeToJSON() -> Any {
+        self
+    }
 }
 
 extension Decimal: JSONEncodable {
-    func encodeToJSON() -> Any { self }
+    func encodeToJSON() -> Any {
+        self
+    }
 }
 
 extension String: JSONEncodable {
-    func encodeToJSON() -> Any { self }
+    func encodeToJSON() -> Any {
+        self
+    }
 }
 
 extension URL: JSONEncodable {
-    func encodeToJSON() -> Any { self }
+    func encodeToJSON() -> Any {
+        self
+    }
 }
 
 extension UUID: JSONEncodable {
-    func encodeToJSON() -> Any { self }
+    func encodeToJSON() -> Any {
+        self
+    }
 }
 
 extension RawRepresentable where RawValue: JSONEncodable {
-    func encodeToJSON() -> Any { rawValue }
+    func encodeToJSON() -> Any {
+        rawValue
+    }
 }
 
 private func encodeIfPossible<T>(_ object: T) -> Any {
@@ -126,24 +148,24 @@ extension String: CodingKey {
 }
 
 public extension KeyedEncodingContainerProtocol {
-    mutating func encodeArray<T>(_ values: [T], forKey key: Self.Key) throws where T: Encodable {
+    mutating func encodeArray<T: Encodable>(_ values: [T], forKey key: Self.Key) throws {
         var arrayContainer = nestedUnkeyedContainer(forKey: key)
         try arrayContainer.encode(contentsOf: values)
     }
 
-    mutating func encodeArrayIfPresent<T>(_ values: [T]?, forKey key: Self.Key) throws where T: Encodable {
+    mutating func encodeArrayIfPresent<T: Encodable>(_ values: [T]?, forKey key: Self.Key) throws {
         if let values = values {
             try encodeArray(values, forKey: key)
         }
     }
 
-    mutating func encodeMap<T>(_ pairs: [Self.Key: T]) throws where T: Encodable {
+    mutating func encodeMap<T: Encodable>(_ pairs: [Self.Key: T]) throws {
         for (key, value) in pairs {
             try encode(value, forKey: key)
         }
     }
 
-    mutating func encodeMapIfPresent<T>(_ pairs: [Self.Key: T]?) throws where T: Encodable {
+    mutating func encodeMapIfPresent<T: Encodable>(_ pairs: [Self.Key: T]?) throws {
         if let pairs = pairs {
             try encodeMap(pairs)
         }
@@ -154,6 +176,7 @@ public extension KeyedEncodingContainerProtocol {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         numberFormatter.locale = Locale(identifier: "en_US")
+        numberFormatter.usesGroupingSeparator = false
         let formattedString = numberFormatter.string(from: decimalNumber) ?? "\(value)"
         try encode(formattedString, forKey: key)
     }
@@ -166,7 +189,7 @@ public extension KeyedEncodingContainerProtocol {
 }
 
 public extension KeyedDecodingContainerProtocol {
-    func decodeArray<T>(_: T.Type, forKey key: Self.Key) throws -> [T] where T: Decodable {
+    func decodeArray<T: Decodable>(_: T.Type, forKey key: Self.Key) throws -> [T] {
         var tmpArray = [T]()
 
         var nestedContainer = try nestedUnkeyedContainer(forKey: key)
@@ -178,7 +201,7 @@ public extension KeyedDecodingContainerProtocol {
         return tmpArray
     }
 
-    func decodeArrayIfPresent<T>(_: T.Type, forKey key: Self.Key) throws -> [T]? where T: Decodable {
+    func decodeArrayIfPresent<T: Decodable>(_: T.Type, forKey key: Self.Key) throws -> [T]? {
         var tmpArray: [T]?
 
         if contains(key) {
@@ -188,7 +211,7 @@ public extension KeyedDecodingContainerProtocol {
         return tmpArray
     }
 
-    func decodeMap<T>(_: T.Type, excludedKeys: Set<Self.Key>) throws -> [Self.Key: T] where T: Decodable {
+    func decodeMap<T: Decodable>(_: T.Type, excludedKeys: Set<Self.Key>) throws -> [Self.Key: T] {
         var map: [Self.Key: T] = [:]
 
         for key in allKeys {

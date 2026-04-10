@@ -11,6 +11,15 @@ final class GeospatialAPIIntegrationTestCase: IntegrationXCTestCase {
         XCTAssertEqual(res.tzId, "Asia/Seoul")
     }
 
+    func testTZV2() async throws {
+        let res = try await GeospatialAPI.tzLookupV2(lat: seoul.lat, lng: seoul.lon)
+
+        XCTAssertEqual(res.tzId, "Asia/Seoul")
+        XCTAssertTrue(res.utcOffset != 0)
+        XCTAssertFalse(res.localRfc3339Timestamp.isEmpty)
+        XCTAssertFalse(try XCTUnwrap(res.localRfc2822Timestamp?.isEmpty))
+    }
+
     func testElevation() async throws {
         let req = HeightRequest(id: "height", shape: [seoul])
         let res = try await GeospatialAPI.elevation(heightRequest: req)
