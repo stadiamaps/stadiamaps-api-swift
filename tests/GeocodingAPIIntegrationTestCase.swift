@@ -37,6 +37,11 @@ final class GeocodingAPIIntegrationTestCase: IntegrationXCTestCase {
         XCTAssert(!res.features.isEmpty)
         XCTAssertEqual(res.features.first?.properties?.country, "Estonia")
         XCTAssertEqual(res.features.first?.properties?.layer, "address")
+
+        let res2 = try await GeocodingAPI.searchStructured(houseNumber: "27", street: "Põhja pst", locality: "Tallinn", country: "EE", lang: "en")
+        XCTAssert(!res2.features.isEmpty)
+        XCTAssertEqual(res2.features.first?.properties?.country, "Estonia")
+        XCTAssertEqual(res2.features.first?.properties?.layer, "address")
     }
 
     func testReverse() async throws {

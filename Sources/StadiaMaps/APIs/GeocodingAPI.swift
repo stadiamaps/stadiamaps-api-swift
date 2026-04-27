@@ -522,13 +522,16 @@ open class GeocodingAPI {
     /**
      Find locations matching components (structured forward geocoding).
 
-     - parameter address: (query) A street name, optionally with a house number. (optional)
-     - parameter neighbourhood: (query) Varies by area, but has a locally specific meaning (NOT always an official administrative unit). (optional)
-     - parameter borough: (query) A unit within a city (not widely used, but present in places like NYC and Mexico City). (optional)
+     - parameter address: (query) A street name and optional house number together, e.g. &#x60;11 Wall St&#x60;. If you have the data available separately, you should provide the house number and street separately. (optional)
+     - parameter houseNumber: (query) A house or building number. Mutually exclusive with the &#x60;address&#x60; field. Requires &#x60;street&#x60; to also be specified. (optional)
+     - parameter street: (query) A street name. Mutually exclusive with the &#x60;address&#x60; field. (optional)
+     - parameter unit: (query) The apartment, suite, or unit number. Requires both &#x60;house_number&#x60; and &#x60;street&#x60; to be specified. Mutually exclusive with the &#x60;address&#x60; field. (optional)
+     - parameter neighbourhood: (query) A smaller area within a locality, e.g. &#x60;Financial District&#x60;. Practices vary by area, but these are typically not distinct administrative units. (optional)
+     - parameter borough: (query) A unit within a city, e.g. &#x60;Manhattan&#x60; (not widely used outside mega cities like NYC and Mexico City). (optional)
      - parameter locality: (query) The city, village, town, etc. that the place/address is part of. (optional)
      - parameter county: (query) Administrative divisions between localities and regions. Not commonly used as input to structured geocoding. (optional)
      - parameter region: (query) Typically the first administrative division within a country. For example, a US state or a Canadian province. (optional)
-     - parameter postalcode: (query) A mail sorting code. (optional)
+     - parameter postalcode: (query) A mail sorting code (e.g. a US ZIP code). (optional)
      - parameter country: (query) A country code in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter focusPointLat: (query) The latitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lon&#x60;. (optional)
      - parameter focusPointLon: (query) The longitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lat&#x60;. (optional)
@@ -548,8 +551,8 @@ open class GeocodingAPI {
      - returns: GeocodeResponse
      */
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func searchStructured(address: String? = nil, neighbourhood: String? = nil, borough: String? = nil, locality: String? = nil, county: String? = nil, region: String? = nil, postalcode: String? = nil, country: String? = nil, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) async throws -> GeocodeResponse {
-        try await searchStructuredWithRequestBuilder(address: address, neighbourhood: neighbourhood, borough: borough, locality: locality, county: county, region: region, postalcode: postalcode, country: country, focusPointLat: focusPointLat, focusPointLon: focusPointLon, boundaryRectMinLat: boundaryRectMinLat, boundaryRectMaxLat: boundaryRectMaxLat, boundaryRectMinLon: boundaryRectMinLon, boundaryRectMaxLon: boundaryRectMaxLon, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, layers: layers, sources: sources, size: size, lang: lang).execute().body
+    open class func searchStructured(address: String? = nil, houseNumber: String? = nil, street: String? = nil, unit: String? = nil, neighbourhood: String? = nil, borough: String? = nil, locality: String? = nil, county: String? = nil, region: String? = nil, postalcode: String? = nil, country: String? = nil, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) async throws -> GeocodeResponse {
+        try await searchStructuredWithRequestBuilder(address: address, houseNumber: houseNumber, street: street, unit: unit, neighbourhood: neighbourhood, borough: borough, locality: locality, county: county, region: region, postalcode: postalcode, country: country, focusPointLat: focusPointLat, focusPointLon: focusPointLon, boundaryRectMinLat: boundaryRectMinLat, boundaryRectMaxLat: boundaryRectMaxLat, boundaryRectMinLon: boundaryRectMinLon, boundaryRectMaxLon: boundaryRectMaxLon, boundaryCircleLat: boundaryCircleLat, boundaryCircleLon: boundaryCircleLon, boundaryCircleRadius: boundaryCircleRadius, boundaryCountry: boundaryCountry, boundaryGid: boundaryGid, layers: layers, sources: sources, size: size, lang: lang).execute().body
     }
 
     /**
@@ -559,13 +562,16 @@ open class GeocodingAPI {
      - API Key:
        - type: apiKey api_key (QUERY)
        - name: ApiKeyAuth
-     - parameter address: (query) A street name, optionally with a house number. (optional)
-     - parameter neighbourhood: (query) Varies by area, but has a locally specific meaning (NOT always an official administrative unit). (optional)
-     - parameter borough: (query) A unit within a city (not widely used, but present in places like NYC and Mexico City). (optional)
+     - parameter address: (query) A street name and optional house number together, e.g. &#x60;11 Wall St&#x60;. If you have the data available separately, you should provide the house number and street separately. (optional)
+     - parameter houseNumber: (query) A house or building number. Mutually exclusive with the &#x60;address&#x60; field. Requires &#x60;street&#x60; to also be specified. (optional)
+     - parameter street: (query) A street name. Mutually exclusive with the &#x60;address&#x60; field. (optional)
+     - parameter unit: (query) The apartment, suite, or unit number. Requires both &#x60;house_number&#x60; and &#x60;street&#x60; to be specified. Mutually exclusive with the &#x60;address&#x60; field. (optional)
+     - parameter neighbourhood: (query) A smaller area within a locality, e.g. &#x60;Financial District&#x60;. Practices vary by area, but these are typically not distinct administrative units. (optional)
+     - parameter borough: (query) A unit within a city, e.g. &#x60;Manhattan&#x60; (not widely used outside mega cities like NYC and Mexico City). (optional)
      - parameter locality: (query) The city, village, town, etc. that the place/address is part of. (optional)
      - parameter county: (query) Administrative divisions between localities and regions. Not commonly used as input to structured geocoding. (optional)
      - parameter region: (query) Typically the first administrative division within a country. For example, a US state or a Canadian province. (optional)
-     - parameter postalcode: (query) A mail sorting code. (optional)
+     - parameter postalcode: (query) A mail sorting code (e.g. a US ZIP code). (optional)
      - parameter country: (query) A country code in ISO 3116-1 alpha-2 or alpha-3 format. (optional)
      - parameter focusPointLat: (query) The latitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lon&#x60;. (optional)
      - parameter focusPointLon: (query) The longitude of the point to focus the search on. This will bias results toward the focus point. Requires &#x60;focus.point.lat&#x60;. (optional)
@@ -584,7 +590,7 @@ open class GeocodingAPI {
      - parameter lang: (query) A BCP47 language tag which specifies a preference for localization of results. By default, results are in the default locale of the source data, but specifying a language will attempt to localize the results. Note that while a &#x60;langtag&#x60; (in RFC 5646 terms) can contain script, region, etc., only the &#x60;language&#x60; portion, an ISO 639 code, will be considered. So &#x60;en-US&#x60; and &#x60;en-GB&#x60; will both be treated as English. (optional)
      - returns: RequestBuilder<GeocodeResponse>
      */
-    open class func searchStructuredWithRequestBuilder(address: String? = nil, neighbourhood: String? = nil, borough: String? = nil, locality: String? = nil, county: String? = nil, region: String? = nil, postalcode: String? = nil, country: String? = nil, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponse> {
+    open class func searchStructuredWithRequestBuilder(address: String? = nil, houseNumber: String? = nil, street: String? = nil, unit: String? = nil, neighbourhood: String? = nil, borough: String? = nil, locality: String? = nil, county: String? = nil, region: String? = nil, postalcode: String? = nil, country: String? = nil, focusPointLat: Double? = nil, focusPointLon: Double? = nil, boundaryRectMinLat: Double? = nil, boundaryRectMaxLat: Double? = nil, boundaryRectMinLon: Double? = nil, boundaryRectMaxLon: Double? = nil, boundaryCircleLat: Double? = nil, boundaryCircleLon: Double? = nil, boundaryCircleRadius: Double? = nil, boundaryCountry: [String]? = nil, boundaryGid: String? = nil, layers: [GeocodingLayer]? = nil, sources: [GeocodingSource]? = nil, size: Int? = nil, lang: String? = nil) -> RequestBuilder<GeocodeResponse> {
         let localVariablePath = "/geocoding/v1/search/structured"
         let localVariableURLString = StadiaMapsAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
@@ -592,6 +598,9 @@ open class GeocodingAPI {
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
         localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "address": (wrappedValue: address?.encodeToJSON(), isExplode: true),
+            "house_number": (wrappedValue: houseNumber?.encodeToJSON(), isExplode: true),
+            "street": (wrappedValue: street?.encodeToJSON(), isExplode: true),
+            "unit": (wrappedValue: unit?.encodeToJSON(), isExplode: true),
             "neighbourhood": (wrappedValue: neighbourhood?.encodeToJSON(), isExplode: true),
             "borough": (wrappedValue: borough?.encodeToJSON(), isExplode: true),
             "locality": (wrappedValue: locality?.encodeToJSON(), isExplode: true),
